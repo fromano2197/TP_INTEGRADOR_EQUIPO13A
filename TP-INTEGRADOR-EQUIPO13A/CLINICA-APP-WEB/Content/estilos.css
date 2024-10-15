@@ -1,0 +1,121 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7fafc; 
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.contenedor {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f7fafc;
+    padding: 20px;
+}
+
+.logo {
+    width: 200px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+
+.titulo-principal {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #4A90E2; 
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+
+.contenedor-formulario {
+    width: 100%;
+    max-width: 420px;
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); 
+    transition: all 0.3s ease;
+}
+
+    .contenedor-formulario:hover {
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+
+.grupo-formulario {
+    margin-bottom: 20px;
+}
+
+
+.etiqueta-formulario {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+
+.entrada-formulario {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+}
+
+
+    .entrada-formulario:focus {
+        border-color: #4A90E2;
+        background-color: #fff;
+        box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+        outline: none;
+    }
+
+
+.btn-enviar {
+    width: 100%;
+    padding: 12px;
+    background-color: #4A90E2; 
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+    .btn-enviar:hover {
+        background-color: #357ABD; 
+        transform: translateY(-2px); 
+    }
+
+
+.contenedor-enlaces {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.enlace-formulario {
+    font-size: 1.1rem;
+    color: #4A90E2;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease, border-bottom 0.3s ease;
+}
+
+    .enlace-formulario:hover {
+        color: #357ABD; 
+        border-bottom: 2px solid #357ABD; 
+    }
+
+
+    .enlace-formulario + .enlace-formulario {
+        margin-top: 12px;
+    }
