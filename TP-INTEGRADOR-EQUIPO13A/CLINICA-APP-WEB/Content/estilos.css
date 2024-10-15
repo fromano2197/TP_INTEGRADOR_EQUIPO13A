@@ -1,4 +1,7 @@
-﻿body {
+﻿* {
+    box-sizing: border-box; 
+}
+body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f7fafc; 
     margin: 0;
@@ -118,4 +121,43 @@
 
     .enlace-formulario + .enlace-formulario {
         margin-top: 12px;
+    }
+
+
+.inicio-contenido {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    text-align: center;
+    color: black;
+    background-image: url('../images/fondo.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.inicio-titulo h1 {
+    font-size: 3rem;
+    margin-bottom: 30px;
+}
+
+.inicio-botones {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Espacio entre los botones */
+}
+
+.inicio-btn {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    background-color: #4A90E2;
+    color: white;
+    text-decoration: none; /* Sin subrayado */
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+    .inicio-btn:hover {
+        background-color: #357ABD;
     }
