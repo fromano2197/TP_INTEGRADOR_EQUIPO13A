@@ -22,7 +22,7 @@
         </div>
 
         <div class="contenedor-enlaces">
-            <asp:HyperLink CssClass="enlace-formulario" NavigateUrl="#" Text="Olvidé mi contraseña" runat="server"></asp:HyperLink>
+            <asp:HyperLink CssClass="enlace-formulario" NavigateUrl="ContraseñaOlvidada.aspx" Text="Olvidé mi contraseña" runat="server"></asp:HyperLink>
             <br />
             <asp:HyperLink CssClass="enlace-formulario" NavigateUrl="#" Text="Registrarse" runat="server"></asp:HyperLink>
         </div>
