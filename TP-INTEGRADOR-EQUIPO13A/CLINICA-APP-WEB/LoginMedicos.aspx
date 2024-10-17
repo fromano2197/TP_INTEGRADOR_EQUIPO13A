@@ -18,7 +18,7 @@
                 <label for="password" class="etiqueta-formulario">Contraseña:</label>
                 <asp:TextBox ID="txtPass" TextMode="Password" CssClass="entrada-formulario" runat="server" placeholder="Contraseña" required="required" />
             </div>
-            <asp:Button ID="btnLogin" Text="Iniciar Sesión" CssClass="btn-enviar" runat="server" />
+            <asp:Button ID="btnLogin" OnClick="btnLogin_Click" Text="Iniciar Sesión" CssClass="btn-enviar" runat="server" />
         </div>
 
         <div class="contenedor-enlaces">

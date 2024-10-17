@@ -74,6 +74,7 @@
     <Content Include="Images\logo.png" />
     <Content Include="LoginMedicos.aspx" />
     <Content Include="LoginPacientes.aspx" />
+    <Content Include="PortalMedicos.aspx" />
     <Content Include="PortalPacientes.aspx" />
     <Content Include="RegistrarPaciente.aspx" />
     <Content Include="Web.config" />
@@ -116,6 +117,13 @@
     </Compile>
     <Compile Include="LoginPacientes.aspx.designer.cs">
       <DependentUpon>LoginPacientes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PortalMedicos.aspx.cs">
+      <DependentUpon>PortalMedicos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PortalMedicos.aspx.designer.cs">
+      <DependentUpon>PortalMedicos.aspx</DependentUpon>
     </Compile>
     <Compile Include="PortalPacientes.aspx.cs">
       <DependentUpon>PortalPacientes.aspx</DependentUpon>

@@ -12,12 +12,11 @@ namespace CLINICA_APP_WEB
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Session["TipoUsuario"] = "Paciente";
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            //chequear contra BD
             Response.Redirect("PortalPacientes.aspx", false);
         }
     }

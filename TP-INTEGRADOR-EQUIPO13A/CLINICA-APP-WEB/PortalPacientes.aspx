@@ -3,28 +3,7 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="default.aspx">Inicio Clinica UTN</a>
-   
-    <div class="collapse navbar-collapse" id="navbarnav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Pedir Turno</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Mis Turnos</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Mis Estudios</a>
-        </li>
-          <li class="nav-item">
-        <a class="nav-link" href="#">Mis Datos Personales</a>
-          </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+
 
 <div class="inicio-contenido">
     <div class="inicio-titulo">
