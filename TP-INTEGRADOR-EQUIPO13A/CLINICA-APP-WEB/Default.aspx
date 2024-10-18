@@ -7,6 +7,5 @@
         <div class="inicio-botones">
             <a href="LoginPacientes.aspx" class="inicio-btn">Portal de Pacientes</a>
             <a href="LoginMedicos.aspx" class="inicio-btn">Portal de Médicos</a>
-        </div>
     </div>
 </asp:Content>

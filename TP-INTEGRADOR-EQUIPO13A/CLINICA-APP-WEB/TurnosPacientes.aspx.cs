@@ -15,7 +15,7 @@ namespace CLINICA_APP_WEB
         }
         protected void btnConsultarTurnos_Click(object sender, EventArgs e)
         {
-            Response.Redirect("TomarTurno.aspx");
+            Response.Redirect("TomarTurno.aspx",false);
         }
     }
 }

@@ -10,9 +10,9 @@
     </div>
     <div class="inicio-botones">
         <a href="TurnosPacientes.aspx" class="inicio-btn">Nuevo Turno</a>
-        <a href="#" class="inicio-btn">Mis Turnos</a>
-        <a href="#" class="inicio-btn">Mis Estudios</a>
-        <a href="#" class="inicio-btn">Mis Datos Personales</a>
+        <a href="MisTurnos.aspx" class="inicio-btn">Mis Turnos</a>
+        <a href="MisEstudios.aspx" class="inicio-btn">Mis Estudios</a>
+        <a href="MisDatos.aspx" class="inicio-btn">Mis Datos Personales</a>
     
     </div>
 </div>

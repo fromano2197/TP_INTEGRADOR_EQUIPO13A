@@ -3,27 +3,30 @@
     padding: 0;
     margin: 0;
 }
+
 html, body {
-    height: 100%; /* Asegúrate de que el cuerpo de la página ocupe toda la altura */
+    height: 100%;
     margin: 0;
 }
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: white;
+    background-image: url('../images/fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    color: #333;
     margin: 0;
     padding: 0;
-    color: #333;
-    min-height: 100vh;
 }
 
 .contenedor {
-    flex: 1; 
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: white;
+    background-color: transparent; 
     padding: 20px;
 }
 
@@ -33,25 +36,23 @@ body {
     margin-bottom: 20px;
 }
 
-
 .titulo-principal {
     font-size: 2.5rem;
     font-weight: bold;
-    color: #4A90E2; 
+    color: #4A90E2;
     margin-bottom: 30px;
     text-align: center;
 }
 
-
 .contenedor-formulario {
     width: 100%;
     max-width: 420px;
-    background-color: white;
+    background-color: transparent; 
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    margin: 0 auto; /* Centrado horizontal */
+    margin: 0 auto;
 }
 
     .contenedor-formulario:hover {
@@ -62,14 +63,12 @@ body {
     margin-bottom: 20px;
 }
 
-
 .etiqueta-formulario {
     font-size: 1rem;
     font-weight: 500;
     color: #333;
     margin-bottom: 8px;
 }
-
 
 .entrada-formulario {
     width: 100%;
@@ -82,7 +81,6 @@ body {
     transition: all 0.3s ease;
 }
 
-
     .entrada-formulario:focus {
         border-color: #4A90E2;
         background-color: #fff;
@@ -90,11 +88,10 @@ body {
         outline: none;
     }
 
-
 .btn-enviar {
     width: 100%;
     padding: 12px;
-    background-color: #4A90E2; 
+    background-color: #4A90E2;
     color: white;
     border-radius: 8px;
     cursor: pointer;
@@ -104,10 +101,9 @@ body {
 }
 
     .btn-enviar:hover {
-        background-color: #357ABD; 
-        transform: translateY(-2px); 
+        background-color: #357ABD;
+        transform: translateY(-2px);
     }
-
 
 .contenedor-enlaces {
     margin-top: 25px;
@@ -123,27 +119,22 @@ body {
 }
 
     .enlace-formulario:hover {
-        color: #357ABD; 
-        border-bottom: 2px solid #357ABD; 
+        color: #357ABD;
+        border-bottom: 2px solid #357ABD;
     }
-
 
     .enlace-formulario + .enlace-formulario {
         margin-top: 12px;
     }
-
 
 .inicio-contenido {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh; 
+    height: 100vh;
     text-align: center;
     color: black;
-    background-image: url('../images/fondo.jpg');
-    background-size: cover;
-    background-position: center;
 }
 
 .inicio-titulo h1 {
@@ -154,7 +145,7 @@ body {
 .inicio-botones {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Espacio entre los botones */
+    gap: 20px;
 }
 
 .inicio-btn {
@@ -162,7 +153,7 @@ body {
     font-size: 1.2rem;
     background-color: #4A90E2;
     color: white;
-    text-decoration: none; /* Sin subrayado */
+    text-decoration: none;
     border-radius: 8px;
     transition: background-color 0.3s;
 }
@@ -171,9 +162,6 @@ body {
         background-color: #357ABD;
     }
 
-/* Manteniendo los estilos originales que ya tienes */
-
-/* Estilos del formulario de turnos de pacientes */
 .form-container {
     background-color: #f7fafc;
     padding: 20px;
@@ -181,7 +169,7 @@ body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     max-width: 600px;
     width: 100%;
-    margin: 0 auto; 
+    margin: 0 auto;
 }
 
 .form-group {
@@ -227,7 +215,6 @@ body {
         background-color: #357ABD;
     }
 
-/* Responsive design para pantallas pequeñas */
 @media (max-width: 768px) {
     .form-container {
         padding: 15px;
@@ -244,7 +231,144 @@ footer {
     text-align: center;
     padding: 10px;
     width: 100%;
-    position: absolute; /* Posiciona el footer de forma absoluta */
-    bottom: 0; /* Lo coloca en la parte inferior de la ventana */
+    position: absolute;
+    bottom: 0;
 }
 
+.contenedor-estudios {
+    padding: 250px;
+}
+
+.titulo-resultados {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.espaciado-estudios {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contenedor-estudio {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.contenedor-ancho {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.titulo-estudio {
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+}
+
+.informacion-estudio {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.usuario-estudio {
+    font-weight: 600;
+}
+
+.fecha-estudio {
+    font-style: italic;
+}
+
+.enlace-descarga {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+    .enlace-descarga:hover {
+        text-decoration: underline;
+    }
+
+.btn-volver {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+}
+
+    .btn-volver:hover {
+        background-color: #c0392b; 
+        transform: translateY(-2px);
+    }
+
+.navbar {
+    background-color: #357ABD;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+
+.navbar-links {
+    list-style-type: none;
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    margin-left: auto; 
+}
+
+.nav-link {
+    font-size: 1.1rem;
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+    .nav-link:hover {
+        background-color: #003366;
+        border-radius: 5px;
+    }
+
+
+.btn-cerrar-sesion {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    margin-left: auto; 
+}
+
+    .btn-cerrar-sesion:hover {
+        background-color: #e60000;
+    }
+
+    .btn-cerrar-sesion:focus {
+        outline: none;
+        box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+    }

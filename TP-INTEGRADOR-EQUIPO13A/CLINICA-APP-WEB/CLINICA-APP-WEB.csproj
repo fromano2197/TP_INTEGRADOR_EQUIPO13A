@@ -74,6 +74,9 @@
     <Content Include="Images\logo.png" />
     <Content Include="LoginMedicos.aspx" />
     <Content Include="LoginPacientes.aspx" />
+    <Content Include="MisDatos.aspx" />
+    <Content Include="MisEstudios.aspx" />
+    <Content Include="MisTurnos.aspx" />
     <Content Include="PortalMedicos.aspx" />
     <Content Include="PortalPacientes.aspx" />
     <Content Include="RegistrarPaciente.aspx" />
@@ -119,6 +122,27 @@
     </Compile>
     <Compile Include="LoginPacientes.aspx.designer.cs">
       <DependentUpon>LoginPacientes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MisDatos.aspx.cs">
+      <DependentUpon>MisDatos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MisDatos.aspx.designer.cs">
+      <DependentUpon>MisDatos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MisEstudios.aspx.cs">
+      <DependentUpon>MisEstudios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MisEstudios.aspx.designer.cs">
+      <DependentUpon>MisEstudios.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MisTurnos.aspx.cs">
+      <DependentUpon>MisTurnos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MisTurnos.aspx.designer.cs">
+      <DependentUpon>MisTurnos.aspx</DependentUpon>
     </Compile>
     <Compile Include="PortalMedicos.aspx.cs">
       <DependentUpon>PortalMedicos.aspx</DependentUpon>
