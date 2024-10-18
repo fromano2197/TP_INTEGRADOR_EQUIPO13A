@@ -27,7 +27,8 @@ x86/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
-[Bb]in/
+/TP_INTEGRADOR_EQUIPO13A/CLINICA-APP-WEB/[Bb]in/
+!/TP_INTEGRADOR_EQUIPO13A/CLINICA-APP-WEB/[Bb]in/roslyn/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
