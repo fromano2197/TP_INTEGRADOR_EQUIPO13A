@@ -9,7 +9,7 @@
     <div class="inicio-titulo">
     </div>
     <div class="inicio-botones">
-        <a href="#" class="inicio-btn">Pedir Turno</a>
+        <a href="TurnosPacientes.aspx" class="inicio-btn">Nuevo Turno</a>
         <a href="#" class="inicio-btn">Mis Turnos</a>
         <a href="#" class="inicio-btn">Mis Estudios</a>
         <a href="#" class="inicio-btn">Mis Datos Personales</a>
