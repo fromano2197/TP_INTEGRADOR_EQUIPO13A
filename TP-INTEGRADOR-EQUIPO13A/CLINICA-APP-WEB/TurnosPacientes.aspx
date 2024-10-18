@@ -49,9 +49,8 @@
                 </select>
             </div>
 
-            <button type="submit" class="btn-primary">
-                Consultar turnos disponibles
-            </button>
+            <asp:Button ID="btnConsultarTurnos" runat="server" CssClass="btn-primary" Text="Consultar turnos disponibles" OnClick="btnConsultarTurnos_Click" />
+
         </form>
     </div>
 </asp:Content>
