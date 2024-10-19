@@ -11,7 +11,6 @@
         <div class="inicio-botones">
             <a href="misPacientes.aspx" class="inicio-btn">Mis Pacientes</a>
             <a href="turnosDia.aspx" class="inicio-btn">Turnos del Día</a>
-            <a href="historialClinico.aspx" class="inicio-btn">Historial Clínico</a>
             <a href="registrarConsulta.aspx" class="inicio-btn">Registrar Consulta</a>
         </div>
     </div>

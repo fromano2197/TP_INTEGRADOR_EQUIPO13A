@@ -69,6 +69,7 @@
     <Content Include="ContraseñaOlvidada.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="HistoriaClinica.aspx" />
     <Content Include="Images\clinica.ico" />
     <Content Include="Images\fondo.jpg" />
     <Content Include="Images\logo.png" />
@@ -76,11 +77,13 @@
     <Content Include="LoginPacientes.aspx" />
     <Content Include="MisDatos.aspx" />
     <Content Include="MisEstudios.aspx" />
+    <Content Include="misPacientes.aspx" />
     <Content Include="MisTurnos.aspx" />
     <Content Include="PortalMedicos.aspx" />
     <Content Include="PortalPacientes.aspx" />
     <Content Include="RegistrarPaciente.aspx" />
     <Content Include="TomarTurno.aspx" />
+    <Content Include="turnosDia.aspx" />
     <Content Include="TurnosPacientes.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -101,6 +104,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="HistoriaClinica.aspx.cs">
+      <DependentUpon>HistoriaClinica.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HistoriaClinica.aspx.designer.cs">
+      <DependentUpon>HistoriaClinica.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPage.Master.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
@@ -137,6 +147,13 @@
     <Compile Include="MisEstudios.aspx.designer.cs">
       <DependentUpon>MisEstudios.aspx</DependentUpon>
     </Compile>
+    <Compile Include="misPacientes.aspx.cs">
+      <DependentUpon>misPacientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="misPacientes.aspx.designer.cs">
+      <DependentUpon>misPacientes.aspx</DependentUpon>
+    </Compile>
     <Compile Include="MisTurnos.aspx.cs">
       <DependentUpon>MisTurnos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -172,6 +189,13 @@
     </Compile>
     <Compile Include="TomarTurno.aspx.designer.cs">
       <DependentUpon>TomarTurno.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="turnosDia.aspx.cs">
+      <DependentUpon>turnosDia.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="turnosDia.aspx.designer.cs">
+      <DependentUpon>turnosDia.aspx</DependentUpon>
     </Compile>
     <Compile Include="TurnosPacientes.aspx.cs">
       <DependentUpon>TurnosPacientes.aspx</DependentUpon>

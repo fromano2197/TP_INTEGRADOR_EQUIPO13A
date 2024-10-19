@@ -28,12 +28,11 @@
 
 
         <nav id="medicoNavbar" class="navbar" runat="server" visible="false">
-            <div class="container">
-                <a class="nav-link" href="medicoDashboard.aspx">Portal Médico</a>
+            <div class="container"> 
+                <a class="nav-link" href="PortalMedicos.aspx">Portal Médico</a>
                 <ul class="navbar-links">
                     <li><a class="nav-link" href="misPacientes.aspx">Mis Pacientes</a></li>
                     <li><a class="nav-link" href="turnosDia.aspx">Turnos del Día</a></li>
-                    <li><a class="nav-link" href="historialClinico.aspx">Historial Clínico</a></li>
                     <li><a class="nav-link" href="registrarConsulta.aspx">Registrar Consulta</a></li>
                 </ul>
 
