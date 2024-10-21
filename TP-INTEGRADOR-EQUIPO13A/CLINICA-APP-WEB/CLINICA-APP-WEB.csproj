@@ -65,6 +65,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Administrador.aspx" />
+    <Content Include="BuscarPaciente.aspx" />
+    <Content Include="BuscarProfesional.aspx" />
     <Content Include="Content\estilos.css" />
     <Content Include="ContraseñaOlvidada.aspx" />
     <Content Include="Default.aspx" />
@@ -73,6 +76,7 @@
     <Content Include="Images\clinica.ico" />
     <Content Include="Images\fondo.jpg" />
     <Content Include="Images\logo.png" />
+    <Content Include="LoginAdministrador.aspx" />
     <Content Include="LoginMedicos.aspx" />
     <Content Include="LoginPacientes.aspx" />
     <Content Include="MisDatos.aspx" />
@@ -88,6 +92,27 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Administrador.aspx.cs">
+      <DependentUpon>Administrador.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Administrador.aspx.designer.cs">
+      <DependentUpon>Administrador.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BuscarPaciente.aspx.cs">
+      <DependentUpon>BuscarPaciente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BuscarPaciente.aspx.designer.cs">
+      <DependentUpon>BuscarPaciente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BuscarProfesional.aspx.cs">
+      <DependentUpon>BuscarProfesional.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BuscarProfesional.aspx.designer.cs">
+      <DependentUpon>BuscarProfesional.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ContraseñaOlvidada.aspx.cs">
       <DependentUpon>ContraseñaOlvidada.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -111,6 +136,13 @@
     </Compile>
     <Compile Include="HistoriaClinica.aspx.designer.cs">
       <DependentUpon>HistoriaClinica.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LoginAdministrador.aspx.cs">
+      <DependentUpon>LoginAdministrador.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LoginAdministrador.aspx.designer.cs">
+      <DependentUpon>LoginAdministrador.aspx</DependentUpon>
     </Compile>
     <Compile Include="MasterPage.Master.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
