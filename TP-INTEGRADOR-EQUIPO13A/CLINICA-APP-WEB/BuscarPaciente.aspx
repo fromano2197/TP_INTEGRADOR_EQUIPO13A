@@ -16,10 +16,6 @@
         <asp:Button ID="btnBuscar" OnClick="btnBuscar_Click" Text="Buscar Paciente" CssClass="btn-enviar" runat="server" />
     </div>
 
-    <div class="contenedor-enlaces">
-        <asp:HyperLink CssClass="enlace-formulario" NavigateUrl="ContraseñaOlvidada.aspx" Text="Olvidé mi contraseña" runat="server"></asp:HyperLink>
-        <br />
-    </div>
 </div>
 
 </asp:Content>

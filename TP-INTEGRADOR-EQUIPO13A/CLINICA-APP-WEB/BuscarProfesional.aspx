@@ -13,13 +13,10 @@
             <label for="password" class="etiqueta-formulario">INGRESE DNI:</label>
             <asp:TextBox ID="txtDni" CssClass="entrada-formulario" runat="server" placeholder="DNI" required="required" />
         </div>
-        <asp:Button ID="btnBuscar" OnClick="btnBuscar_Click" Text="Buscar Paciente" CssClass="btn-enviar" runat="server" />
+        <asp:Button ID="btnBuscar" OnClick="btnBuscar_Click" Text="Buscar Profesional" CssClass="btn-enviar" runat="server" />
     </div>
 
-    <div class="contenedor-enlaces">
-        <asp:HyperLink CssClass="enlace-formulario" NavigateUrl="ContraseñaOlvidada.aspx" Text="Olvidé mi contraseña" runat="server"></asp:HyperLink>
-        <br />
-    </div>
+   
 </div>
 
 </asp:Content>
