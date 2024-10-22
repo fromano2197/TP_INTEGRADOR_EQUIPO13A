@@ -43,9 +43,12 @@
         <div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
         </div>
-        <footer>
-            <p>&copy; <%: DateTime.Now.Year %> - Clinica UTN</p>
-        </footer>
+        
     </form>
+   
+    <footer>
+    <p>&copy; <%: DateTime.Now.Year %> - Clinica UTN</p>
+</footer>
+        
 </body>
 </html>

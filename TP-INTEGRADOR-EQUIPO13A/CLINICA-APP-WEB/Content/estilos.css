@@ -7,6 +7,7 @@
 html, body {
     height: 100%;
     margin: 0;
+    
 }
 
 body {
@@ -18,6 +19,8 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
+
+    
 }
 
 .contenedor {
@@ -87,6 +90,24 @@ body {
         box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
         outline: none;
     }
+
+.textarea-observaciones {
+    width: 100%;
+    height: 150px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    margin-top: 10px;
+    padding-left: 10px;
+    margin-bottom: 20px;
+    padding-top: 12px;
+    font-size: 1rem;
+    border-color: #4A90E2;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+    outline: none;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    resize: none;
+}
 
 .btn-enviar {
     width: 100%;
@@ -231,8 +252,9 @@ footer {
     text-align: center;
     padding: 10px;
     width: 100%;
-    position: absolute;
+    position: sticky;
     bottom: 0;
+
 }
 
 .contenedor-estudios {
@@ -372,3 +394,6 @@ footer {
         outline: none;
         box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
     }
+
+
+
