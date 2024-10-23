@@ -11,7 +11,7 @@ using System.Reflection;
 
 namespace Negocio
 {
-    internal class PacienteNegocio
+    public class PacienteNegocio
     {
         
             public List<Persona> listar()
