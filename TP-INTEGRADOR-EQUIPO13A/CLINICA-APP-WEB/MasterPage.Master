@@ -36,7 +36,7 @@
                     <li><a class="nav-link" href="registrarConsulta.aspx">Registrar Consulta</a></li>
                 </ul>
 
-                <asp:Button ID="Button1" Text="Cerrar Sesión" CssClass="btn-cerrar-sesion" OnClick="CerrarSesion" runat="server" Visible="false" />
+                <asp:Button ID="Button1" Text="Cerrar Sesión" CssClass="btn-cerrar-sesion" OnClick="CerrarSesion" runat="server" Visible="true" />
 
             </div>
         </nav>

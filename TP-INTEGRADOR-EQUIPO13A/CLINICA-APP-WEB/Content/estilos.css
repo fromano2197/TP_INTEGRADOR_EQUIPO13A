@@ -397,3 +397,36 @@ footer {
 
 
 
+.table-container {
+    display: flex;
+    justify-content: center;
+    height: 1000px;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.table {
+    width: 100%; /* O el ancho deseado */
+    border-collapse: collapse; /* Para eliminar espacios entre celdas */
+    background-color: #f7fafc; /* Fondo blanco */
+    color: black; /* Color del texto */
+    font-size: 1rem;
+    
+}
+
+    .table th, .table td {
+        border: 1px solid black; /* Borde ligero */
+        padding: 8px; /* Espaciado interno */
+        text-align: left; /* Alineación del texto */
+    }
+
+    .table th {
+        background-color: #4A90E2; /* Fondo para encabezados */
+        font-weight: bold; /* Negrita para encabezados */
+    }
+
+    .table tr:hover {
+        background-color: #f1f1f1; /* Fondo al pasar el mouse */
+    }
+

@@ -12,7 +12,9 @@ namespace CLINICA_APP_WEB
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            TurnoNegocio negocio = new TurnoNegocio();
+            dgvTurnosDia.DataSource = negocio.listar();
+            dgvTurnosDia.DataBind();
         }
     }
 }

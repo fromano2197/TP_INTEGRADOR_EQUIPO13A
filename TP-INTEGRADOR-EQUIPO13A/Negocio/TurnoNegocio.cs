@@ -8,16 +8,10 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 
-//public int IdTurno { get; set; }
-//public DateTime Fecha { get; set; }
-//public Paciente Paciente { get; set; }
-//public Profesional Profesional { get; set; }
-//public Especialidad Especialidad { get; set; }
-//public string Estado { get; set; }
-//public string Observaciones { get; set; }
+
 namespace Negocio
 {
-    internal class TurnoNegocio
+    public class TurnoNegocio
     {
         public List<Turno> listar()
         {
@@ -30,7 +24,12 @@ namespace Negocio
             {
                 conexion.ConnectionString = "server=.\\SQLEXPRESS; database=ClinicaUTN; Integrated Security=True;";
                 comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = "select * from TURNO";
+                comando.CommandText = " SELECT T.IDTURNO, T.FECHA, T.HORARIO, P.NOMBRE as NOMBRE, P.APELLIDO as APELLIDO, PR.IDUSUARIO as IDPROFESIONAL, E.ESPECIALIDAD as ESPECIALIDAD, T.OBSERVACIONES, PA.IDPERSONA FROM TURNO as T" +
+                    "   JOIN PACIENTE as PA ON T.IDPACIENTE = PA.IDPERSONA" +
+                    "   JOIN PERSONA as P ON PA.IDPERSONA = P.IDPERSONA" +
+                    "   JOIN PROFESIONAL PR ON T.IDPROFESIONAL = PR.IDPROFESIONAL" +
+                    "   JOIN ESPECIALIDAD E ON PR.IDESPECIALIDAD = E.IDESPECIALIDAD";
+
                 comando.Connection = conexion;
 
                 conexion.Open();
@@ -42,9 +41,11 @@ namespace Negocio
                     aux.IdTurno = lector.GetInt32(0);
                     aux.Fecha = (DateTime)lector["Fecha"];
                     aux.Paciente = new Paciente();
-                    aux.Paciente.DatosPersona.Nombre = lector["Nombre"].ToString();
+                    aux.Paciente.IdPaciente = lector.GetInt32(0);
+                    aux.Paciente.DatosPersona = new Persona();
+                    aux.Paciente.DatosPersona.Nombre = lector["NOMBRE"].ToString();
                     aux.Paciente.DatosPersona.Apellido = lector["Apellido"].ToString();
-                    aux.Paciente.DatosPersona.Dni = int.Parse(lector["DNI"].ToString());
+                    aux.Paciente.DatosPersona.Dni = lector.GetInt32(0);
                     lista.Add(aux);
                 }
 
