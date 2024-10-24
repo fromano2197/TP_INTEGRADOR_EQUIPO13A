@@ -11,6 +11,9 @@ html, body {
 }
 
 body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-image: url('../images/fondo.jpg');
     background-size: cover;
@@ -19,8 +22,6 @@ body {
     color: #333;
     margin: 0;
     padding: 0;
-
-    
 }
 
 .contenedor {
@@ -29,8 +30,9 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: transparent; 
+    background-color: transparent;
     padding: 20px;
+    flex-grow: 1;
 }
 
 .logo {
@@ -182,7 +184,9 @@ body {
     .inicio-btn:hover {
         background-color: #357ABD;
     }
-
+form {
+    flex: 1; 
+}
 .form-container {
     background-color: #f7fafc;
     padding: 20px;
@@ -252,9 +256,8 @@ footer {
     text-align: center;
     padding: 10px;
     width: 100%;
-    position: sticky;
+    position: relative;
     bottom: 0;
-
 }
 
 .contenedor-estudios {
@@ -407,26 +410,26 @@ footer {
 }
 
 .table {
-    width: 100%; /* O el ancho deseado */
-    border-collapse: collapse; /* Para eliminar espacios entre celdas */
-    background-color: #f7fafc; /* Fondo blanco */
-    color: black; /* Color del texto */
+    width: 100%; 
+    border-collapse: collapse; 
+    background-color: #f7fafc;
+    color: black; 
     font-size: 1rem;
     
 }
 
     .table th, .table td {
-        border: 1px solid black; /* Borde ligero */
-        padding: 8px; /* Espaciado interno */
-        text-align: left; /* Alineación del texto */
+        border: 1px solid black; 
+        padding: 8px; 
+        text-align: left; 
     }
 
     .table th {
-        background-color: #4A90E2; /* Fondo para encabezados */
-        font-weight: bold; /* Negrita para encabezados */
+        background-color: #4A90E2;
+        font-weight: bold; 
     }
 
     .table tr:hover {
-        background-color: #f1f1f1; /* Fondo al pasar el mouse */
+        background-color: #f1f1f1; 
     }
 

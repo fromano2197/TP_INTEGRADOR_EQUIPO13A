@@ -8,6 +8,7 @@
     <link rel="icon" href="./Images/clinica.ico" type="image/x-icon" />
     <link href="./Content/estilos.css" rel="stylesheet" type="text/css" />
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+
 </head>
 <body>
     <form id="form1" runat="server">
@@ -21,7 +22,7 @@
                     <li><a class="nav-link" href="MisEstudios.aspx">Mis Estudios</a></li>
                     <li><a class="nav-link" href="MisDatos.aspx">Mis Datos Personales</a></li>
                 </ul>
-                <asp:Button ID="btnCerrarSesion" Text="Cerrar Sesión" CssClass="btn-cerrar-sesion" OnClick="CerrarSesion" runat="server" Visible="false" />
+                <asp:Button ID="btnCerrarSesion" Text="Cerrar Sesión" CssClass="btn-cerrar-sesion" OnClick="CerrarSesion" runat="server" Visible="true" />
             </div>
         </nav>
 

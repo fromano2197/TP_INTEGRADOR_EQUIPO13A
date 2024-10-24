@@ -76,9 +76,6 @@
     <Content Include="Images\clinica.ico" />
     <Content Include="Images\fondo.jpg" />
     <Content Include="Images\logo.png" />
-    <Content Include="LoginAdministrador.aspx" />
-    <Content Include="LoginMedicos.aspx" />
-    <Content Include="LoginPacientes.aspx" />
     <Content Include="MisDatos.aspx" />
     <Content Include="MisEstudios.aspx" />
     <Content Include="misPacientes.aspx" />
@@ -138,33 +135,12 @@
     <Compile Include="HistoriaClinica.aspx.designer.cs">
       <DependentUpon>HistoriaClinica.aspx</DependentUpon>
     </Compile>
-    <Compile Include="LoginAdministrador.aspx.cs">
-      <DependentUpon>LoginAdministrador.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="LoginAdministrador.aspx.designer.cs">
-      <DependentUpon>LoginAdministrador.aspx</DependentUpon>
-    </Compile>
     <Compile Include="MasterPage.Master.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="MasterPage.Master.designer.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
-    </Compile>
-    <Compile Include="LoginMedicos.aspx.cs">
-      <DependentUpon>LoginMedicos.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="LoginMedicos.aspx.designer.cs">
-      <DependentUpon>LoginMedicos.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="LoginPacientes.aspx.cs">
-      <DependentUpon>LoginPacientes.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="LoginPacientes.aspx.designer.cs">
-      <DependentUpon>LoginPacientes.aspx</DependentUpon>
     </Compile>
     <Compile Include="MisDatos.aspx.cs">
       <DependentUpon>MisDatos.aspx</DependentUpon>

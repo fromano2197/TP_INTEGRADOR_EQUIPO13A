@@ -8,41 +8,30 @@ namespace CLINICA_APP_WEB
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            string currentPage = Request.Url.AbsolutePath.ToLower();
-
-           
-            if (currentPage.Contains("loginpacientes.aspx") || currentPage.Contains("loginmedicos.aspx"))
+            if (!IsPostBack) 
             {
-                pacienteNavbar.Visible = false;
-                medicoNavbar.Visible = false;
-                btnCerrarSesion.Visible = false; 
-            }
-            else
-            {
-                if (Session["TipoUsuario"] != null)
-                {
-                    string tipoUsuario = Session["TipoUsuario"].ToString();
+                string tipoUsuario = Session["TipoUsuario"] as string; 
 
-                    if (tipoUsuario == "Paciente")
-                    {
-                        pacienteNavbar.Visible = true;
-                        medicoNavbar.Visible = false;
-                    }
-                    else if (tipoUsuario == "Medico")
-                    {
-                        medicoNavbar.Visible = true;
-                        pacienteNavbar.Visible = false;
-                    }
-
-                  
-                    btnCerrarSesion.Visible = true;
-                }
-                else
+                if (tipoUsuario != null)
                 {
+                    switch (tipoUsuario)
+                    {
+                        case "Paciente":
+                            pacienteNavbar.Visible = true;
+                            medicoNavbar.Visible = false;
+                            break;
+                        case "Medico":
+                            pacienteNavbar.Visible = false;
+                            medicoNavbar.Visible = true;
+                            break;
+                        case "Admin":
+                            pacienteNavbar.Visible = false;
+                            medicoNavbar.Visible = false;
+                            break;
+                        default:
                    
-                    pacienteNavbar.Visible = false;
-                    medicoNavbar.Visible = false;
-                    btnCerrarSesion.Visible = false;
+                            break;
+                    }
                 }
             }
         }

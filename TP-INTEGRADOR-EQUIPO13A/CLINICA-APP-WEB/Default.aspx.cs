@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,21 +12,63 @@ namespace CLINICA_APP_WEB
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["TipoUsuario"] == null)
+            
+        }
+        protected void btnLogin_Click(object sender, EventArgs e)
+        {
+            string usuario = txtUsuario.Text;
+            string contraseña = txtPass.Text;
+
+            AccesoDatos Datos = new AccesoDatos();
+            try
             {
-                if (Request.Url.AbsolutePath.Contains("LoginPacientes.aspx"))
+                string consulta = "SELECT IDUSUARIO, TIPOUSUARIO FROM USUARIO WHERE NOMBRE_USUARIO = @usuario AND CONTRASENA = @contraseña";
+                Datos.setConsulta(consulta);
+                Datos.setearParametro("@usuario", usuario);
+                Datos.setearParametro("@contraseña", contraseña);
+
+                Datos.ejecutarLectura();
+
+                if (Datos.Lector.Read())
                 {
-                    Session["TipoUsuario"] = "Paciente";
+                    int idUsuario = (int)Datos.Lector["IDUSUARIO"];
+                    string tipoUsuario = (string)Datos.Lector["TIPOUSUARIO"];
+
+                    Session["TipoUsuario"] = tipoUsuario;
+
+
+
+                    switch (tipoUsuario)
+                    {
+                        case "Paciente":
+                            Response.Redirect("PortalPacientes.aspx", false);
+                            break;
+                        case "Medico":
+                            Response.Redirect("PortalMedicos.aspx", false);
+                            break;
+                        case "Admin":
+                            Response.Redirect("Administrador.aspx", false);
+                            break;
+                        default:
+                            lblMensaje.Text = "Tipo de usuario no reconocido.";
+                            lblMensaje.Visible = true;
+                            break;
+                    }
                 }
-                else if (Request.Url.AbsolutePath.Contains("LoginMedicos.aspx"))
+                else
                 {
-                    Session["TipoUsuario"] = "Medico";
+                    lblMensaje.Text = "Usuario o contraseña incorrectos.";
+                    lblMensaje.Visible = true;
                 }
-  
             }
-            else
+            catch (Exception ex)
             {
-                Response.Redirect("Default.aspx", false);
+                lblMensaje.Text = "Error al iniciar sesión: " + ex.Message;
+                lblMensaje.Visible = true;
+            }
+            finally
+            {
+                Datos.cerrarConexion();
             }
         }
 
