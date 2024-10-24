@@ -7,10 +7,9 @@
          <h1>Portal ADMIN</h1>
      </div>
      <div class="inicio-botones">
-         <a href="BuscarPaciente.aspx" class="inicio-btn">Dar de baja-Paciente</a>
-         <a href="BuscarPaciente.aspx" class="inicio-btn">Dar de alta-Paciente</a>
-         <a href="BuscarProfesional.aspx" class="inicio-btn">Dar de baja-Profesional</a>
-         <a href="BuscarProfesional.aspx" class="inicio-btn">Dar de alta-Profesional</a>
+         <a href="BuscarPaciente.aspx" class="inicio-btn">Administrar Pacientes</a>
+         <a href="BuscarProfesional.aspx" class="inicio-btn">Administrar Profesionales</a>
+         <a href="BuscarInstituciones.aspx" class="inicio-btn">Administrar Instituciones</a>
      </div>
  </div>
 </asp:Content>

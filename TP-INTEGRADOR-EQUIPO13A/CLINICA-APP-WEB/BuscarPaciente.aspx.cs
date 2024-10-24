@@ -11,17 +11,31 @@ namespace CLINICA_APP_WEB
 {
     public partial class BuscarPaciente : System.Web.UI.Page
     {
-        private void LimpiarCampos()
-        {
-            lblNombre.Text = string.Empty;
-            lblApellido.Text = string.Empty;
-            lblDni.Text = string.Empty;
-            lblMensaje.Text = string.Empty;
-        }
+        public List<Persona> ListaPacientes { get; set; }
+       
+
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                PacienteNegocio negocio = new PacienteNegocio();
+                ListaPacientes = negocio.listar();
+                repRepeater.DataSource = ListaPacientes;
+                repRepeater.DataBind();
+            }
         }
+        
+        /*protected void VerDetalle_Click(object sender, EventArgs e)
+        {
+
+
+            LinkButton btn = (LinkButton)sender;
+            string articuloId = btn.CommandArgument;
+
+
+            Response.Redirect("Detalle.aspx");
+        }
+
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
@@ -31,7 +45,7 @@ namespace CLINICA_APP_WEB
             {
                 PacienteNegocio negocio = new PacienteNegocio();
                 Persona paciente = negocio.listar(dni);
-                LimpiarCampos();
+                
                 if (paciente != null)
                 {
 
@@ -51,7 +65,7 @@ namespace CLINICA_APP_WEB
                 lblMensaje.Text = "Por favor, ingrese un DNI válido.";
             }
 
-        }
+        }*/
 
     }
 }

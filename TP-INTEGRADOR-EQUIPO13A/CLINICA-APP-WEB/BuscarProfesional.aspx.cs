@@ -11,17 +11,30 @@ namespace CLINICA_APP_WEB
 {
     public partial class BuscarProfesional : System.Web.UI.Page
     {
-        private void LimpiarCampos()
-        {
-            lblNombre1.Text = string.Empty;
-            lblApellido1.Text = string.Empty;
-            lblDni1.Text = string.Empty;
-            lblMensaje.Text = string.Empty;
-        }
+        public List<Persona> ListaProfesionales { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                ProfesionalNegocio negocio = new ProfesionalNegocio();
+                ListaProfesionales = negocio.listar();
+                repRepeater.DataSource = ListaProfesionales;
+                repRepeater.DataBind();
+            }
         }
+
+        /*protected void VerDetalle_Click(object sender, EventArgs e)
+        {
+
+
+            LinkButton btn = (LinkButton)sender;
+            string articuloId = btn.CommandArgument;
+
+
+            Response.Redirect("Detalle.aspx");
+        }
+
 
         protected void btnBuscar_Click(object sender, EventArgs e)
         {
@@ -31,18 +44,18 @@ namespace CLINICA_APP_WEB
             {
                 PacienteNegocio negocio = new PacienteNegocio();
                 Persona paciente = negocio.listar(dni);
-                LimpiarCampos();
+                
                 if (paciente != null)
                 {
 
-
-                    lblNombre1.Text = paciente.Nombre;
-                    lblApellido1.Text = paciente.Apellido;
-                    lblDni1.Text = paciente.Dni.ToString();
+                    
+                    lblNombre.Text = paciente.Nombre;
+                    lblApellido.Text = paciente.Apellido;
+                    lblDni.Text = paciente.Dni.ToString();
                 }
                 else
                 {
-
+                    
                     lblMensaje.Text = "Paciente no encontrado.";
                 }
             }
@@ -51,7 +64,8 @@ namespace CLINICA_APP_WEB
                 lblMensaje.Text = "Por favor, ingrese un DNI válido.";
             }
 
-        }
+        }*/
 
     }
 }
+

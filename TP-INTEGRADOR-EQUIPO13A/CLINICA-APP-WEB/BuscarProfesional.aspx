@@ -1,27 +1,41 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="BuscarProfesional.aspx.cs" Inherits="CLINICA_APP_WEB.BuscarProfesional" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-            <div class="contenedor">
-    <img src="./Images/logo.png" alt="Logo de la Clínica UTN" class="logo" />
-    <h1 class="titulo-principal">CLÍNICA UTN</h1>
-
-    <div class="contenedor-formulario">
-        <div class="grupo-formulario">
-            <label for="txtDni" class="etiqueta-formulario">INGRESE DNI:</label>
-            <asp:TextBox ID="txtDni" CssClass="entrada-formulario" runat="server" placeholder="DNI" required="required" />
-        </div>
-        <asp:Button ID="btnBuscar" OnClick="btnBuscar_Click" Text="Buscar Paciente" CssClass="btn-enviar" runat="server" />
+    <asp:GridView ID="dgvPacientes" runat="server" CssClass="table table-striped table-bordered"></asp:GridView>
+    <link rel="stylesheet" type="text/css" href='<%= ResolveUrl("~/Content/estilos.css") %>' />
+    <hr />
+    <div class="contenedor">
+        <h1 class="titulo-resultados">Lista de Profesionales</h1>
+        <label for="txtDni" class="etiqueta-formulario">Buscar Profesional:</label>
+        <asp:TextBox ID="txtDni" CssClass="entrada-formulario" runat="server" placeholder="Introducir Apellido,Nombre o Dni" required="required" />
     </div>
-
-    <div class="contenedor-datos-paciente" style="margin-top: 20px;">
-        <asp:Label ID="lblMensaje" runat="server" CssClass="mensaje-error" />
-        <div class="datos-paciente">
-            <p><strong>Nombre:</strong> <asp:Label ID="lblNombre1" runat="server" /></p>
-            <p><strong>Apellido:</strong> <asp:Label ID="lblApellido1" runat="server" /></p>
-            <p><strong>DNI:</strong> <asp:Label ID="lblDni1" runat="server" /></p>
-        </div>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead>
+                <tr>
+                    <th>Apellido</th>
+                    <th>Nombre</th>
+                    <th>DNI</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <asp:Repeater ID="repRepeater" runat="server">
+                    <ItemTemplate>
+                        <tr>
+                            <td><%# Eval("Apellido") %></td>
+                            <td><%# Eval("Nombre") %></td>
+                            <td><%# Eval("Dni") %></td>
+                            <td>
+                                <a class="btnAcciones" href="DetallePaciente.aspx?id=<%# Eval("IDPERSONA") %>">Ver Detalle</a>
+                            </td>
+                        </tr>
+                    </ItemTemplate>
+                </asp:Repeater>
+            </tbody>
+        </table>
     </div>
-</div>
 
 </asp:Content>

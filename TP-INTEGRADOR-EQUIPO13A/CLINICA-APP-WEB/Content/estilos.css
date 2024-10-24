@@ -7,7 +7,6 @@
 html, body {
     height: 100%;
     margin: 0;
-    
 }
 
 body {
@@ -33,6 +32,7 @@ body {
     background-color: transparent;
     padding: 20px;
     flex-grow: 1;
+    text-align: center;
 }
 
 .logo {
@@ -52,7 +52,7 @@ body {
 .contenedor-formulario {
     width: 100%;
     max-width: 420px;
-    background-color: transparent; 
+    background-color: transparent;
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
@@ -184,9 +184,11 @@ body {
     .inicio-btn:hover {
         background-color: #357ABD;
     }
+
 form {
-    flex: 1; 
+    flex: 1;
 }
+
 .form-container {
     background-color: #f7fafc;
     padding: 20px;
@@ -260,9 +262,16 @@ footer {
     bottom: 0;
 }
 
-.contenedor-estudios {
-    padding: 250px;
+
+
+.enlace-descarga {
+    display: inline-block;
+    margin-top: 10px;
 }
+
+
+
+
 
 .titulo-resultados {
     font-size: 2rem;
@@ -277,7 +286,9 @@ footer {
     gap: 20px;
 }
 
+
 .contenedor-estudio {
+    text-align: center;
     padding: 20px;
     background-color: #f8f9fa;
     border-radius: 8px;
@@ -299,10 +310,14 @@ footer {
     display: flex;
     align-items: center;
     gap: 10px;
+    text-align: center;
+    justify-content: center;
 }
+
 
 .usuario-estudio {
     font-weight: 600;
+    text-align: center;
 }
 
 .fecha-estudio {
@@ -333,7 +348,7 @@ footer {
 }
 
     .btn-volver:hover {
-        background-color: #c0392b; 
+        background-color: #c0392b;
         transform: translateY(-2px);
     }
 
@@ -360,7 +375,7 @@ footer {
     gap: 1rem;
     margin: 0;
     padding: 0;
-    margin-left: auto; 
+    margin-left: auto;
 }
 
 .nav-link {
@@ -386,7 +401,7 @@ footer {
     border-radius: 5px;
     font-size: 1rem;
     transition: background-color 0.3s ease;
-    margin-left: auto; 
+    margin-left: auto;
 }
 
     .btn-cerrar-sesion:hover {
@@ -410,26 +425,31 @@ footer {
 }
 
 .table {
-    width: 100%; 
-    border-collapse: collapse; 
+    width: 100%;
+    border-collapse: collapse;
     background-color: #f7fafc;
-    color: black; 
+    color: black;
     font-size: 1rem;
-    
 }
 
     .table th, .table td {
-        border: 1px solid black; 
-        padding: 8px; 
-        text-align: left; 
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
     }
 
     .table th {
         background-color: #4A90E2;
-        font-weight: bold; 
+        font-weight: bold;
     }
 
     .table tr:hover {
-        background-color: #f1f1f1; 
+        background-color: #f1f1f1;
     }
 
+.btnAcciones {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
