@@ -47,49 +47,49 @@ namespace Negocio
         }
 
         public void eliminar(int id)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setConsulta("delete from PERSONA where id=@id");
+                datos.setearParametro("@id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+
+        private void ActualizarPaciente(Persona persona)
+        {
+            AccesoDatos datos = new AccesoDatos();
             {
                 try
                 {
-                    AccesoDatos datos = new AccesoDatos();
-                    datos.setConsulta("delete from PERSONA where id=@id");
-                    datos.setearParametro("@id", id);
+                    string consultaPaciente = "UPDATE persona....";
+
+                    datos.setConsulta(consultaPaciente);
+
+                    datos.setearParametro("@Nombre", persona.Nombre);
+                    datos.setearParametro("@Descripcion", persona.Apellido);
+                    datos.setearParametro("@IdMarca", persona.Dni);
+
+
                     datos.ejecutarAccion();
                 }
                 catch (Exception ex)
                 {
-
                     throw ex;
                 }
             }
+        }
 
 
-            private void ActualizarPaciente(Persona persona)
-            {
-                AccesoDatos datos = new AccesoDatos();
-                {
-                    try
-                    {
-                        string consultaPaciente = "UPDATE persona....";
-
-                        datos.setConsulta(consultaPaciente);
-                        
-                        datos.setearParametro("@Nombre", persona.Nombre);
-                        datos.setearParametro("@Descripcion", persona.Apellido);
-                        datos.setearParametro("@IdMarca", persona.Dni);
-                        
-
-                        datos.ejecutarAccion();
-                    }
-                    catch (Exception ex)
-                    {
-                        throw ex;
-                    }
-                }
-            }
-
-
-            public Persona listar(int DNI)
-            {
+        public Persona listar(int DNI)
+        {
             Persona aux = null;
             AccesoDatos datos = new AccesoDatos();
 
@@ -118,7 +118,38 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
-            return aux; 
+            return aux;
+        }
+
+        public int  nuevoPaciente(Paciente nuevo, Usuario usuario)
+        {
+            AccesoDatos datos = new AccesoDatos ();
+            try
+            {
+                datos.setearProcedimiento("SP_AGREGAR_PACIENTE");
+                datos.setearParametro("@DNI", nuevo.DatosPersona.Dni);
+                datos.setearParametro("@NOMBRE", nuevo.DatosPersona.Nombre);
+                datos.setearParametro("@APELLIDO", nuevo.DatosPersona.Apellido);
+                datos.setearParametro("@FECHA_NACIMIENTO", nuevo.DatosPersona.FechaNacimiento);
+                datos.setearParametro("@EMAIL", nuevo.DatosPersona.ContactoCliente.Email);
+                datos.setearParametro ("@TELEFONO", nuevo.DatosPersona.ContactoCliente.telefono);
+                datos.setearParametro("@DIRECCION", nuevo.DatosPersona.ContactoCliente.Direccion);
+                datos.setearParametro("@USUARIO", usuario.User);
+                datos.setearParametro("@PASS", usuario.Password);
+                datos.ejecutarAccion();
+
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
 
     }

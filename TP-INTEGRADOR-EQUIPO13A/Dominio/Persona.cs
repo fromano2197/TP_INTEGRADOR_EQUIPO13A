@@ -11,7 +11,7 @@ namespace Dominio
         public int IdPersona { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
-        public Contacto ContactoCliente { get; set; }
+        public Contacto ContactoCliente { get; set; } = new Contacto();
         public DateTime FechaNacimiento { get; set; }
         public int Dni { get; set; }
     }

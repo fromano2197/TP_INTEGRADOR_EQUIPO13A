@@ -10,6 +10,12 @@ namespace Dominio
     {
         public Persona DatosPersona { get; set; }
         public int IdPaciente { get; set; }
-        public int MyProperty { get; set; }
+        public int IdUsuario { get; set; }
+
+        public Paciente()
+        {
+            DatosPersona = new Persona();
+        }
     }
+
 }
