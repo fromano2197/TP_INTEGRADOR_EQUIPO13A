@@ -27,6 +27,7 @@ namespace CLINICA_APP_WEB
                         case "Admin":
                             pacienteNavbar.Visible = false;
                             medicoNavbar.Visible = false;
+                            adminNavbar.Visible = true;
                             break;
                         default:
                    

@@ -453,3 +453,41 @@ footer {
     padding: 10px;
     box-sizing: border-box;
 }
+.especialidad-contenido {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    color: black;
+}
+
+.especialidad-botones {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.especialidad-btn {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    background-color: #4A90E2;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+    .especialidad-btn:hover {
+        background-color: #357ABD;
+    }
+
+.btn-especialidad {
+    display: inline-block;
+    width: auto;
+    padding: 8px 15px;
+    box-sizing: border-box;
+}
+

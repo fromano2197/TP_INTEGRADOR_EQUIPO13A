@@ -9,7 +9,8 @@
      <div class="inicio-botones">
          <a href="BuscarPaciente.aspx" class="inicio-btn">Administrar Pacientes</a>
          <a href="BuscarProfesional.aspx" class="inicio-btn">Administrar Profesionales</a>
-         <a href="BuscarInstituciones.aspx" class="inicio-btn">Administrar Instituciones</a>
+         <a href="AdministrarEspecialidades.aspx" class="inicio-btn">Administrar Especialidades</a>
+         <a href="AdministrarInstituciones.aspx" class="inicio-btn">Administrar Instituciones</a>
      </div>
  </div>
 </asp:Content>

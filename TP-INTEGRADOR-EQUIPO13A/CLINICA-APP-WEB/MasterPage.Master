@@ -41,6 +41,22 @@
 
             </div>
         </nav>
+
+         <nav id="adminNavbar" class="navbar" runat="server" visible="false">
+     <div class="container"> 
+         <a class="nav-link" href="Administrador.aspx">Portal Administrador</a>
+         <ul class="navbar-links">
+             <li><a class="nav-link" href="BuscarPaciente.aspx">Pacientes</a></li>
+             <li><a class="nav-link" href="BuscarProfesional.aspx">Profesionales</a></li>
+             <li><a class="nav-link" href="AdministrarEspecialidades.aspx">Especialidades</a></li>
+             <li><a class="nav-link" href="AdministrarInstituciones.aspx">Instituciones</a></li>
+         </ul>
+
+         <asp:Button ID="Button2" Text="Cerrar Sesión" CssClass="btn-cerrar-sesion" OnClick="CerrarSesion" runat="server" Visible="true" />
+
+     </div>
+ </nav>
+
         <div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
         </div>
