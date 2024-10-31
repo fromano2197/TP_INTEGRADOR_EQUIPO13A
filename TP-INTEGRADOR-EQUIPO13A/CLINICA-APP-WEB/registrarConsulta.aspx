@@ -2,6 +2,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
     <h1 class="titulo-principal">Registrar Consulta</h1>
         <div class="contenedor-formulario">
         <div class="grupo-formulario">
@@ -19,10 +20,10 @@
         <div class="grupo-formulario">
             <label for="txtAreaObservacionesConsulta" Class="etiqueta-formulario">Observaciones de la Consulta:</label>
             <textarea id="TxtAreaObservacionesConsulta" class="textarea-observaciones" cols="20" rows="2" placeholder="Observaciones..."></textarea><%--<asp:Textarea ID="txtObservacionesConsulta" CssClass="formulario-observaciones" runat="server" placeholder="Observaciones.." required="required" />--%>
+        </div>
 
-                </div>
     <asp:Button ID="btnRegistrarConsulta" Text="Registrar Consulta" CssClass="btn-enviar" runat="server" />
-                </div>
+           </div>
 
       
         

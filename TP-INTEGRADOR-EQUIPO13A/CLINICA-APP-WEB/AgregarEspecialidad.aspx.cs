@@ -18,12 +18,14 @@ namespace CLINICA_APP_WEB
 
         protected void btAgregarEspecialidad_Click(object sender, EventArgs e)
         {
+            //agregar
             Especialidad aux = new Especialidad();
             EspecialidadNegocio negocio = new EspecialidadNegocio();
-
             aux.NombreEspecialidad = txtEspecialidad.Text;
-
             negocio.Agregar(aux);
+            Response.Redirect("AdministrarEspecialidades.aspx", false);
+            
+            
         }
     }
 }

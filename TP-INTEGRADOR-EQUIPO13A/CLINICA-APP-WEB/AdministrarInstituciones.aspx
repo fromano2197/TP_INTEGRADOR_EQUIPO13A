@@ -30,7 +30,7 @@
                         <td><%# Eval("Fecha_Apertura") %></td>     
                         
                         <td>
-                        <a class="btnAcciones">Eliminar</a>
+                        <a href ="EliminarInstitucion.aspx" class="btnAcciones">Eliminar</a>
                         </td>
                     </tr>
                 </ItemTemplate>

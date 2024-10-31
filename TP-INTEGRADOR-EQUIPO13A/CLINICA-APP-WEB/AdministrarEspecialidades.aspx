@@ -5,8 +5,9 @@
      <link rel="stylesheet" type="text/css" href='<%= ResolveUrl("~/Content/estilos.css") %>' />
     <div class="contenedor">
     <h1 class="titulo-resultados">Lista de Especialidades</h1>
+
     <label for="txtDni" class="etiqueta-formulario">Buscar Especialidad:</label>
-    <asp:TextBox ID="txtDni" CssClass="entrada-formulario" runat="server" placeholder="Introducir Especialidad" required="required" />
+    <asp:TextBox ID="txtDni" CssClass="entrada-formulario" runat="server" placeholder="Introducir Especialidad"/>
 </div>
     <div>
         <div class="table-responsive">
@@ -25,8 +26,9 @@
                         <td><%# Eval("IdEspecialidad") %></td>
                         <td><%# Eval("NombreEspecialidad") %></td>
                         <td>
-                        <a class="btnAcciones">Eliminar</a>
-                        </td>
+                     <asp:button ID="btnModificar" CommandName="Modificar" CommandArgument='<%# Eval("IdEspecialidad") %>' OnCommand="btnModificar_Command" CssClass="btn-especialidad" runat="server" Text="Modificar"/>
+                     <asp:button ID="btnEliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdEspecialidad") %>' OnCommand="btnEliminar_Command" CssClass="btn-especialidad" runat="server" Text="Eliminar"/>
+                        </td>      
                     </tr>
                 </ItemTemplate>
             </asp:Repeater>
@@ -37,9 +39,7 @@
         </div>
 
         <div>
-        <div class="especialidad-botones">
-        <a href="AgregarEspecialidad.aspx" class="especialidad-btn">Agregar Especialidad</a>
-        </div>
+            <asp:Button ID="btnAgregar" OnClick="btnAgregar_Click" CssClass ="btn-especialidad" runat="server" Text="Agregar Especialidad" />
         </div>
 
 </asp:Content>

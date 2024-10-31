@@ -84,6 +84,7 @@
     <Content Include="MisEstudios.aspx" />
     <Content Include="misPacientes.aspx" />
     <Content Include="MisTurnos.aspx" />
+    <Content Include="ModificarEspecialidad.aspx" />
     <Content Include="PortalMedicos.aspx" />
     <Content Include="PortalPacientes.aspx" />
     <Content Include="registrarConsulta.aspx" />
@@ -201,6 +202,13 @@
     </Compile>
     <Compile Include="MisTurnos.aspx.designer.cs">
       <DependentUpon>MisTurnos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ModificarEspecialidad.aspx.cs">
+      <DependentUpon>ModificarEspecialidad.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ModificarEspecialidad.aspx.designer.cs">
+      <DependentUpon>ModificarEspecialidad.aspx</DependentUpon>
     </Compile>
     <Compile Include="PortalMedicos.aspx.cs">
       <DependentUpon>PortalMedicos.aspx</DependentUpon>

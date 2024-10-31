@@ -41,6 +41,37 @@ namespace Negocio
             return lista;
         }
 
+        public List<Especialidad> listar_porID(int ID)
+        {
+            List<Especialidad> lista = new List<Especialidad>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setConsulta("select * from ESPECIALIDAD WHERE IDESPECIALIDAD =" + ID);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Especialidad aux = new Especialidad();
+                    aux.IdEspecialidad = int.Parse(datos.Lector["IDESPECIALIDAD"].ToString());
+                    aux.NombreEspecialidad = (string)datos.Lector["ESPECIALIDAD"];
+
+
+                    lista.Add(aux);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return lista;
+        }
+
         public void Agregar(Especialidad aux)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -65,6 +96,33 @@ namespace Negocio
             }
         }
 
+        public void Modificar(Especialidad aux)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+               
+                datos.setConsulta("UPDATE ESPECIALIDAD SET ESPECIALIDAD = @especialidad WHERE IdEspecialidad = @id");
+
+            
+                datos.setearParametro("@especialidad", aux.NombreEspecialidad);
+                datos.setearParametro("@id", aux.IdEspecialidad);
+
+               
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex; 
+            }
+            finally
+            {
+        
+                datos.cerrarConexion();
+            }
+        }
+
         public void eliminar(int ID)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -72,7 +130,7 @@ namespace Negocio
             try
                 {
                     
-                    datos.setConsulta("delete from ESPECIALIDAD where id=@id");
+                    datos.setConsulta("delete from ESPECIALIDAD where IDESPECIALIDAD=@id");
                     datos.setearParametro("@id", ID);
                     datos.ejecutarAccion();
                 }

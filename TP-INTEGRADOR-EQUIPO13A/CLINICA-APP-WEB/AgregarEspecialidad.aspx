@@ -10,9 +10,12 @@
     <div class="contenedor-formulario">
         <div class="grupo-formulario">
             <label for="txtEspecialidad" class="etiqueta-formulario">Nombre Especialidad:</label>
-            <asp:TextBox ID="txtEspecialidad" CssClass="entrada-formulario" runat="server" placeholder="Especialidad" required="required" />
+            <asp:TextBox ID="txtEspecialidad" CssClass="entrada-formulario" runat="server" placeholder="Especialidad"/>
+            </div>
+            <div>
         <asp:Button ID="btAgregarEspecialidad" onclick="btAgregarEspecialidad_Click" Text="Agregar Especialidad" CssClass="btn-enviar" runat="server" />
     </div>
+            </div>
         </div>
-        </div>
+        
 </asp:Content>
