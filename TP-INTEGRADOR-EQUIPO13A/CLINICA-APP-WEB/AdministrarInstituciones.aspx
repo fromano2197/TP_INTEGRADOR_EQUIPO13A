@@ -6,7 +6,7 @@
     <div class="contenedor">
     <h1 class="titulo-resultados">Lista de Instituciones</h1>
     <label for="txtDni" class="etiqueta-formulario">Buscar Institucion:</label>
-    <asp:TextBox ID="txtDni" CssClass="entrada-formulario" runat="server" placeholder="Introducir Institución" required="required" />
+    <asp:TextBox ID="txtDni" CssClass="entrada-formulario" runat="server" placeholder="Introducir Institución" />
 </div>
     <div>
         <div class="table-responsive">
@@ -29,9 +29,12 @@
                         <td><%# Eval("Direccion") %></td>
                         <td><%# Eval("Fecha_Apertura") %></td>     
                         
-                        <td>
-                        <a href ="EliminarInstitucion.aspx" class="btnAcciones">Eliminar</a>
-                        </td>
+                        
+                           <td>
+                    <asp:button ID="btnModificar" CommandName="Modificar" CommandArgument='<%# Eval("IdInstitucion") %>' OnCommand="btnModificar_Command" CssClass="btn-especialidad" runat="server" Text="Modificar"/>
+                    <asp:button ID="btnEliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdInstitucion") %>' OnCommand="btnEliminar_Command" CssClass="btn-especialidad" runat="server" Text="Eliminar"/>
+                        </td> 
+                        
                     </tr>
                 </ItemTemplate>
             </asp:Repeater>
@@ -41,9 +44,10 @@
         <hr>
         </div>
 
-        <div>
-        <div class="especialidad-botones">
-        <a href="AgregarInstitucion.aspx" class="especialidad-btn">Agregar Institucion</a>
-        </div>
-        </div>
+       
+       <div>
+    <asp:Button ID="btnAgregar" OnClick="btnAgregar_Click" CssClass ="btn-especialidad" runat="server" Text="Agregar Institucion" />
+</div>
+
+
 </asp:Content>

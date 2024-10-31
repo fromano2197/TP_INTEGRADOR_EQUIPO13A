@@ -24,5 +24,32 @@ namespace CLINICA_APP_WEB
                 repRepeaterInstitucion.DataBind();
             }
         }
+        protected void btnModificar_Command(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "Modificar")
+            {
+                int idInstitucion = Convert.ToInt32(e.CommandArgument);
+                Response.Redirect("ModificarInstitucion.aspx?id=" + idInstitucion);
+
+
+            }
+        }
+        protected void btnEliminar_Command(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "Eliminar")
+            {
+                int idInstitucion = Convert.ToInt32(e.CommandArgument);
+                EspecialidadNegocio negocio = new EspecialidadNegocio();
+                negocio.eliminar(idInstitucion);
+                Response.Redirect("AdministrarInstituciones.aspx", false);
+
+            }
+        }
+
+        protected void btnAgregar_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AgregarInstitucion.aspx", false);
+        }
     }
 }
+

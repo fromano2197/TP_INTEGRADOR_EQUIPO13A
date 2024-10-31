@@ -16,16 +16,17 @@ namespace CLINICA_APP_WEB
 
         }
 
-        //protected void btAgregarInstitucion_Click(object sender, EventArgs e)
-        //{
-        //    Institucion aux = new Institucion();
-        //    InstitucionNegocio negocio = new InstitucionNegocio();
+        protected void btAgregarInstitucion_Click(object sender, EventArgs e)
+        {
+            Institucion aux = new Institucion();
+            InstitucionNegocio negocio = new InstitucionNegocio();
 
-        //    aux.Nombre = txtNombreInstitucion.Text;
-        //    aux.Direccion = txtDireccionInstitucion.Text;
-        //    aux.Fecha_Apertura = (DateTime)txtFechaInstitucion.Text;
+            aux.Nombre = txtNombreInstitucion.Text;
+            aux.Direccion = txtDireccionInstitucion.Text;
+            aux.Fecha_Apertura = DateTime.Parse(txtFechaInstitucion.Text);
 
-        //    negocio.Agregar(aux);
-        //}
+            negocio.Agregar(aux);
+            Response.Redirect("AdministrarInstituciones", false);
+        }
     }
 }

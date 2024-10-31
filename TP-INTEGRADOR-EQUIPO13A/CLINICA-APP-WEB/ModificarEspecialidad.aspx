@@ -20,4 +20,5 @@
      <asp:Button ID="btnModificarEspecialidad" OnClick="btnModificarEspecialidad_Click" Text="Modificar" CssClass="btn-enviar" runat="server" />
  </div>
      </div>
+         </div>
 </asp:Content>
