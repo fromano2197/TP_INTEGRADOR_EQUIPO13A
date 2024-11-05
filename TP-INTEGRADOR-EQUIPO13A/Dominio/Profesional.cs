@@ -11,6 +11,8 @@ namespace Dominio
         public Usuario Usuario { get; set; }
         public Persona Persona { get; set; }
         public Especialidad Especialidad { get; set; }
+
+        public string Especialidades { get; set; }
         public int Estado { get; set; }
         public DateTime FechaIngreso { get; set; }
         public int Matricula { get; set; }

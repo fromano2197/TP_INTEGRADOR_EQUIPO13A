@@ -11,14 +11,14 @@ namespace CLINICA_APP_WEB
 {
     public partial class BuscarProfesional : System.Web.UI.Page
     {
-        public List<Persona> ListaProfesionales { get; set; }
+        public List<Profesional> ListaProfesionales { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 ProfesionalNegocio negocio = new ProfesionalNegocio();
-                ListaProfesionales = negocio.listar();
+                ListaProfesionales = negocio.listarProfesionales();
                 repRepeater.DataSource = ListaProfesionales;
                 repRepeater.DataBind();
             }

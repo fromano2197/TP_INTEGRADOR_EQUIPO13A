@@ -75,6 +75,7 @@
     <Content Include="Content\estilos.css" />
     <Content Include="ContraseñaOlvidada.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="DetallesProfesionales.aspx" />
     <Content Include="Global.asax" />
     <Content Include="HistoriaClinica.aspx" />
     <Content Include="Images\clinica.ico" />
@@ -158,6 +159,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="DetallesProfesionales.aspx.cs">
+      <DependentUpon>DetallesProfesionales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DetallesProfesionales.aspx.designer.cs">
+      <DependentUpon>DetallesProfesionales.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

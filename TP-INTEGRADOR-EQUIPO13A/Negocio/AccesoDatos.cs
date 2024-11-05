@@ -20,7 +20,7 @@ namespace Negocio
 
         public AccesoDatos()
         {
-            conexion = new SqlConnection("Server=.\\SQLEXPRESS; Database=ClinicaDB; Integrated Security=True");
+            conexion = new SqlConnection("server=172.24.208.1; database=ClinicaDB; user=sa; password=Fr123456!;");
             comando = new SqlCommand();
 
         }
@@ -48,7 +48,7 @@ namespace Negocio
             catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
 
         }

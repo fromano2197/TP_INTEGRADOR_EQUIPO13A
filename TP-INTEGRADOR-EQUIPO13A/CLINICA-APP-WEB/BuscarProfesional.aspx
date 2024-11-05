@@ -17,7 +17,8 @@
                 <tr>
                     <th>Apellido</th>
                     <th>Nombre</th>
-                    <th>DNI</th>
+                    <th>Especialidad</th>
+                    <th>Institución</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -25,11 +26,17 @@
                 <asp:Repeater ID="repRepeater" runat="server">
                     <ItemTemplate>
                         <tr>
-                            <td><%# Eval("Apellido") %></td>
-                            <td><%# Eval("Nombre") %></td>
-                            <td><%# Eval("Dni") %></td>
-                            <td>
-                                <a class="btnAcciones" href="DetallePaciente.aspx?id=<%# Eval("IDPERSONA") %>">Ver Detalle</a>
+                            <td><%# Eval("Persona.Apellido") %></td>
+                            <td><%# Eval("Persona.Nombre") %></td>
+                            <td><%# Eval("Especialidades") %></td>
+                            <td><%# Eval("Institucion.Nombre") %></td>
+                            <td>              
+                                <asp:Button ID="btnModificar" runat="server" Text="Modificar" CssClass="btn btn-primary btn-sm" 
+                                            CommandName="Modificar" CommandArgument='<%# Eval("Persona.IdPersona") %>' />
+
+                                <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger btn-sm" 
+                                            CommandName="Eliminar" CommandArgument='<%# Eval("Persona.IdPersona") %>' 
+                                            OnClientClick="return confirm('¿Está seguro de que desea eliminar este profesional?');" />
                             </td>
                         </tr>
                     </ItemTemplate>
