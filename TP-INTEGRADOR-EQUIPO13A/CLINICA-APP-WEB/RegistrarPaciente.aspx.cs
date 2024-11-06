@@ -31,7 +31,7 @@ namespace CLINICA_APP_WEB
                 paciente.DatosPersona.Apellido = txtApellido.Text;
                 paciente.DatosPersona.FechaNacimiento = DateTime.Parse(txtFechaNac.Text);
                 paciente.DatosPersona.ContactoCliente.Email = txtEmail.Text;
-                paciente.DatosPersona.ContactoCliente.telefono = int.Parse(txtTelefono.Text);
+                paciente.DatosPersona.ContactoCliente.telefono = txtTelefono.Text;
                 paciente.DatosPersona.ContactoCliente.Direccion = txtDireccion.Text;
                 usuario.User = txtUsuario.Text;
                 usuario.Password = txtPass.Text;

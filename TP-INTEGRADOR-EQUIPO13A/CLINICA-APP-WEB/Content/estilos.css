@@ -242,6 +242,106 @@ form {
         background-color: #357ABD;
     }
 
+.btn-secundario {
+    width: 25%;
+    padding: 12px;
+    font-size: 1rem;
+    background-color: #4A90E2;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .btn-secundario:hover {
+        background-color: #357ABD;
+    }
+
+.contenedor-boton {
+    text-align: right;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.btn-agregar-profesional {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+
+    .btn-agregar-profesional:hover {
+        background-color: #218838;
+        box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3);
+        transform: translateY(-2px);
+    }
+
+.grid-formulario {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.grupo-formulario {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.etiqueta-formulario {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.entrada-formulario {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.btn-enviar {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+    .btn-enviar:hover {
+        background-color: #45a049;
+    }
+
+
+.contenedor-formulario {
+    padding: 20px;
+}
+
+.btn-enviar {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    .btn-enviar:hover {
+        background-color: #45a049;
+    }
+
+
 @media (max-width: 768px) {
     .form-container {
         padding: 15px;

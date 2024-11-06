@@ -68,6 +68,7 @@
     <Content Include="Administrador.aspx" />
     <Content Include="AdministrarEspecialidades.aspx" />
     <Content Include="AdministrarInstituciones.aspx" />
+    <Content Include="AgragarProfesional.aspx" />
     <Content Include="AgregarEspecialidad.aspx" />
     <Content Include="AgregarInstitucion.aspx" />
     <Content Include="BuscarPaciente.aspx" />
@@ -87,6 +88,7 @@
     <Content Include="MisTurnos.aspx" />
     <Content Include="ModificarEspecialidad.aspx" />
     <Content Include="ModificarInstitucion.aspx" />
+    <Content Include="ModificarProfesional.aspx" />
     <Content Include="PortalMedicos.aspx" />
     <Content Include="PortalPacientes.aspx" />
     <Content Include="registrarConsulta.aspx" />
@@ -117,6 +119,13 @@
     </Compile>
     <Compile Include="AdministrarInstituciones.aspx.designer.cs">
       <DependentUpon>AdministrarInstituciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AgragarProfesional.aspx.cs">
+      <DependentUpon>AgragarProfesional.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgragarProfesional.aspx.designer.cs">
+      <DependentUpon>AgragarProfesional.aspx</DependentUpon>
     </Compile>
     <Compile Include="AgregarEspecialidad.aspx.cs">
       <DependentUpon>AgregarEspecialidad.aspx</DependentUpon>
@@ -225,6 +234,13 @@
     </Compile>
     <Compile Include="ModificarInstitucion.aspx.designer.cs">
       <DependentUpon>ModificarInstitucion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ModificarProfesional.aspx.cs">
+      <DependentUpon>ModificarProfesional.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ModificarProfesional.aspx.designer.cs">
+      <DependentUpon>ModificarProfesional.aspx</DependentUpon>
     </Compile>
     <Compile Include="PortalMedicos.aspx.cs">
       <DependentUpon>PortalMedicos.aspx</DependentUpon>

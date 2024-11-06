@@ -8,14 +8,13 @@ namespace Dominio
 {
     public class Profesional
     {
-        public Usuario Usuario { get; set; }
-        public Persona Persona { get; set; }
-        public Especialidad Especialidad { get; set; }
-
-        public string Especialidades { get; set; }
+        public Usuario Usuario { get; set; } = new Usuario();
+        public Persona Persona { get; set; } = new Persona();
+        public Especialidad Especialidad { get; set; } = new Especialidad();
+        public List<Especialidad> Especialidades { get; set; } = new List<Especialidad>();
         public int Estado { get; set; }
-        public DateTime FechaIngreso { get; set; }
+        public DateTime FechaIngreso { get; set; } = new DateTime();
         public int Matricula { get; set; }
-        public Institucion Institucion { get; set; }
+        public Institucion Institucion { get; set; } = new Institucion();
     }
 }

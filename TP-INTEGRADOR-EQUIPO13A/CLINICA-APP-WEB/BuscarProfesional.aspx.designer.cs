@@ -24,13 +24,22 @@ namespace CLINICA_APP_WEB
         protected global::System.Web.UI.WebControls.GridView dgvPacientes;
 
         /// <summary>
-        /// Control txtDni.
+        /// Control txtBuscarProfesional.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDni;
+        protected global::System.Web.UI.WebControls.TextBox txtBuscarProfesional;
+
+        /// <summary>
+        /// Control btnAgregarProfesional.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAgregarProfesional;
 
         /// <summary>
         /// Control repRepeater.

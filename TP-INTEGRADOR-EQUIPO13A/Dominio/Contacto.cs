@@ -11,6 +11,6 @@ namespace Dominio
         public int IdContacto { get; set; }
         public string Direccion { get; set; }
         public string Email { get; set; }
-        public int telefono { get; set; }
+        public string telefono { get; set; }
     }
 }

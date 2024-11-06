@@ -24,48 +24,66 @@ namespace CLINICA_APP_WEB
             }
         }
 
-        /*protected void VerDetalle_Click(object sender, EventArgs e)
+        protected void btnVisualizar_Command(object sender, CommandEventArgs e)
         {
+            if (e.CommandName == "Visualizar")
+            {
+                int idPersona = Convert.ToInt32(e.CommandArgument);
+                Response.Redirect("DetallesProfesionales.aspx?id=" + idPersona);
 
+            }
+        }
+        protected void btnEliminar_Command(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "Eliminar")
+            {
+                int idPersona = Convert.ToInt32(e.CommandArgument);
+                EliminarLogicoProfesional(idPersona);
+            }
+        }
 
-            LinkButton btn = (LinkButton)sender;
-            string articuloId = btn.CommandArgument;
-
-
-            Response.Redirect("Detalle.aspx");
+        protected void btnAgregarProfesional_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AgragarProfesional.aspx", false);
         }
 
 
-        protected void btnBuscar_Click(object sender, EventArgs e)
+        private void EliminarLogicoProfesional(int idPersona)
         {
-
-            int dni;
-            if (int.TryParse(txtDni.Text, out dni))
+            try
             {
-                PacienteNegocio negocio = new PacienteNegocio();
-                Persona paciente = negocio.listar(dni);
-                
-                if (paciente != null)
-                {
+                AccesoDatos accesoDatos = new AccesoDatos();
+                string storedProcedure = "SP_BAJA_LOGICA_PROFESIONAL";
 
-                    
-                    lblNombre.Text = paciente.Nombre;
-                    lblApellido.Text = paciente.Apellido;
-                    lblDni.Text = paciente.Dni.ToString();
-                }
-                else
-                {
-                    
-                    lblMensaje.Text = "Paciente no encontrado.";
-                }
+                accesoDatos.setearProcedimiento(storedProcedure);
+                accesoDatos.setearParametro("@IDPERSONA", idPersona);
+
+                accesoDatos.ejecutarAccion();
+
+                ProfesionalNegocio profesionalNegocio = new ProfesionalNegocio();
+                List<Profesional> listaProfesionales = profesionalNegocio.listarProfesionales();
+
+                repRepeater.DataSource = listaProfesionales;
+                repRepeater.DataBind();
+
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "mensaje", "alert('El profesional ha sido dado de baja.');", true);
             }
-            else
+            catch (Exception ex)
             {
-                lblMensaje.Text = "Por favor, ingrese un DNI válido.";
-            }
 
-        }*/
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "mensajeError", $"alert('Error al dar de baja al profesional: {ex.Message}');", true);
+            }
+        }
+
+
+
+
 
     }
 }
+
+
+
+
+
 
