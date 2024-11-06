@@ -12,5 +12,7 @@ namespace Dominio
         public string Direccion { get; set; }
         public DateTime Fecha_Apertura { get; set; }
         public string Nombre { get; set; }
+
+        public bool Activo { get; set; }
     }
 }

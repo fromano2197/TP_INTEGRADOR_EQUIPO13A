@@ -11,7 +11,7 @@ namespace CLINICA_APP_WEB
 {
     public partial class AdministrarInstituciones : System.Web.UI.Page
     {
-        public List<Institucion> ListaEspecialidades { get; set; }
+        public List<Institucion> ListaInstituciones { get; set; }
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -19,8 +19,8 @@ namespace CLINICA_APP_WEB
             if (!IsPostBack)
             {
                 InstitucionNegocio negocio = new InstitucionNegocio();
-                ListaEspecialidades = negocio.listar();
-                repRepeaterInstitucion.DataSource = ListaEspecialidades;
+                ListaInstituciones = negocio.listar();
+                repRepeaterInstitucion.DataSource = ListaInstituciones;
                 repRepeaterInstitucion.DataBind();
             }
         }
@@ -39,7 +39,7 @@ namespace CLINICA_APP_WEB
             if (e.CommandName == "Eliminar")
             {
                 int idInstitucion = Convert.ToInt32(e.CommandArgument);
-                EspecialidadNegocio negocio = new EspecialidadNegocio();
+                InstitucionNegocio negocio = new InstitucionNegocio();
                 negocio.eliminar(idInstitucion);
                 Response.Redirect("AdministrarInstituciones.aspx", false);
 

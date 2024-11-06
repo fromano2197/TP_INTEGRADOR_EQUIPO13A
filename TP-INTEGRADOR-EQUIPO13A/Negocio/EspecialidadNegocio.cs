@@ -17,7 +17,7 @@ namespace Negocio
 
             try
             {
-                datos.setConsulta("select * from ESPECIALIDAD");
+                datos.setConsulta("select * from ESPECIALIDAD WHERE ACTIVO = 1");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -25,8 +25,8 @@ namespace Negocio
                     Especialidad aux = new Especialidad();
                     aux.IdEspecialidad = int.Parse(datos.Lector["IDESPECIALIDAD"].ToString());
                     aux.NombreEspecialidad = (string)datos.Lector["ESPECIALIDAD"];
-
-
+                    aux.Activo = bool.Parse(datos.Lector["ACTIVO"].ToString());
+                    
                     lista.Add(aux);
                 }
             }
@@ -130,7 +130,7 @@ namespace Negocio
             try
                 {
                     
-                    datos.setConsulta("delete from ESPECIALIDAD where IDESPECIALIDAD=@id");
+                    datos.setConsulta("UPDATE ESPECIALIDAD SET ACTIVO = 0 where IDESPECIALIDAD=@id");
                     datos.setearParametro("@id", ID);
                     datos.ejecutarAccion();
                 }

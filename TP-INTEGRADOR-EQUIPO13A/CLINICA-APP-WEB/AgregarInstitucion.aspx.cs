@@ -26,7 +26,7 @@ namespace CLINICA_APP_WEB
             aux.Fecha_Apertura = DateTime.Parse(txtFechaInstitucion.Text);
 
             negocio.Agregar(aux);
-            Response.Redirect("AdministrarInstituciones", false);
+            Response.Redirect("AdministrarInstituciones.aspx", false);
         }
     }
 }

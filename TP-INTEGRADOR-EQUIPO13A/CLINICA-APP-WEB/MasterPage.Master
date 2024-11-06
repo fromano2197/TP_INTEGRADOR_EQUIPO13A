@@ -29,7 +29,7 @@
 
 
         <nav id="medicoNavbar" class="navbar" runat="server" visible="false">
-            <div class="container"> 
+            <div class="container">
                 <a class="nav-link" href="PortalMedicos.aspx">Portal Médico</a>
                 <ul class="navbar-links">
                     <li><a class="nav-link" href="misPacientes.aspx">Mis Pacientes</a></li>
@@ -42,30 +42,30 @@
             </div>
         </nav>
 
-         <nav id="adminNavbar" class="navbar" runat="server" visible="false">
-     <div class="container"> 
-         <a class="nav-link" href="Administrador.aspx">Portal Administrador</a>
-         <ul class="navbar-links">
-             <li><a class="nav-link" href="BuscarPaciente.aspx">Pacientes</a></li>
-             <li><a class="nav-link" href="BuscarProfesional.aspx">Profesionales</a></li>
-             <li><a class="nav-link" href="AdministrarEspecialidades.aspx">Especialidades</a></li>
-             <li><a class="nav-link" href="AdministrarInstituciones.aspx">Instituciones</a></li>
-         </ul>
+        <nav id="adminNavbar" class="navbar" runat="server" visible="false">
+            <div class="container">
+                <a class="nav-link" href="Administrador.aspx">Portal Administrador</a>
+                <ul class="navbar-links">
+                    <li><a class="nav-link" href="BuscarPaciente.aspx">Pacientes</a></li>
+                    <li><a class="nav-link" href="BuscarProfesional.aspx">Profesionales</a></li>
+                    <li><a class="nav-link" href="AdministrarEspecialidades.aspx">Especialidades</a></li>
+                    <li><a class="nav-link" href="AdministrarInstituciones.aspx">Instituciones</a></li>
+                </ul>
 
-         <asp:Button ID="Button2" Text="Cerrar Sesión" CssClass="btn-cerrar-sesion" OnClick="CerrarSesion" runat="server" Visible="true" />
+                <asp:Button ID="Button2" Text="Cerrar Sesión" CssClass="btn-cerrar-sesion" OnClick="CerrarSesion" runat="server" Visible="true" />
 
-     </div>
- </nav>
+            </div>
+        </nav>
 
         <div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
         </div>
-        
+
     </form>
-   
+
     <footer>
-    <p>&copy; <%: DateTime.Now.Year %> - Clinica UTN</p>
-</footer>
-        
+        <p>&copy; <%: DateTime.Now.Year %> - Clinica UTN</p>
+    </footer>
+
 </body>
 </html>

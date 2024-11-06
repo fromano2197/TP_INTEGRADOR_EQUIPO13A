@@ -22,10 +22,11 @@ namespace CLINICA_APP_WEB
             AccesoDatos Datos = new AccesoDatos();
             try
             {
-                string consulta = "SELECT IDUSUARIO, TIPOUSUARIO FROM USUARIO WHERE NOMBRE_USUARIO = @usuario AND CONTRASENA = @contraseña";
+                string consulta = "SELECT IDUSUARIO, TIPOUSUARIO FROM USUARIO WHERE NOMBRE_USUARIO = @USUARIO AND CONTRASENA = @CONTRASEÑA";
+                
+                Datos.setearParametro("@USUARIO", usuario);
+                Datos.setearParametro("@CONTRASEÑA", contraseña);
                 Datos.setConsulta(consulta);
-                Datos.setearParametro("@usuario", usuario);
-                Datos.setearParametro("@contraseña", contraseña);
 
                 Datos.ejecutarLectura();
 

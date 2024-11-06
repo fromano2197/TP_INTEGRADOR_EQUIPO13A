@@ -15,6 +15,15 @@ namespace CLINICA_APP_WEB
     {
 
         /// <summary>
+        /// Control txtIDInstitucion.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox txtIDInstitucion;
+
+        /// <summary>
         /// Control txtNombreInstitucion.
         /// </summary>
         /// <remarks>
@@ -42,12 +51,12 @@ namespace CLINICA_APP_WEB
         protected global::System.Web.UI.WebControls.TextBox txtFechaInstitucion;
 
         /// <summary>
-        /// Control btModificarInstitucion.
+        /// Control btnModificarInstitucion.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btModificarInstitucion;
+        protected global::System.Web.UI.WebControls.Button btnModificarInstitucion;
     }
 }
