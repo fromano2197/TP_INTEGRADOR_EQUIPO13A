@@ -19,9 +19,11 @@
             <label for="txtFechaInstitucion" class="etiqueta-formulario">Fecha Apertura:</label>
             <asp:Textbox ID="txtFechaInstitucion" CssClass="entrada-formulario" runat="server" placeholder="DD/MM/AAAA" required="required" />
 
-
+            <div>
         <asp:Button ID="btnModificarInstitucion" onclick="btnModificarInstitucion_Click" Text="Modificar Institución" CssClass="btn-enviar" runat="server" />
-    </div>
         </div>
+    </div>
          </div>
+             </div>
+      
 </asp:Content>

@@ -7,7 +7,7 @@
         <div class="contenedor-formulario">
         <div class="grupo-formulario">
             <label for="txtDni" class="etiqueta-formulario">DNI Paciente:</label>
-            <asp:TextBox ID="txtDni" CssClass="entrada-formulario" runat="server" placeholder="Número de documento" required="required" />
+            <asp:TextBox ID="txtDni" CssClass="entrada-formulario" runat="server" placeholder="Número de documento" required="required" AutoPostBack="true" OntextChanged="txtDni_TextChanged"/>
         </div>
         <div class="grupo-formulario">
             <label for="txtNombrePaciente" class="etiqueta-formulario">Nombre Paciente:</label>
@@ -22,7 +22,7 @@
             <textarea id="TxtAreaObservacionesConsulta" class="textarea-observaciones" cols="20" rows="2" placeholder="Observaciones..."></textarea><%--<asp:Textarea ID="txtObservacionesConsulta" CssClass="formulario-observaciones" runat="server" placeholder="Observaciones.." required="required" />--%>
         </div>
 
-    <asp:Button ID="btnRegistrarConsulta" Text="Registrar Consulta" CssClass="btn-enviar" runat="server" />
+    <asp:Button ID="btnRegistrarConsulta" Text="Registrar Consulta" OnClick="btnRegistrarConsulta_Click" CssClass="btn-enviar" runat="server" />
            </div>
 
       

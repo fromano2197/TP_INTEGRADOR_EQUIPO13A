@@ -120,6 +120,35 @@ namespace Negocio
             }
             return aux;
         }
+        public int buscarIDPaciente(int DNI)
+        {
+            Paciente aux = new Paciente();
+            AccesoDatos datos = new AccesoDatos();
+            int IDPACIENTE = 0;
+            try
+            {
+                datos.setConsulta("SELECT PC.IDPACIENTE FROM PACIENTE PC INNER JOIN PERSONA P ON PC.IDPERSONA = P.IDPERSONA WHERE P.DNI = @DNI;");
+                datos.setearParametro("@DNI", DNI);
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    aux.IdPaciente = int.Parse(datos.Lector["IDPACIENTE"].ToString());
+                    IDPACIENTE = aux.IdPaciente;
+                    
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return IDPACIENTE;
+        }
+
 
         public int  nuevoPaciente(Paciente nuevo, Usuario usuario)
         {
