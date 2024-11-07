@@ -75,10 +75,15 @@ namespace CLINICA_APP_WEB
             }
         }
 
+        protected void btnModificar_Command(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "Modificar")
+            {
+                int idPersona = Convert.ToInt32(e.CommandArgument);
+                Response.Redirect("ModificarProfesional.aspx?id=" + idPersona);
 
-
-
-
+            }
+        }
     }
 }
 

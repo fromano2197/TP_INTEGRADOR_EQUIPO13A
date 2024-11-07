@@ -316,7 +316,35 @@ namespace Negocio
         }
 
 
+        public int ModificarProfesional(Profesional seleccionado)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("SP_MODIFICAR_PROFESIONAL");
+                datos.setearParametro("@IDPERSONA", seleccionado.Persona.IdPersona);
+                datos.setearParametro("@DNI", seleccionado.Persona.Dni);
+                datos.setearParametro("@NOMBRE", seleccionado.Persona.Nombre);
+                datos.setearParametro("@APELLIDO", seleccionado.Persona.Apellido);
+                datos.setearParametro("@FECHA_NACIMIENTO", seleccionado.Persona.FechaNacimiento);
+                datos.setearParametro("@EMAIL", seleccionado.Persona.ContactoCliente.Email);
+                datos.setearParametro("@TELEFONO", seleccionado.Persona.ContactoCliente.telefono);
+                datos.setearParametro("@DIRECCION", seleccionado.Persona.ContactoCliente.Direccion);
+                datos.ejecutarAccion();
 
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
 
     }
 }
