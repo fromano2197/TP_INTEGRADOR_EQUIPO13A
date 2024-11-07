@@ -79,20 +79,20 @@ namespace Negocio
             try
             {
 
-                datos.setConsulta("INSERT INTO ESPECIALIDAD (ESPECIALIDAD) VALUES (@especialidad)");
-                datos.setearParametro("@especialidad", aux.NombreEspecialidad);
+                datos.setearProcedimiento("SP_AGREGAR_ESPECIALIDAD");
+
+
+                datos.setearParametro("@ESPECIALIDAD", aux.NombreEspecialidad);
+
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             finally
             {
-
                 datos.cerrarConexion();
-
             }
         }
 

@@ -420,3 +420,61 @@ BEGIN
     END CATCH
 END;
 
+GO
+
+CREATE PROCEDURE SP_AGREGAR_INSTITUCION
+    @NOMBRE_INSTITUCION VARCHAR(100),
+    @FECHA_APERTURA DATE,
+    @DIRECCION VARCHAR(200)
+AS
+BEGIN
+    BEGIN TRY
+       
+        BEGIN TRANSACTION;
+        
+      
+        INSERT INTO INSTITUCION (NOMBRE_INSTITUCION, FECHA_APERTURA, DIRECCION)
+        VALUES (@NOMBRE_INSTITUCION, @FECHA_APERTURA, @DIRECCION);
+        
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+        DECLARE @ErrorNumber INT = ERROR_NUMBER();
+        DECLARE @ErrorLine INT = ERROR_LINE();
+        
+        RAISERROR ('Error al intentar agregar institución. Error %d en la línea %d: %s', 
+                   16, 1, @ErrorNumber, @ErrorLine, @ErrorMessage);
+    END CATCH;
+END;
+GO
+
+CREATE PROCEDURE SP_AGREGAR_ESPECIALIDAD
+    @ESPECIALIDAD VARCHAR(100)
+AS
+BEGIN
+    BEGIN TRY
+       
+        BEGIN TRANSACTION;
+        
+      
+        INSERT INTO ESPECIALIDAD (ESPECIALIDAD)
+        VALUES (@ESPECIALIDAD)
+        
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+        DECLARE @ErrorNumber INT = ERROR_NUMBER();
+        DECLARE @ErrorLine INT = ERROR_LINE();
+        
+        RAISERROR ('Error al intentar agregar especialidad. Error %d en la línea %d: %s', 
+                   16, 1, @ErrorNumber, @ErrorLine, @ErrorMessage);
+    END CATCH;
+END;
+GO
+

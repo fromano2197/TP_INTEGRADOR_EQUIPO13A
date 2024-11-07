@@ -50,22 +50,22 @@ namespace Negocio
             try
             {
 
-                datos.setConsulta("INSERT INTO INSTITUCION (NOMBRE_INSTITUCION, FECHA_APERTURA, DIRECCION) VALUES (@institucion, @fecha, @direccion)");
-                datos.setearParametro("@institucion", aux.Nombre);
-                datos.setearParametro("@fecha", aux.Fecha_Apertura);
-                datos.setearParametro("@direccion", aux.Direccion);
+                datos.setearProcedimiento("SP_AGREGAR_INSTITUCION");
+
+
+                datos.setearParametro("@NOMBRE_INSTITUCION", aux.Nombre);
+                datos.setearParametro("@FECHA_APERTURA", aux.Fecha_Apertura);
+                datos.setearParametro("@DIRECCION", aux.Direccion);
+
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             finally
             {
-
                 datos.cerrarConexion();
-
             }
         }
 
