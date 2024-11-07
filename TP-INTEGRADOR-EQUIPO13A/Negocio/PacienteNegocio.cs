@@ -223,6 +223,36 @@ namespace Negocio
             return lista;
         }
 
+        public int ModificarPaciente(Paciente seleccionado)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("SP_MODIFICAR_PACIENTE");
+                datos.setearParametro("@IDPERSONA", seleccionado.DatosPersona.IdPersona);
+                datos.setearParametro("@DNI", seleccionado.DatosPersona.Dni);
+                datos.setearParametro("@NOMBRE", seleccionado.DatosPersona.Nombre);
+                datos.setearParametro("@APELLIDO", seleccionado.DatosPersona.Apellido);
+                datos.setearParametro("@FECHA_NACIMIENTO", seleccionado.DatosPersona.FechaNacimiento);
+                datos.setearParametro("@EMAIL", seleccionado.DatosPersona.ContactoCliente.Email);
+                datos.setearParametro("@TELEFONO", seleccionado.DatosPersona.ContactoCliente.telefono);
+                datos.setearParametro("@DIRECCION", seleccionado.DatosPersona.ContactoCliente.Direccion);
+                datos.ejecutarAccion();
+
+
+                return 1;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
 
     }
 }

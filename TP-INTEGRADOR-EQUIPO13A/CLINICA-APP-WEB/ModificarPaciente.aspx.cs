@@ -55,6 +55,18 @@ namespace CLINICA_APP_WEB
 
         protected void btnModificarPaciente_Click(object sender, EventArgs e)
         {
+            Paciente seleccionado = new Paciente();
+            PacienteNegocio negocio = new PacienteNegocio();
+            seleccionado.DatosPersona.IdPersona = int.Parse(Request.QueryString["id"].ToString());
+            seleccionado.DatosPersona.Dni = int.Parse(txtDni.Text);
+            seleccionado.DatosPersona.Nombre = txtNombre.Text;
+            seleccionado.DatosPersona.Apellido = txtApellido.Text;
+            seleccionado.DatosPersona.FechaNacimiento = DateTime.Parse(txtFechaNac.Text);
+            seleccionado.DatosPersona.ContactoCliente.Email = txtEmail.Text;
+            seleccionado.DatosPersona.ContactoCliente.telefono = txtTelefono.Text;
+            seleccionado.DatosPersona.ContactoCliente.Direccion = txtDireccion.Text;
+            negocio.ModificarPaciente(seleccionado);
+            Response.Redirect("BuscarPaciente.aspx", false);
 
         }
     }
