@@ -29,12 +29,18 @@
                 <asp:Repeater ID="repRepeater" runat="server">
                     <ItemTemplate>
                         <tr>
+                           
                             <td><%# Eval("Apellido") %></td>
                             <td><%# Eval("Nombre") %></td>
                             <td><%# Eval("Dni") %></td>
-                            <td>
-                                <a class="btnAcciones" href="DetallePaciente.aspx?id=<%# Eval("IDPERSONA") %>">Ver Detalle</a>
-                            </td>
+
+                            
+                             <td>
+                            <asp:Button ID="btnVisualizar" CommandName="Visualizar" CommandArgument='<%# Eval("IdPersona") %>' OnCommand="btnVisualizar_Command" autopostback="true" CssClass="btn-especialidad" runat="server" Text="Visualizar" />
+                            <asp:button ID="btnModificar" CommandName="Modificar" CommandArgument='<%# Eval("IdPersona") %>' Oncommand="btnModificar_Command" CssClass="btn-especialidad" runat="server" Text="Modificar"/>
+                            <asp:button ID="btnEliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdPersona") %>' Oncommand="btnEliminar_Command1" CssClass="btn-especialidad" runat="server" Text="Eliminar"/>
+                             </td>      
+                            
                         </tr>
                     </ItemTemplate>
                 </asp:Repeater>

@@ -77,6 +77,7 @@
     <Content Include="Content\estilos.css" />
     <Content Include="ContraseñaOlvidada.aspx" />
     <Content Include="Default.aspx" />
+    <Content Include="DetallesPacientes.aspx" />
     <Content Include="DetallesProfesionales.aspx" />
     <Content Include="Global.asax" />
     <Content Include="HistoriaClinica.aspx" />
@@ -89,6 +90,7 @@
     <Content Include="MisTurnos.aspx" />
     <Content Include="ModificarEspecialidad.aspx" />
     <Content Include="ModificarInstitucion.aspx" />
+    <Content Include="ModificarPaciente.aspx" />
     <Content Include="ModificarProfesional.aspx" />
     <Content Include="PortalMedicos.aspx" />
     <Content Include="PortalPacientes.aspx" />
@@ -177,6 +179,13 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
+    <Compile Include="DetallesPacientes.aspx.cs">
+      <DependentUpon>DetallesPacientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DetallesPacientes.aspx.designer.cs">
+      <DependentUpon>DetallesPacientes.aspx</DependentUpon>
+    </Compile>
     <Compile Include="DetallesProfesionales.aspx.cs">
       <DependentUpon>DetallesProfesionales.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -242,6 +251,13 @@
     </Compile>
     <Compile Include="ModificarInstitucion.aspx.designer.cs">
       <DependentUpon>ModificarInstitucion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ModificarPaciente.aspx.cs">
+      <DependentUpon>ModificarPaciente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ModificarPaciente.aspx.designer.cs">
+      <DependentUpon>ModificarPaciente.aspx</DependentUpon>
     </Compile>
     <Compile Include="ModificarProfesional.aspx.cs">
       <DependentUpon>ModificarProfesional.aspx</DependentUpon>

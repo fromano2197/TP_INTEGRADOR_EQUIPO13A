@@ -24,23 +24,23 @@ namespace CLINICA_APP_WEB
                 repRepeater.DataBind();
             }
         }
-        protected void btnVisualizar_Command(object sender, CommandEventArgs e)
-        {
-            if (e.CommandName == "Visualizar")
-            {
-                int idPersona = Convert.ToInt32(e.CommandArgument);
-                Response.Redirect("DetallesProfesionales.aspx?id=" + idPersona);
+        //protected void btnVisualizar_Command(object sender, CommandEventArgs e)
+        //{
+        //    if (e.CommandName == "Visualizar")
+        //    {
+        //        int idPersona = Convert.ToInt32(e.CommandArgument);
+        //        Response.Redirect("DetallesProfesionales.aspx?id=" + idPersona);
 
-            }
-        }
-        protected void btnEliminar_Command(object sender, CommandEventArgs e)
-        {
-            if (e.CommandName == "Eliminar")
-            {
-                int idPersona = Convert.ToInt32(e.CommandArgument);
-                EliminarLogicoProfesional(idPersona);
-            }
-        }
+        //    }
+        //}
+        //protected void btnEliminar_Command(object sender, CommandEventArgs e)
+        //{
+        //    if (e.CommandName == "Eliminar")
+        //    {
+        //        int idPersona = Convert.ToInt32(e.CommandArgument);
+        //        EliminarLogicoProfesional(idPersona);
+        //    }
+        //}
 
         protected void btnAgregarProfesional_Click(object sender, EventArgs e)
         {
@@ -48,30 +48,62 @@ namespace CLINICA_APP_WEB
         }
 
 
-        private void EliminarLogicoProfesional(int idPersona)
+        //private void EliminarLogicoProfesional(int idPersona)
+        //{
+        //    try
+        //    {
+        //        AccesoDatos accesoDatos = new AccesoDatos();
+        //        string storedProcedure = "SP_BAJA_LOGICA_PROFESIONAL";
+
+        //        accesoDatos.setearProcedimiento(storedProcedure);
+        //        accesoDatos.setearParametro("@IDPERSONA", idPersona);
+
+        //        accesoDatos.ejecutarAccion();
+
+        //        ProfesionalNegocio profesionalNegocio = new ProfesionalNegocio();
+        //        List<Profesional> listaProfesionales = profesionalNegocio.listarProfesionales();
+
+        //        repRepeater.DataSource = listaProfesionales;
+        //        repRepeater.DataBind();
+
+        //        ScriptManager.RegisterStartupScript(this, this.GetType(), "mensaje", "alert('El profesional ha sido dado de baja.');", true);
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //        ScriptManager.RegisterStartupScript(this, this.GetType(), "mensajeError", $"alert('Error al dar de baja al profesional: {ex.Message}');", true);
+        //    }
+        //}
+
+        protected void btnModificar_Command(object sender, CommandEventArgs e)
         {
-            try
+            if (e.CommandName == "Modificar")
             {
-                AccesoDatos accesoDatos = new AccesoDatos();
-                string storedProcedure = "SP_BAJA_LOGICA_PROFESIONAL";
+                int idPersona = Convert.ToInt32(e.CommandArgument);
+                Response.Redirect("ModificarPaciente.aspx?id=" + idPersona);
 
-                accesoDatos.setearProcedimiento(storedProcedure);
-                accesoDatos.setearParametro("@IDPERSONA", idPersona);
-
-                accesoDatos.ejecutarAccion();
-
-                ProfesionalNegocio profesionalNegocio = new ProfesionalNegocio();
-                List<Profesional> listaProfesionales = profesionalNegocio.listarProfesionales();
-
-                repRepeater.DataSource = listaProfesionales;
-                repRepeater.DataBind();
-
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "mensaje", "alert('El profesional ha sido dado de baja.');", true);
             }
-            catch (Exception ex)
-            {
+        }
 
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "mensajeError", $"alert('Error al dar de baja al profesional: {ex.Message}');", true);
+        protected void btnEliminar_Command1(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "Eliminar")
+            {
+                PacienteNegocio negocio = new PacienteNegocio();
+                int idPersona = Convert.ToInt32(e.CommandArgument);
+                negocio.eliminarPaciente(idPersona);
+                Response.Redirect("BuscarPaciente.aspx", false);
+
+            }
+        }
+
+        protected void btnVisualizar_Command(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "Visualizar")
+            {
+                int idPersona = Convert.ToInt32(e.CommandArgument);
+                Response.Redirect("DetallesPacientes.aspx?id=" + idPersona);
+
             }
         }
 

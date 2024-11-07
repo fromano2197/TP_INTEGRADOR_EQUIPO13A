@@ -164,11 +164,6 @@ INSERT INTO CONTACTO (IDPERSONA, DIRECCION, EMAIL, TELEFONO) VALUES
 GO
 
 INSERT INTO PACIENTE (IDPERSONA, IDUSUARIO) VALUES 
-(1, 1),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 5),
 (6, 6),
 (7, 7),
 (8, 8),
@@ -474,6 +469,40 @@ BEGIN
         
         RAISERROR ('Error al intentar agregar especialidad. Error %d en la línea %d: %s', 
                    16, 1, @ErrorNumber, @ErrorLine, @ErrorMessage);
+    END CATCH;
+END;
+GO
+
+CREATE PROCEDURE SP_ELIMINAR_PACIENTE_PERSONA
+    @id INT
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION;
+        DECLARE @idPaciente INT;
+        SELECT @idPaciente = IDPACIENTE 
+        FROM PACIENTE 
+        WHERE IDPERSONA = @id;
+        IF @idPaciente IS NOT NULL
+        BEGIN
+            UPDATE TURNO 
+			SET ACTIVO = 0 
+			WHERE IDPACIENTE = @idPaciente;
+            UPDATE PACIENTE 
+			SET ACTIVO = 0 
+			WHERE IDPERSONA = @id;
+        END
+		UPDATE CONTACTO 
+		SET ACTIVO = 0
+		WHERE IDPERSONA = @id
+        UPDATE PERSONA 
+		SET ACTIVO = 0
+		WHERE IDPERSONA = @id;
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+		THROW; 
     END CATCH;
 END;
 GO

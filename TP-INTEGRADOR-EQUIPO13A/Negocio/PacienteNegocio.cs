@@ -21,15 +21,17 @@ namespace Negocio
 
             try
             {
-                datos.setConsulta("select P.APELLIDO, P.NOMBRE, P.DNI from PERSONA as P inner join PACIENTE as PA on PA.IDPERSONA = P.IDPERSONA ORDER BY P.APELLIDO ASC");
+                datos.setConsulta("select P.IDPERSONA, P.APELLIDO, P.NOMBRE, P.DNI from PERSONA as P \r\ninner join PACIENTE as PA on PA.IDPERSONA = P.IDPERSONA WHERE P.ACTIVO = 1 ORDER BY P.APELLIDO ASC");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
                     Persona aux = new Persona();
+                    aux.IdPersona = datos.Lector.GetInt32(0);
                     aux.Apellido = (string)datos.Lector["APELLIDO"];
                     aux.Nombre = (string)datos.Lector["Nombre"];
-                    aux.Dni = datos.Lector.GetInt32(2);
+                    aux.Dni = datos.Lector.GetInt32(3);
+                    
 
 
                     lista.Add(aux);
@@ -46,12 +48,13 @@ namespace Negocio
             return lista;
         }
 
-        public void eliminar(int id)
+        public void eliminarPaciente(int id)
         {
+            AccesoDatos datos = new AccesoDatos();
+
             try
             {
-                AccesoDatos datos = new AccesoDatos();
-                datos.setConsulta("delete from PERSONA where id=@id");
+                datos.setearProcedimiento("SP_ELIMINAR_PACIENTE_PERSONA");
                 datos.setearParametro("@id", id);
                 datos.ejecutarAccion();
             }
@@ -180,6 +183,46 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+        public List<Paciente> listar_porID(int ID)
+        {
+            List<Paciente> lista = new List<Paciente>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setConsulta(@"Select P.NOMBRE, P.APELLIDO, P.FECHA_NACIMIENTO, P.DNI, C.TELEFONO, C.EMAIL, C.DIRECCION from PERSONA AS P 
+                                    INNER JOIN CONTACTO AS C ON C.IDPERSONA = P.IDPERSONA
+                                    WHERE P.IDPERSONA = @IDPERSONA;");
+
+                datos.setearParametro("@IDPERSONA", ID);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Paciente aux = new Paciente();
+
+                    aux.DatosPersona.Dni = (int)datos.Lector["DNI"];
+                    aux.DatosPersona.Nombre = (string)datos.Lector["NOMBRE"];
+                    aux.DatosPersona.Apellido = (string)datos.Lector["APELLIDO"];
+                    aux.DatosPersona.FechaNacimiento = (DateTime)datos.Lector["FECHA_NACIMIENTO"];
+                    aux.DatosPersona.ContactoCliente.Email = (string)datos.Lector["EMAIL"];
+                    aux.DatosPersona.ContactoCliente.telefono = (string)datos.Lector["TELEFONO"];
+                    aux.DatosPersona.ContactoCliente.Direccion = (string)datos.Lector["DIRECCION"];
+
+                    lista.Add(aux);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return lista;
+        }
+
 
     }
 }
