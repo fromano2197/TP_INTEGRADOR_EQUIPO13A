@@ -91,6 +91,7 @@ namespace CLINICA_APP_WEB
             {
                 PacienteNegocio negocio = new PacienteNegocio();
                 int idPersona = Convert.ToInt32(e.CommandArgument);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "mensaje", "alert('El paciente ha sido dado de baja.');", true);
                 negocio.eliminarPaciente(idPersona);
                 Response.Redirect("BuscarPaciente.aspx", false);
 

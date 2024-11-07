@@ -1,13 +1,13 @@
-﻿<%@ Page Title="Registro de Paciente" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="RegistrarPaciente.aspx.cs" Inherits="CLINICA_APP_WEB.RegistrarPaciente" %>
+﻿<%@ Page Title="Registro de Paciente" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="AgregarPaciente.aspx.cs" Inherits="CLINICA_APP_WEB.AgregarPaciente" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="contenedor">
-        <img src="./Images/logo.png" alt="Logo de la Clínica UTN" class="logo" />
 
-        <h1 class="titulo-principal">REGISTRARSE</h1>
+
+        <h1 class="titulo-principal">REGISTRAR PACIENTE</h1>
         <div>
             <asp:Label ID="lblMensaje" runat="server" ForeColor="Green" Visible="False"></asp:Label>
         </div>
@@ -48,14 +48,8 @@
                 <label for="txtPass" class="etiqueta-formulario">Contraseña:</label>
                 <asp:TextBox ID="txtPass" TextMode="Password" CssClass="entrada-formulario" runat="server" placeholder="Contraseña" required="required" />
             </div>
-            <asp:Button ID="btnRegistrar" Text="Registrarse" CssClass="btn-enviar" OnClick="btnRegistrar_Click" runat="server" />
-            <asp:HyperLink CssClass="enlace-formulario" NavigateUrl="Default.aspx" Text="Volver" runat="server"></asp:HyperLink>
-        </div>
-
-
-
-        <div class="contenedor-enlaces">
-            <asp:HyperLink CssClass="enlace-formulario" NavigateUrl="LoginPacientes.aspx" Text="Ya tengo cuenta, iniciar sesión" runat="server"></asp:HyperLink>
+            <asp:Button ID="btnRegistrar" Text="Agregar" CssClass="btn-enviar" OnClick="btnRegistrar1_Click" runat="server" />
+            <asp:HyperLink CssClass="enlace-formulario" NavigateUrl="BuscarPaciente.aspx" Text="Volver" runat="server"></asp:HyperLink>
         </div>
     </div>
 </asp:Content>

@@ -81,6 +81,7 @@
 
             <div>
                 <asp:Button ID="btnAgregarProfesional" Text="Agregar" OnClick="btnAgregar_Click" CssClass="btn-enviar" runat="server" />
+                <asp:HyperLink CssClass="enlace-formulario" NavigateUrl="BuscarProfesional.aspx" Text="Volver" runat="server"></asp:HyperLink>
             </div>
         </div>
     </div>

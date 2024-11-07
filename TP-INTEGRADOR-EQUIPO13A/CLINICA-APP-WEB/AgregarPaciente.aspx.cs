@@ -15,7 +15,7 @@ namespace CLINICA_APP_WEB
         {
 
         }
-        protected void btnRegistrar_Click(object sender, EventArgs e)
+        protected void btnRegistrar1_Click(object sender, EventArgs e)
         {
             try
             {
@@ -35,11 +35,12 @@ namespace CLINICA_APP_WEB
 
                 pacienteNegocio.nuevoPaciente(paciente, usuario);
 
-                lblMensaje.Text = "Registro exitoso. Serás redirigido a la página anterior.";
+                lblMensaje.Text = "Registro exitoso.";
                 lblMensaje.Visible = true;
 
-                string script = "setTimeout(function() { window.location.href = 'BuscarPaciente.aspx'; }, 3000);";
+                string script = "window.location.href = 'BuscarPaciente.aspx';";
                 ClientScript.RegisterStartupScript(this.GetType(), "Redirigir", script, true);
+
             }
             catch (Exception ex)
             {
