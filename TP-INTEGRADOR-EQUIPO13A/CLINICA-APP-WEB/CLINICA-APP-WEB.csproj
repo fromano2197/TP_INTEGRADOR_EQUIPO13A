@@ -71,6 +71,7 @@
     <Content Include="AgragarProfesional.aspx" />
     <Content Include="AgregarEspecialidad.aspx" />
     <Content Include="AgregarInstitucion.aspx" />
+    <Content Include="AgregarPaciente.aspx" />
     <Content Include="BuscarPaciente.aspx" />
     <Content Include="BuscarProfesional.aspx" />
     <Content Include="Content\estilos.css" />
@@ -140,6 +141,13 @@
     </Compile>
     <Compile Include="AgregarInstitucion.aspx.designer.cs">
       <DependentUpon>AgregarInstitucion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AgregarPaciente.aspx.cs">
+      <DependentUpon>AgregarPaciente.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AgregarPaciente.aspx.designer.cs">
+      <DependentUpon>AgregarPaciente.aspx</DependentUpon>
     </Compile>
     <Compile Include="BuscarPaciente.aspx.cs">
       <DependentUpon>BuscarPaciente.aspx</DependentUpon>

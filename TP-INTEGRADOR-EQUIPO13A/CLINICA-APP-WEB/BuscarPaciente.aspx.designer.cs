@@ -33,6 +33,15 @@ namespace CLINICA_APP_WEB
         protected global::System.Web.UI.WebControls.TextBox txtDni;
 
         /// <summary>
+        /// Control btnAgregarProfesional.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnAgregarProfesional;
+
+        /// <summary>
         /// Control repRepeater.
         /// </summary>
         /// <remarks>
@@ -42,4 +51,3 @@ namespace CLINICA_APP_WEB
         protected global::System.Web.UI.WebControls.Repeater repRepeater;
     }
 }
-

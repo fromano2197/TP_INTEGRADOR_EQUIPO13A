@@ -7,7 +7,6 @@
     <div class="contenedor">
         <img src="./Images/logo.png" alt="Logo de la Clínica UTN" class="logo" />
 
-
         <h1 class="titulo-principal">REGISTRARSE</h1>
         <div>
             <asp:Label ID="lblMensaje" runat="server" ForeColor="Green" Visible="False"></asp:Label>

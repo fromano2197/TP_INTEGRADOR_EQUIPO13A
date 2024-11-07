@@ -10,7 +10,10 @@
     <div class="contenedor">
         <h1 class="titulo-resultados">Lista de Pacientes</h1>
         <label for="txtDni" class="etiqueta-formulario">Buscar Paciente:</label>
-        <asp:TextBox ID="txtDni" CssClass="entrada-formulario" runat="server" placeholder="Introducir Apellido,Nombre o Dni" required="required" />
+        <asp:TextBox ID="txtDni" CssClass="entrada-formulario" runat="server" placeholder="Introducir Apellido,Nombre o Dni" />
+    </div>
+    <div class="contenedor-boton">
+        <asp:Button ID="btnAgregarProfesional" runat="server" Text="AGREGAR PACIENTE +" CssClass="btn-agregar-profesional" OnClick="btnAgregarProfesional_Click" />
     </div>
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
