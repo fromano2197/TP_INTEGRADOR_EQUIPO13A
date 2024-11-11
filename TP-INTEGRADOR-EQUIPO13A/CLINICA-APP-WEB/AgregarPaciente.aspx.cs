@@ -23,7 +23,7 @@ namespace CLINICA_APP_WEB
                 Usuario usuario = new Usuario();
                 PacienteNegocio pacienteNegocio = new PacienteNegocio();
 
-                paciente.DatosPersona.Dni = int.Parse(txtDni.Text);
+                paciente.DatosPersona.Dni = txtDni.Text;
                 paciente.DatosPersona.Nombre = txtNombre.Text;
                 paciente.DatosPersona.Apellido = txtApellido.Text;
                 paciente.DatosPersona.FechaNacimiento = DateTime.Parse(txtFechaNac.Text);

@@ -17,15 +17,15 @@ namespace Negocio
 
             try
             {
-                datos.setConsulta("select * from ESPECIALIDAD WHERE ACTIVO = 1");
+                datos.setConsulta("select * from especialidades WHERE activo = 1");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
                     Especialidad aux = new Especialidad();
-                    aux.IdEspecialidad = int.Parse(datos.Lector["IDESPECIALIDAD"].ToString());
-                    aux.NombreEspecialidad = (string)datos.Lector["ESPECIALIDAD"];
-                    aux.Activo = bool.Parse(datos.Lector["ACTIVO"].ToString());
+                    aux.IdEspecialidad = int.Parse(datos.Lector["id_especialidad"].ToString());
+                    aux.NombreEspecialidad = (string)datos.Lector["nombre"];
+                    aux.Activo = bool.Parse(datos.Lector["activo"].ToString());
                     
                     lista.Add(aux);
                 }
@@ -48,14 +48,14 @@ namespace Negocio
 
             try
             {
-                datos.setConsulta("select * from ESPECIALIDAD WHERE IDESPECIALIDAD =" + ID);
+                datos.setConsulta("select * from especialidades WHERE  id_especialidad =" + ID);
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
                     Especialidad aux = new Especialidad();
-                    aux.IdEspecialidad = int.Parse(datos.Lector["IDESPECIALIDAD"].ToString());
-                    aux.NombreEspecialidad = (string)datos.Lector["ESPECIALIDAD"];
+                    aux.IdEspecialidad = int.Parse(datos.Lector["id_especialidad"].ToString());
+                    aux.NombreEspecialidad = (string)datos.Lector["nombre"];
 
 
                     lista.Add(aux);
@@ -103,7 +103,7 @@ namespace Negocio
             try
             {
                
-                datos.setConsulta("UPDATE ESPECIALIDAD SET ESPECIALIDAD = @especialidad WHERE IdEspecialidad = @id");
+                datos.setConsulta("UPDATE especialidades SET nombre = @especialidad WHERE id_especialidad = @id");
 
             
                 datos.setearParametro("@especialidad", aux.NombreEspecialidad);
@@ -130,7 +130,7 @@ namespace Negocio
             try
                 {
                     
-                    datos.setConsulta("UPDATE ESPECIALIDAD SET ACTIVO = 0 where IDESPECIALIDAD=@id");
+                    datos.setConsulta("UPDATE especialidades SET ACTIVO = 0 where id_especialidad=@id");
                     datos.setearParametro("@id", ID);
                     datos.ejecutarAccion();
                 }

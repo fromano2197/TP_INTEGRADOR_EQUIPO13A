@@ -13,6 +13,6 @@ namespace Dominio
         public string Apellido { get; set; }
         public Contacto ContactoCliente { get; set; } = new Contacto();
         public DateTime FechaNacimiento { get; set; }
-        public int Dni { get; set; }
+        public string Dni { get; set; }
     }
 }

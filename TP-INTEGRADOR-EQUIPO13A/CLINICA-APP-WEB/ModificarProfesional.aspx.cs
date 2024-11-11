@@ -202,7 +202,7 @@ namespace CLINICA_APP_WEB
             seleccionado.Persona.IdPersona = int.Parse(Request.QueryString["id"]);
             seleccionado.Persona.Nombre = txtNombre.Text;
             seleccionado.Persona.Apellido = txtApellido.Text;
-            seleccionado.Persona.Dni = int.Parse(txtDni.Text);
+            seleccionado.Persona.Dni = txtDni.Text;
             seleccionado.Persona.FechaNacimiento = DateTime.Parse(txtFechaNac.Text);
             seleccionado.Persona.ContactoCliente.Direccion = txtDireccion.Text;
             seleccionado.Persona.ContactoCliente.telefono = txtTelefono.Text;

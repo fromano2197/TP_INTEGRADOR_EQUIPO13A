@@ -20,11 +20,12 @@ namespace Negocio
 
             try
             {
-                datos.setConsulta(" SELECT T.IDTURNO, T.FECHA, T.HORARIO, P.NOMBRE as NOMBRE, P.APELLIDO as APELLIDO, PR.IDUSUARIO as IDPROFESIONAL, E.ESPECIALIDAD as ESPECIALIDAD, T.OBSERVACIONES, PA.IDPERSONA FROM TURNO as T" +
-                    "   JOIN PACIENTE as PA ON T.IDPACIENTE = PA.IDPERSONA" +
-                    "   JOIN PERSONA as P ON PA.IDPERSONA = P.IDPERSONA" +
-                    "   JOIN PROFESIONAL PR ON T.IDPROFESIONAL = PR.IDPROFESIONAL" +
-                    "   JOIN ESPECIALIDAD E ON PR.IDESPECIALIDAD = E.IDESPECIALIDAD");
+                datos.setConsulta(@"select t.id_turno,t.fecha,t.hora, p.nombre,p.apellido,pr.id_profesional,e.nombre,t.observaciones,p.id_paciente,p.dni
+                                    from turnos t
+                                    inner join pacientes p on t.id_paciente=p.id_paciente
+                                    inner join profesionales pr on t.id_profesional=pr.id_profesional
+                                    inner join profesionales_especialidades pe on pe.id_profesional=pr.id_profesional
+                                    inner join especialidades e on e.id_especialidad=pe.id_especialidad;");
 
                 datos.ejecutarLectura();
 
@@ -32,13 +33,13 @@ namespace Negocio
                 {
                     Turno aux = new Turno();
                     aux.IdTurno = datos.Lector.GetInt32(0);
-                    aux.Fecha = (DateTime)datos.Lector["Fecha"];
+                    aux.Fecha = (DateTime)datos.Lector["fecha"];
                     aux.Paciente = new Paciente();
-                    aux.Paciente.IdPaciente = datos.Lector.GetInt32(0);
+                    aux.Paciente.IdPaciente = (int)datos.Lector["id_paciente"];
                     aux.Paciente.DatosPersona = new Persona();
-                    aux.Paciente.DatosPersona.Nombre = datos.Lector["NOMBRE"].ToString();
-                    aux.Paciente.DatosPersona.Apellido = datos.Lector["Apellido"].ToString();
-                    aux.Paciente.DatosPersona.Dni = datos.Lector.GetInt32(0);
+                    aux.Paciente.DatosPersona.Nombre = datos.Lector["nombre"].ToString();
+                    aux.Paciente.DatosPersona.Apellido = datos.Lector["apellido"].ToString();
+                    aux.Paciente.DatosPersona.Dni = datos.Lector["dni"].ToString();
                     lista.Add(aux);
                 }
 

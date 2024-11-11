@@ -16,17 +16,17 @@ namespace Negocio
 
             try
             {
-                datos.setConsulta("select * from INSTITUCION WHERE ACTIVO = 1");
+                datos.setConsulta("select * from instituciones WHERE activo = 1");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
                     Institucion aux = new Institucion();
-                    aux.IdInstitucion = int.Parse(datos.Lector["IDINSTITUCION"].ToString());
-                    aux.Direccion = datos.Lector["DIRECCION"].ToString();
-                    aux.Fecha_Apertura = (DateTime)datos.Lector["FECHA_APERTURA"];
-                    aux.Nombre = datos.Lector["NOMBRE_INSTITUCION"].ToString();
-                    aux.Activo = bool.Parse(datos.Lector["ACTIVO"].ToString());
+                    aux.IdInstitucion = int.Parse(datos.Lector["id_institucion"].ToString());
+                    aux.Direccion = datos.Lector["direccion"].ToString();
+                    aux.Fecha_Apertura = (DateTime)datos.Lector["fecha_apertura"];
+                    aux.Nombre = datos.Lector["nombre"].ToString();
+                    aux.Activo = bool.Parse(datos.Lector["activo"].ToString());
 
 
                     lista.Add(aux);
@@ -76,7 +76,7 @@ namespace Negocio
             try
             {
 
-                datos.setConsulta("UPDATE INSTITUCION SET ACTIVO = 0 where IDINSTITUCION=@id");
+                datos.setConsulta("UPDATE instituciones SET activo = 0 where id_institucion=@id");
                 datos.setearParametro("@id", ID);
                 datos.ejecutarAccion();
             }
@@ -104,17 +104,17 @@ namespace Negocio
 
             try
             {
-                datos.setConsulta("select * from INSTITUCION WHERE IDINSTITUCION =" + ID);
+                datos.setConsulta("select * from instituciones WHERE id_institucion =" + ID);
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
                     Institucion aux = new Institucion();
-                    aux.IdInstitucion = int.Parse(datos.Lector["IDINSTITUCION"].ToString());
-                    aux.Fecha_Apertura = DateTime.Parse(datos.Lector["FECHA_APERTURA"].ToString());
-                    aux.Nombre = (string)datos.Lector["NOMBRE_INSTITUCION"];
-                    aux.Direccion = (string)datos.Lector["DIRECCION"];
-                    aux.Activo = bool.Parse(datos.Lector["ACTIVO"].ToString());
+                    aux.IdInstitucion = int.Parse(datos.Lector["id_institucion"].ToString());
+                    aux.Fecha_Apertura = DateTime.Parse(datos.Lector["fecha_apertura"].ToString());
+                    aux.Nombre = (string)datos.Lector["nombre"];
+                    aux.Direccion = (string)datos.Lector["direccion"];
+                    aux.Activo = bool.Parse(datos.Lector["activo"].ToString());
 
                     lista.Add(aux);
                 }
@@ -137,7 +137,7 @@ namespace Negocio
             try
             {
 
-                datos.setConsulta("UPDATE INSTITUCION SET NOMBRE_INSTITUCION = @nombre, FECHA_APERTURA = @fecha, DIRECCION = @direccion WHERE IDINSTITUCION = @id");
+                datos.setConsulta("UPDATE instituciones SET nombre = @nombre, fecha_apertura = @fecha, direccion = @direccion WHERE id_institucion = @id");
 
                 datos.setearParametro("@id", aux.IdInstitucion);
                 datos.setearParametro("@nombre", aux.Nombre);

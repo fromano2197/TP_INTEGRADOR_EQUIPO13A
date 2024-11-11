@@ -58,7 +58,7 @@ namespace CLINICA_APP_WEB
             Paciente seleccionado = new Paciente();
             PacienteNegocio negocio = new PacienteNegocio();
             seleccionado.DatosPersona.IdPersona = int.Parse(Request.QueryString["id"].ToString());
-            seleccionado.DatosPersona.Dni = int.Parse(txtDni.Text);
+            seleccionado.DatosPersona.Dni = txtDni.Text;
             seleccionado.DatosPersona.Nombre = txtNombre.Text;
             seleccionado.DatosPersona.Apellido = txtApellido.Text;
             seleccionado.DatosPersona.FechaNacimiento = DateTime.Parse(txtFechaNac.Text);

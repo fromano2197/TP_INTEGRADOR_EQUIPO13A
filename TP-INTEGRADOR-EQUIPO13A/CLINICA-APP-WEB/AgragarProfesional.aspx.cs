@@ -79,7 +79,7 @@ namespace CLINICA_APP_WEB
         {
             Profesional aux = new Profesional();
             ProfesionalNegocio negocio = new ProfesionalNegocio();
-            aux.Persona.Dni = int.Parse(txtDni.Text);
+            aux.Persona.Dni =txtDni.Text;
             aux.Persona.Nombre = txtNombre.Text;
             aux.Persona.Apellido = txtApellido.Text;
             aux.Persona.FechaNacimiento = DateTime.ParseExact(txtFechaNac.Text, "dd/MM/yyyy", null);

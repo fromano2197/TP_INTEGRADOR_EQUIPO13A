@@ -3,452 +3,339 @@ GO
 USE ClinicaDB
 GO
 
-CREATE TABLE PERSONA (
-    IDPERSONA INT PRIMARY KEY IDENTITY (1,1),
-    NOMBRE VARCHAR(50) NOT NULL,
-    APELLIDO VARCHAR(50) NOT NULL,
-    FECHA_NACIMIENTO DATE NOT NULL,
-    DNI INT  NOT NULL UNIQUE,
-	ACTIVO BIT NOT NULL DEFAULT 1
-)
-GO
-
-CREATE TABLE USUARIO (
-    IDUSUARIO INT PRIMARY KEY IDENTITY(1,1),
-    NOMBRE_USUARIO VARCHAR(50) NOT NULL,
-    CONTRASENA VARCHAR(50) NOT NULL,
-    TIPOUSUARIO VARCHAR(50) NOT NULL,
-	ACTIVO BIT NOT NULL DEFAULT 1
-)
-GO
-
-CREATE TABLE PACIENTE (
-    IDPACIENTE INT PRIMARY KEY IDENTITY(1,1),
-    IDPERSONA INT NOT NULL,
-    IDUSUARIO INT NOT NULL,
-	ACTIVO BIT NOT NULL DEFAULT 1,
-    FOREIGN KEY (IDPERSONA) REFERENCES PERSONA(IDPERSONA),
-    FOREIGN KEY (IDUSUARIO) REFERENCES USUARIO(IDUSUARIO)
-)
-GO
-
-
-CREATE TABLE INSTITUCION (
-    IDINSTITUCION INT PRIMARY KEY IDENTITY(1,1),
-    FECHA_APERTURA DATE NOT NULL,
-    NOMBRE_INSTITUCION VARCHAR(100) NOT NULL,
-    DIRECCION VARCHAR(200) NOT NULL,
-	ACTIVO BIT NOT NULL DEFAULT 1
-)
-GO
-
-CREATE TABLE ESPECIALIDAD (
-    IDESPECIALIDAD INT PRIMARY KEY IDENTITY(1,1),
-    ESPECIALIDAD VARCHAR(50) NOT NULL UNIQUE,
-	ACTIVO BIT NOT NULL DEFAULT 1
-)
-GO
-
-CREATE TABLE PROFESIONAL (
-    IDPROFESIONAL INT PRIMARY KEY IDENTITY(1,1),
-    IDUSUARIO INT NOT NULL,
-    IDPERSONA INT NOT NULL,
-    FECHA_INGRESO DATE NOT NULL,
-    MATRICULA INT NOT NULL,
-    IDINSTITUCION INT NOT NULL,
-	ACTIVO BIT NOT NULL DEFAULT 1,
-    FOREIGN KEY (IDUSUARIO) REFERENCES USUARIO(IDUSUARIO),
-    FOREIGN KEY (IDPERSONA) REFERENCES PERSONA(IDPERSONA),
-    FOREIGN KEY (IDINSTITUCION) REFERENCES INSTITUCION(IDINSTITUCION)
-)
-GO
-
-CREATE TABLE ADMINISTRADOR (
-    IDADMIN INT PRIMARY KEY IDENTITY(1,1),
-    IDUSUARIO INT NOT NULL,
-    NOMBRE VARCHAR(50) NOT NULL,
-    APELLIDO VARCHAR(50) NOT NULL,
-    FECHA_INGRESO DATE NOT NULL,
-	ACTIVO BIT NOT NULL DEFAULT 1,
-    FOREIGN KEY (IDUSUARIO) REFERENCES USUARIO(IDUSUARIO)
-)
-GO
-
-CREATE TABLE CONTACTO (
-    IDCONTACTO INT PRIMARY KEY IDENTITY(1,1),
-    IDPERSONA INT NOT NULL,
-    TELEFONO VARCHAR(15) NOT NULL,
-    EMAIL VARCHAR(100) NOT NULL UNIQUE,
-    DIRECCION VARCHAR(200) NOT NULL,
-	ACTIVO BIT NOT NULL DEFAULT 1,
-    FOREIGN KEY (IDPERSONA) REFERENCES PERSONA(IDPERSONA)
-)
-GO
-
-CREATE TABLE PROFESIONAL_POR_ESPECIALIDAD (
-    IDPROFESIONAL INT NOT NULL,
-    IDESPECIALIDAD INT NOT NULL,
-	ACTIVO BIT NOT NULL DEFAULT 1,
-    PRIMARY KEY (IDPROFESIONAL, IDESPECIALIDAD),  
-    FOREIGN KEY (IDPROFESIONAL) REFERENCES PROFESIONAL(IDPROFESIONAL),
-    FOREIGN KEY (IDESPECIALIDAD) REFERENCES ESPECIALIDAD(IDESPECIALIDAD)
+CREATE TABLE pacientes (
+  id_paciente INT PRIMARY KEY IDENTITY (1,1),
+  nombre VARCHAR(100) NOT NULL,
+  apellido VARCHAR(100) NOT NULL,
+  dni VARCHAR(12) NOT NULL UNIQUE,
+  fecha_nacimiento DATE NOT NULL,
+  direccion VARCHAR(255) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  telefono VARCHAR(50),
+  activo BIT NOT NULL DEFAULT 1,
+  CONSTRAINT CHK_fecha_nacimiento CHECK (fecha_nacimiento <= GETDATE())
 );
-GO
-
-CREATE TABLE PROFESIONAL_POR_INSTITUCION (
-    IDPROFESIONAL INT NOT NULL,
-    IDINSTITUCION INT NOT NULL,
-	ACTIVO BIT NOT NULL DEFAULT 1,
-    PRIMARY KEY (IDPROFESIONAL, IDINSTITUCION), 
-    FOREIGN KEY (IDPROFESIONAL) REFERENCES PROFESIONAL(IDPROFESIONAL),
-    FOREIGN KEY (IDINSTITUCION) REFERENCES INSTITUCION(IDINSTITUCION)
-)
-GO
-
-CREATE TABLE TURNO (
-    IDTURNO INT PRIMARY KEY IDENTITY(1,1),
-    FECHA DATE NOT NULL,
-    HORARIO TIME NOT NULL,
-    IDPACIENTE INT NOT NULL,
-    IDPROFESIONAL INT NOT NULL,
-    IDESPECIALIDAD INT NOT NULL,
-	ESTADO VARCHAR(50),
-    OBSERVACIONES VARCHAR(200) NOT NULL,
-	ACTIVO BIT NOT NULL DEFAULT 1,
-    FOREIGN KEY (IDPACIENTE) REFERENCES PACIENTE(IDPACIENTE),
-    FOREIGN KEY (IDPROFESIONAL) REFERENCES PROFESIONAL(IDPROFESIONAL),
-    FOREIGN KEY (IDESPECIALIDAD) REFERENCES ESPECIALIDAD(IDESPECIALIDAD)
-)
-GO
-
-INSERT INTO USUARIO (NOMBRE_USUARIO, CONTRASENA, TIPOUSUARIO) VALUES 
-('paciente1', 'Contraseña1', 'Paciente'),
-('paciente2', 'Contraseña2', 'Paciente'),
-('medico1', 'Contraseña3', 'Medico'),
-('medico2', 'Contraseña4', 'Medico'),
-('admin1', 'Contraseña5', 'Admin'),
-('admin2', 'Contraseña6', 'Admin'),
-('paciente3', 'Contraseña7', 'Paciente'),
-('medico3', 'Contraseña8', 'Medico'),
-('paciente4', 'Contraseña9', 'Paciente'),
-('medico4', 'Contraseña10', 'Medico')
 
 GO
 
-INSERT INTO PERSONA ( NOMBRE, APELLIDO, FECHA_NACIMIENTO, DNI) VALUES 
-( 'Pedro', 'González', '1990-05-15', 12345678),
-( 'Lucía', 'Martínez', '1985-08-22', 87654321),
-( 'Juan', 'Pérez', '1992-03-10', 11223344),
-( 'Ana', 'López', '1988-12-30', 44332211),
-( 'Carlos', 'Sánchez', '1995-07-17', 22334455),
-( 'María', 'Gómez', '1991-04-05', 55667788),
-( 'Javier', 'Torres', '1980-11-12', 99887766),
-( 'Sofía', 'Díaz', '1993-09-20', 12332112),
-( 'Diego', 'Morales', '1987-01-28', 44455566),
-( 'Elena', 'Ramírez', '1994-10-14', 78945612)
+CREATE TABLE profesionales (
+  id_profesional INT PRIMARY KEY IDENTITY (1,1),
+  nombre VARCHAR(100) NOT NULL,
+  apellido VARCHAR(100) NOT NULL,
+  dni VARCHAR(12) NOT NULL UNIQUE,
+  fecha_nacimiento DATE NOT NULL,
+  direccion VARCHAR(255) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  telefono VARCHAR(50),
+  matricula VARCHAR (20) NOT NULL,
+  fecha_ingreso DATE NOT NULL,
+  activo BIT NOT NULL DEFAULT 1,
+  CONSTRAINT CHK_fecha_nacimiento_profesional CHECK (fecha_nacimiento <= GETDATE()),
+  CONSTRAINT CHK_fecha_ingreso CHECK (fecha_ingreso <= GETDATE())
+);
 
 GO
 
-INSERT INTO CONTACTO (IDPERSONA, DIRECCION, EMAIL, TELEFONO) VALUES 
-(1, 'Av. Libertador 1234', 'contacto1@gmail.com', '123456789'),
-(2, 'Calle Falsa 5678', 'contacto2@gmail.com', '987654321'),
-(3, 'Av. Santa Fe 9101', 'contacto3@gmail.com', '456789123'),
-(4, 'Calle 11 de Septiembre 1111', 'contacto4@gmail.com', '321654987'),
-(5, 'Calle Corrientes 2222', 'contacto5@gmail.com', '741258963'),
-(6, 'Av. Rivadavia 3333', 'contacto6@gmail.com', '852369741'),
-(7, 'Calle Tucumán 4444', 'contacto7@gmail.com', '159753486'),
-(8, 'Calle Bolívar 5555', 'contacto8@gmail.com', '963852741'),
-(9, 'Calle San Martín 6666', 'contacto9@gmail.com', '741369258'),
-(10, 'Av. 9 de Julio 7777', 'contacto10@gmail.com', '258147963')
+CREATE TABLE administradores (
+  id_administrador INT PRIMARY KEY IDENTITY (1,1),
+  nombre VARCHAR(100) NOT NULL,
+  apellido VARCHAR(100) NOT NULL,
+  fecha_ingreso DATE NOT NULL,
+  activo BIT NOT NULL DEFAULT 1,
+  CONSTRAINT CHK_fecha_ingreso_administrador CHECK (fecha_ingreso <= GETDATE())
+);
 
 GO
 
-INSERT INTO PACIENTE (IDPERSONA, IDUSUARIO) VALUES 
-(1, 1),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 5),
-(6, 6),
-(7, 7),
-(8, 8),
-(9, 9),
-(10, 10)
+CREATE TABLE especialidades (
+  id_especialidad INT PRIMARY KEY IDENTITY (1,1),
+  nombre VARCHAR(100) NOT NULL UNIQUE,
+  activo BIT NOT NULL DEFAULT 1
+);
 
 GO
 
-INSERT INTO INSTITUCION (FECHA_APERTURA, NOMBRE_INSTITUCION, DIRECCION) VALUES 
-('2000-01-01', 'Clinica del Sol', 'Av. Libertador 1234'),
-('2005-03-15', 'Hospital Central', 'Calle Falsa 5678'),
-('2010-07-20', 'Policlinico de Buenos Aires', 'Av. Santa Fe 9101'),
-('2015-10-10', 'Sanatorio San Juan', 'Calle 11 de Septiembre 1111'),
-('2018-12-25', 'Hospital Italiano', 'Calle Corrientes 2222')
+CREATE TABLE instituciones (
+  id_institucion INT PRIMARY KEY IDENTITY (1,1),
+  nombre VARCHAR(100) NOT NULL UNIQUE,
+  direccion VARCHAR(255) NOT NULL,
+  fecha_apertura DATE NOT NULL,
+  activo BIT NOT NULL DEFAULT 1,
+  CONSTRAINT CHK_fecha_apertura CHECK (fecha_apertura <= GETDATE())
+);
 
 GO
 
-INSERT INTO ESPECIALIDAD (ESPECIALIDAD) VALUES 
-('Medicina General'),
-('Pediatría'),
-('Ginecología'),
-('Traumatología'),
-('Cardiología')
+CREATE TABLE profesionales_especialidades (
+  id INT PRIMARY KEY IDENTITY (1,1),
+  id_profesional INT NOT NULL,
+  id_especialidad INT NOT NULL,
+  FOREIGN KEY (id_profesional) REFERENCES profesionales (id_profesional),
+  FOREIGN KEY (id_especialidad) REFERENCES especialidades (id_especialidad),
+  CONSTRAINT UQ_profesional_especialidad UNIQUE (id_profesional, id_especialidad),
+  activo BIT NOT NULL DEFAULT 1
+);
 
 GO
 
-INSERT INTO PROFESIONAL (IDUSUARIO, IDPERSONA, FECHA_INGRESO, MATRICULA, IDINSTITUCION) VALUES 
-(3, 1, '2020-01-01', 10001, 1),
-(4, 2, '2019-02-02', 10002, 2),
-(8, 3, '2021-03-03', 10003, 3),
-(9, 4, '2022-04-04', 10004, 4),
-(10, 5, '2018-05-05', 10005, 5)
+CREATE TABLE profesionales_instituciones (
+  id INT PRIMARY KEY IDENTITY (1,1),
+  id_profesional INT NOT NULL,
+  id_institucion INT NOT NULL,
+  FOREIGN KEY (id_profesional) REFERENCES profesionales (id_profesional),
+  FOREIGN KEY (id_institucion) REFERENCES instituciones (id_institucion),
+  CONSTRAINT UQ_profesional_institucion UNIQUE (id_profesional, id_institucion),
+  activo BIT NOT NULL DEFAULT 1
+);
 
 GO
 
-INSERT INTO ADMINISTRADOR (IDUSUARIO, NOMBRE, APELLIDO, FECHA_INGRESO) VALUES 
-(5, 'Pedro', 'González', '2020-01-01'),
-(6, 'Lucía', 'Martínez', '2019-02-02')
+CREATE TABLE turnos (
+  id_turno INT PRIMARY KEY IDENTITY (1,1),
+  id_paciente INT NOT NULL,
+  id_profesional INT NOT NULL,
+  id_especialidad INT NOT NULL, 
+  id_institucion INT NOT NULL,
+  fecha DATE NOT NULL,
+  hora TIME  NOT NULL,
+  observaciones VARCHAR (MAX),
+   estado VARCHAR(20) NOT NULL DEFAULT 'disponible' CHECK (
+    estado IN ('disponible', 'reservado', 'cancelado')
+  ),
+  FOREIGN KEY (id_paciente) REFERENCES pacientes (id_paciente),
+  FOREIGN KEY (id_profesional) REFERENCES profesionales (id_profesional),
+  FOREIGN KEY (id_especialidad) REFERENCES especialidades (id_especialidad),
+  FOREIGN KEY (id_institucion) REFERENCES instituciones (id_institucion),
+  CONSTRAINT CHK_fecha CHECK (fecha >= GETDATE())
+ );
+
+ GO
+
+
+CREATE TABLE usuarios (
+  id_usuarios INT PRIMARY KEY IDENTITY (1,1),
+  usuario VARCHAR(100) UNIQUE NOT NULL,
+  contraseña VARCHAR(255) NOT NULL,
+  tipo_usuario VARCHAR(20) NOT NULL CHECK (
+    tipo_usuario IN ('paciente', 'profesional', 'administrador')
+  ),
+  id_paciente INT,
+  id_profesional INT,
+  id_administrador INT,
+  activo BIT NOT NULL DEFAULT 1,
+  FOREIGN KEY (id_paciente) REFERENCES pacientes (id_paciente),
+  FOREIGN KEY (id_profesional) REFERENCES profesionales (id_profesional),
+  FOREIGN KEY (id_administrador) REFERENCES administradores (id_administrador),
+  CONSTRAINT CK_tipo_usuario_valido CHECK (
+    (tipo_usuario = 'paciente' AND id_paciente IS NOT NULL AND id_profesional IS NULL AND id_administrador IS NULL) OR
+    (tipo_usuario = 'profesional' AND id_profesional IS NOT NULL AND id_paciente IS NULL AND id_administrador IS NULL) OR
+    (tipo_usuario = 'administrador' AND id_administrador IS NOT NULL AND id_paciente IS NULL AND id_profesional IS NULL)
+  )
+);
 
 GO
 
-INSERT INTO TURNO (FECHA, HORARIO, IDPACIENTE, IDPROFESIONAL, IDESPECIALIDAD, ESTADO, OBSERVACIONES) VALUES 
-('2023-01-10', '10:00:00', 1, 1, 1, 'Pendiente', 'Chequeo general'),
-('2023-02-20', '11:00:00', 2, 2, 2, 'Pendiente', 'Consulta pediátrica'),
-('2023-03-15', '12:00:00', 3, 3, 3, 'Pendiente', 'Control ginecológico'),
-('2023-04-25', '13:00:00', 4, 4, 4, 'Pendiente', 'Revisión traumatológica'),
-('2023-05-30', '14:00:00', 5, 5, 5, 'Pendiente', 'Consulta cardiológica')
+INSERT INTO pacientes (nombre, apellido, dni, fecha_nacimiento, direccion, email, telefono, activo)
+VALUES
+('Juan', 'Pérez', '12345678', '1990-05-20', 'Calle Ficticia 123', 'juanperez@example.com', '1112345678', 1),
+('Ana', 'Gómez', '23456789', '1985-03-15', 'Avenida Libertador 456', 'anagomez@example.com', '1123456789', 1),
+('Carlos', 'Díaz', '34567890', '1980-01-10', 'Calle Sol 789', 'carlosdiaz@example.com', '1134567890', 1),
+('María', 'Martínez', '45678901', '1995-07-25', 'Avenida Córdoba 101', 'mariamartinez@example.com', '1145678901', 1),
+('Pedro', 'Lopez', '56789012', '1988-11-30', 'Calle Luna 202', 'pedrolopez@example.com', '1156789012', 1);
 
 GO
 
-INSERT INTO PROFESIONAL_POR_ESPECIALIDAD(IDPROFESIONAL, IDESPECIALIDAD) VALUES
-(1, 1),
-(1, 2),
-(2, 2),
-(3, 3),
-(4, 4),
-(5, 5)
+INSERT INTO profesionales (nombre, apellido, dni, fecha_nacimiento, direccion, email, telefono, matricula, fecha_ingreso, activo)
+VALUES
+('María', 'Sánchez', '12345678', '1980-02-20', 'Calle Nueva 123', 'mariasanchez@example.com', '1123456789', 'MATRICULA001', '2010-03-12', 1),
+('Luis', 'Torres', '23456789', '1975-08-15', 'Avenida 9 de Julio 456', 'luistorres@example.com', '1134567890', 'MATRICULA002', '2012-06-01', 1),
+('Laura', 'Fernández', '34567890', '1985-01-22', 'Calle Libertad 789', 'laurafernandez@example.com', '1145678901', 'MATRICULA003', '2014-09-05', 1),
+('Fernando', 'Pérez', '45678901', '1990-12-11', 'Calle de la Paz 101', 'fernandoperez@example.com', '1156789012', 'MATRICULA004', '2016-11-17', 1),
+('Gabriela', 'González', '56789012', '1992-03-14', 'Avenida Santa Fe 202', 'gabrielagonzalez@example.com', '1167890123', 'MATRICULA005', '2018-02-18', 1);
 
 GO
 
-INSERT INTO PROFESIONAL_POR_INSTITUCION (IDPROFESIONAL, IDINSTITUCION) VALUES
-(1, 1),
-(2, 2),
-(3, 1),
-(4, 3),
-(5, 2)  
+INSERT INTO administradores (nombre, apellido, fecha_ingreso, activo)
+VALUES
+('Carlos', 'Ramírez', '2015-06-20', 1),
+('Laura', 'Vega', '2016-04-12', 1),
+('José', 'Martínez', '2014-09-30', 1),
+('Raquel', 'Álvarez', '2017-01-08', 1),
+('Patricia', 'Gómez', '2019-03-05', 1);
 
-USE ClinicaDB
 GO
-CREATE PROCEDURE SP_AGREGAR_PACIENTE (
-    @DNI INT,
-    @NOMBRE VARCHAR(50),
-    @APELLIDO VARCHAR(50),
-    @FECHA_NACIMIENTO DATE,
-    @EMAIL VARCHAR(50),
-    @TELEFONO INT,
-    @DIRECCION VARCHAR(50),
-    @USUARIO VARCHAR(50),
-    @PASS VARCHAR(50)
-)
+
+INSERT INTO especialidades (nombre, activo)
+VALUES
+('Cardiología', 1),
+('Dermatología', 1),
+('Pediatría', 1),
+('Ginecología', 1),
+('Neurología', 1);
+
+GO
+
+INSERT INTO instituciones (nombre, direccion, fecha_apertura, activo)
+VALUES
+('Hospital Central', 'Avenida 9 de Julio 1000', '2005-03-10', 1),
+('Clínica San Juan', 'Calle San Juan 2500', '2010-06-15', 1),
+('Instituto Médico Los Andes', 'Avenida de los Andes 1200', '2012-11-21', 1),
+('Centro de Salud Zona Norte', 'Calle Norte 300', '2015-09-01', 1),
+('Clínica del Sol', 'Avenida Sol 400', '2018-04-30', 1);
+
+GO
+
+INSERT INTO profesionales_especialidades (id_profesional, id_especialidad, activo)
+VALUES
+(1, 1, 1),
+(2, 2, 1),
+(3, 3, 1),
+(4, 4, 1),
+(5, 5, 1);
+
+GO
+
+INSERT INTO profesionales_instituciones (id_profesional, id_institucion, activo)
+VALUES
+(1, 1, 1),
+(2, 2, 1),
+(3, 3, 1),
+(4, 4, 1),
+(5, 5, 1);
+
+GO
+
+INSERT INTO turnos (id_paciente, id_profesional, id_especialidad, id_institucion, fecha, hora, observaciones, estado)
+VALUES
+(1, 1, 1, 1, '2024-11-30', '10:00', 'Revisión de rutina', 'disponible'),
+(2, 2, 2, 2, '2024-11-12', '11:30', 'Consulta dermatológica', 'disponible'),
+(3, 3, 3, 3, '2024-11-14', '09:00', 'Revisión pediátrica', 'reservado'),
+(4, 4, 4, 4, '2024-11-15', '13:00', 'Consulta ginecológica', 'cancelado'),
+(5, 5, 5, 5, '2024-11-17', '15:30', 'Revisión neurológica', 'disponible');
+
+GO
+
+INSERT INTO usuarios (usuario, contraseña, tipo_usuario, id_paciente, id_profesional, id_administrador, activo)
+VALUES
+('juanperez', 'password123', 'paciente', 1, NULL, NULL, 1),
+('luistorres', 'password456', 'profesional', NULL, 2, NULL, 1),
+('mariasanchez', 'password789', 'profesional', NULL, 1, NULL, 1),
+('admin1', 'adminpass', 'administrador', NULL, NULL, 1, 1),
+('admin2', 'adminpass2', 'administrador', NULL, NULL, 2, 1),
+('anagomez', '123', 'paciente', 2, NULL, NULL, 1),
+('carlosdiaz', '123', 'paciente', 3, NULL, NULL, 1),
+('mariamartinez', '123', 'paciente', 4, NULL, NULL, 1),
+('pedrolopez', '123', 'paciente', 5, NULL, NULL, 1),
+('laurafernadez', '456', 'profesional', NULL, 3, NULL, 1),
+('fernandoperez', '456', 'profesional', NULL, 4, NULL, 1),
+('gabrielagonzalez', '456', 'profesional', NULL, 5, NULL, 1),
+('admin3', '123', 'administrador', NULL, NULL, 3, 1),
+('admin4', '123', 'administrador', NULL, NULL, 4, 1),
+('admin5', '123', 'administrador', NULL, NULL, 5, 1);
+
+
+GO
+
+CREATE PROCEDURE SP_BAJA_LOGICA_PROFESIONAL
+    @IDPROFESIONAL INT
 AS
 BEGIN
-    BEGIN TRY
-        BEGIN TRANSACTION;
-        
-        INSERT INTO PERSONA (NOMBRE, APELLIDO, FECHA_NACIMIENTO, DNI)
-        VALUES (@NOMBRE, @APELLIDO, @FECHA_NACIMIENTO, @DNI);
-        DECLARE @IDPERSONA INT = SCOPE_IDENTITY();
-        
+    SET NOCOUNT ON;
+    UPDATE turnos
+    SET estado = 'cancelado'  
+    WHERE id_profesional = @IDPROFESIONAL;
 
-        INSERT INTO CONTACTO (IDPERSONA, TELEFONO, EMAIL, DIRECCION)
-        VALUES (@IDPERSONA, @TELEFONO, @EMAIL, @DIRECCION);
-        
-        INSERT INTO USUARIO (NOMBRE_USUARIO, CONTRASENA, TIPOUSUARIO)
-        VALUES (@USUARIO, @PASS, 'Paciente');
-        DECLARE @IDUSUARIO INT = SCOPE_IDENTITY();
-        
-        INSERT INTO PACIENTE (IDPERSONA, IDUSUARIO)
-        VALUES (@IDPERSONA, @IDUSUARIO);
-        
-        COMMIT TRANSACTION;
-    END TRY
-    BEGIN CATCH
-        ROLLBACK TRANSACTION;
-        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
-        DECLARE @ErrorNumber INT = ERROR_NUMBER();
-        DECLARE @ErrorLine INT = ERROR_LINE();
-        RAISERROR ('NO SE PUDO REGISTRAR PERSONA. Error %d en la línea %d: %s', 
-                   16, 1, @ErrorNumber, @ErrorLine, @ErrorMessage);
-    END CATCH;
-END;
-
-
-GO 
-
-CREATE PROCEDURE SP_AGREGAR_PROFESIONAL (
-    @DNI INT,
-    @NOMBRE VARCHAR(50),
-    @APELLIDO VARCHAR(50),
-    @FECHA_NACIMIENTO DATE,
-    @EMAIL VARCHAR(100),
-    @TELEFONO VARCHAR(15),
-    @DIRECCION VARCHAR(200),
-    @USUARIO VARCHAR(50),
-    @CONTRASENA VARCHAR(50),
-    @TIPO_USUARIO VARCHAR(50),
-    @FECHA_INGRESO DATE,
-    @MATRICULA INT,
-    @IDINSTITUCION INT,
-    @ESPECIALIDADES VARCHAR(MAX)
-)
-AS
-BEGIN
-    DECLARE @IDPERSONA INT, @IDUSUARIO INT, @IDPROFESIONAL INT;
-    DECLARE @XML XML;
-    DECLARE @ESPECIALIDAD VARCHAR(50);
-    BEGIN TRANSACTION;
-
-    BEGIN TRY
-        INSERT INTO PERSONA (DNI, NOMBRE, APELLIDO, FECHA_NACIMIENTO)
-        VALUES (@DNI, @NOMBRE, @APELLIDO, @FECHA_NACIMIENTO);
-
-        SET @IDPERSONA = SCOPE_IDENTITY();
-
-        INSERT INTO CONTACTO (IDPERSONA, TELEFONO, EMAIL, DIRECCION)
-        VALUES (@IDPERSONA, @TELEFONO, @EMAIL, @DIRECCION);
-
-        INSERT INTO USUARIO (NOMBRE_USUARIO, CONTRASENA, TIPOUSUARIO)
-        VALUES (@USUARIO, @CONTRASENA, @TIPO_USUARIO);
-
-        SET @IDUSUARIO = SCOPE_IDENTITY();
-
-        INSERT INTO PROFESIONAL (IDUSUARIO, IDPERSONA, FECHA_INGRESO, MATRICULA, IDINSTITUCION)
-        VALUES (@IDUSUARIO, @IDPERSONA, @FECHA_INGRESO, @MATRICULA, @IDINSTITUCION);
-
-        SET @IDPROFESIONAL = SCOPE_IDENTITY();
-
-        SET @XML = CAST('<x>' + REPLACE(@ESPECIALIDADES, ',', '</x><x>') + '</x>' AS XML);
-
-        DECLARE ESPECIALIDAD_CURSOR CURSOR FOR
-            SELECT T.C.value('.', 'VARCHAR(50)') 
-            FROM @XML.nodes('x') T(C);
-
-        OPEN ESPECIALIDAD_CURSOR;
-        FETCH NEXT FROM ESPECIALIDAD_CURSOR INTO @ESPECIALIDAD;
-
-        WHILE @@FETCH_STATUS = 0
-        BEGIN
-
-            IF NOT EXISTS (SELECT 1 FROM ESPECIALIDAD WHERE ESPECIALIDAD = @ESPECIALIDAD)
-            BEGIN
-                INSERT INTO ESPECIALIDAD (ESPECIALIDAD)
-                VALUES (@ESPECIALIDAD);
-            END
-
-            INSERT INTO PROFESIONAL_POR_ESPECIALIDAD (IDPROFESIONAL, IDESPECIALIDAD)
-            SELECT @IDPROFESIONAL, IDESPECIALIDAD
-            FROM ESPECIALIDAD
-            WHERE ESPECIALIDAD = @ESPECIALIDAD;
-
-            FETCH NEXT FROM ESPECIALIDAD_CURSOR INTO @ESPECIALIDAD;
-        END
-
-        CLOSE ESPECIALIDAD_CURSOR;
-        DEALLOCATE ESPECIALIDAD_CURSOR;
-
-        COMMIT TRANSACTION;
-    END TRY
-    BEGIN CATCH
-        ROLLBACK TRANSACTION;
-        THROW;
-    END CATCH
+    UPDATE profesionales_especialidades
+    SET activo = 0
+    WHERE id_profesional = @IDPROFESIONAL;
+    UPDATE profesionales_instituciones
+    SET activo = 0
+    WHERE id_profesional = @IDPROFESIONAL;
+    UPDATE profesionales
+    SET activo = 0
+    WHERE id_profesional = @IDPROFESIONAL;
 END
 
 GO
 
-CREATE PROCEDURE SP_BAJA_LOGICA_PROFESIONAL (
-    @IDPERSONA INT
-)
+CREATE PROCEDURE SP_AGREGAR_PROFESIONAL
+    @NOMBRE VARCHAR(100),          
+    @APELLIDO VARCHAR(100),        
+    @DNI VARCHAR(12),              
+    @FECHA_NACIMIENTO DATE,        
+    @DIRECCION VARCHAR(255),       
+    @EMAIL VARCHAR(255),           
+    @TELEFONO VARCHAR(50),         
+    @MATRICULA VARCHAR(20),        
+    @FECHA_INGRESO DATE,           
+    @ESPECIALIDADES NVARCHAR(MAX), 
+    @INSTITUCIONES NVARCHAR(MAX),  
+    @USUARIO VARCHAR(100),         
+    @CONTRASENA VARCHAR(255),      
+    @TIPO_USUARIO VARCHAR(20)      
 AS
 BEGIN
-    DECLARE @IDUSUARIO INT, @IDPROFESIONAL INT;
+    SET NOCOUNT ON;
 
-    BEGIN TRANSACTION;
+    INSERT INTO profesionales (nombre, apellido, dni, fecha_nacimiento, direccion, email, telefono, matricula, fecha_ingreso, activo)
+    VALUES (@NOMBRE, @APELLIDO, @DNI, @FECHA_NACIMIENTO, @DIRECCION, @EMAIL, @TELEFONO, @MATRICULA, @FECHA_INGRESO, 1);
 
-    BEGIN TRY
+    DECLARE @IDPROFESIONAL INT;
+    SET @IDPROFESIONAL = SCOPE_IDENTITY();
 
-        SELECT 
-            @IDUSUARIO = pr.IDUSUARIO,
-            @IDPROFESIONAL = pr.IDPROFESIONAL
-        FROM PROFESIONAL pr
-        WHERE pr.IDPERSONA = @IDPERSONA;
+    INSERT INTO usuarios (usuario, contraseña, tipo_usuario, id_profesional, activo)
+    VALUES (@USUARIO, @CONTRASENA, @TIPO_USUARIO, @IDPROFESIONAL, 1);
 
-
-        IF @IDUSUARIO IS NULL OR @IDPROFESIONAL IS NULL
+    IF (@ESPECIALIDADES IS NOT NULL AND @ESPECIALIDADES <> '')
+    BEGIN
+        DECLARE @ESPECIALIDADID INT;
+        DECLARE @POSI INT;
+        
+        WHILE LEN(@ESPECIALIDADES) > 0
         BEGIN
-            THROW 50000, 'El profesional no existe.', 1;
+            SET @POSI = CHARINDEX(',', @ESPECIALIDADES);
+            
+            IF @POSI > 0
+            BEGIN
+                SET @ESPECIALIDADID = CAST(SUBSTRING(@ESPECIALIDADES, 1, @POSI - 1) AS INT);
+                SET @ESPECIALIDADES = SUBSTRING(@ESPECIALIDADES, @POSI + 1, LEN(@ESPECIALIDADES));
+            END
+            ELSE
+            BEGIN
+                SET @ESPECIALIDADID = CAST(@ESPECIALIDADES AS INT);
+                SET @ESPECIALIDADES = '';
+            END
+            INSERT INTO profesionales_especialidades (id_profesional, id_especialidad, activo)
+            VALUES (@IDPROFESIONAL, @ESPECIALIDADID, 1);
         END
+    END
 
-        UPDATE PROFESIONAL
-        SET ACTIVO = 0
-        WHERE IDPROFESIONAL = @IDPROFESIONAL;
-
-        UPDATE USUARIO
-        SET ACTIVO = 0
-        WHERE IDUSUARIO = @IDUSUARIO;
-
-        UPDATE CONTACTO
-        SET ACTIVO = 0
-        WHERE IDPERSONA = @IDPERSONA;
-
-        UPDATE PERSONA
-        SET ACTIVO = 0
-        WHERE IDPERSONA = @IDPERSONA;
-
-        UPDATE PROFESIONAL_POR_ESPECIALIDAD
-        SET ACTIVO = 0
-        WHERE IDPROFESIONAL = @IDPROFESIONAL;
-
-        UPDATE PROFESIONAL_POR_INSTITUCION
-        SET ACTIVO = 0
-        WHERE IDPROFESIONAL = @IDPROFESIONAL;
-
-        COMMIT TRANSACTION; 
-    END TRY
-    BEGIN CATCH
-        ROLLBACK TRANSACTION; 
-        THROW;  
-    END CATCH
-END;
-
-GO
-
-CREATE PROCEDURE SP_AGREGAR_INSTITUCION
-    @NOMBRE_INSTITUCION VARCHAR(100),
-    @FECHA_APERTURA DATE,
-    @DIRECCION VARCHAR(200)
-AS
-BEGIN
-    BEGIN TRY
-       
-        BEGIN TRANSACTION;
+    IF (@INSTITUCIONES IS NOT NULL AND @INSTITUCIONES <> '')
+    BEGIN
+        DECLARE @INSTITUCIONID INT;
+        DECLARE @POS INT;
         
-      
-        INSERT INTO INSTITUCION (NOMBRE_INSTITUCION, FECHA_APERTURA, DIRECCION)
-        VALUES (@NOMBRE_INSTITUCION, @FECHA_APERTURA, @DIRECCION);
-        
-        COMMIT TRANSACTION;
-    END TRY
-    BEGIN CATCH
-        ROLLBACK TRANSACTION;
-        
-        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
-        DECLARE @ErrorNumber INT = ERROR_NUMBER();
-        DECLARE @ErrorLine INT = ERROR_LINE();
-        
-        RAISERROR ('Error al intentar agregar institución. Error %d en la línea %d: %s', 
-                   16, 1, @ErrorNumber, @ErrorLine, @ErrorMessage);
-    END CATCH;
-END;
+        WHILE LEN(@INSTITUCIONES) > 0
+        BEGIN
+            SET @POS = CHARINDEX(',', @INSTITUCIONES);
+            
+            IF @POS > 0
+            BEGIN
+                SET @INSTITUCIONID = CAST(SUBSTRING(@INSTITUCIONES, 1, @POS - 1) AS INT);
+                SET @INSTITUCIONES = SUBSTRING(@INSTITUCIONES, @POS + 1, LEN(@INSTITUCIONES));
+            END
+            ELSE
+            BEGIN
+                SET @INSTITUCIONID = CAST(@INSTITUCIONES AS INT);
+                SET @INSTITUCIONES = '';
+            END
+            
+            INSERT INTO profesionales_instituciones (id_profesional, id_institucion, activo)
+            VALUES (@IDPROFESIONAL, @INSTITUCIONID, 1);
+        END
+    END
+END
+
 GO
 
 CREATE PROCEDURE SP_AGREGAR_ESPECIALIDAD
@@ -460,7 +347,7 @@ BEGIN
         BEGIN TRANSACTION;
         
       
-        INSERT INTO ESPECIALIDAD (ESPECIALIDAD)
+        INSERT INTO especialidades (nombre)
         VALUES (@ESPECIALIDAD)
         
         COMMIT TRANSACTION;
@@ -476,147 +363,118 @@ BEGIN
                    16, 1, @ErrorNumber, @ErrorLine, @ErrorMessage);
     END CATCH;
 END;
+
+GO
+
+CREATE PROCEDURE SP_AGREGAR_INSTITUCION
+    @NOMBRE_INSTITUCION VARCHAR(100),
+    @FECHA_APERTURA DATE,
+    @DIRECCION VARCHAR(200)
+AS
+BEGIN
+    BEGIN TRY
+       
+        BEGIN TRANSACTION;
+        
+      
+        INSERT INTO instituciones(nombre, fecha_apertura, direccion)
+        VALUES (@NOMBRE_INSTITUCION, @FECHA_APERTURA, @DIRECCION);
+        
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+        
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+        DECLARE @ErrorNumber INT = ERROR_NUMBER();
+        DECLARE @ErrorLine INT = ERROR_LINE();
+        
+        RAISERROR ('Error al intentar agregar institución. Error %d en la línea %d: %s', 
+                   16, 1, @ErrorNumber, @ErrorLine, @ErrorMessage);
+    END CATCH;
+END;
+
 GO
 
 CREATE PROCEDURE SP_ELIMINAR_PACIENTE_PERSONA
-    @id INT
+    @ID_PACIENTE INT
 AS
 BEGIN
-    BEGIN TRY
-        BEGIN TRANSACTION;
-        DECLARE @idPaciente INT;
-        SELECT @idPaciente = IDPACIENTE 
-        FROM PACIENTE 
-        WHERE IDPERSONA = @id;
-        IF @idPaciente IS NOT NULL
-        BEGIN
-            UPDATE TURNO 
-			SET ACTIVO = 0 
-			WHERE IDPACIENTE = @idPaciente;
-            UPDATE PACIENTE 
-			SET ACTIVO = 0 
-			WHERE IDPERSONA = @id;
-        END
-		UPDATE CONTACTO 
-		SET ACTIVO = 0
-		WHERE IDPERSONA = @id
-        UPDATE PERSONA 
-		SET ACTIVO = 0
-		WHERE IDPERSONA = @id;
-        COMMIT TRANSACTION;
-    END TRY
-    BEGIN CATCH
-        ROLLBACK TRANSACTION;
-		THROW; 
-    END CATCH;
+    SET NOCOUNT ON;
+
+    UPDATE pacientes
+    SET activo = 0
+    WHERE id_paciente = @ID_PACIENTE;
+
+    UPDATE usuarios
+    SET activo = 0
+    WHERE id_paciente = @ID_PACIENTE AND tipo_usuario = 'paciente';
+
+    UPDATE turnos
+    SET estado = 'cancelado'
+    WHERE id_paciente = @ID_PACIENTE AND estado <> 'cancelado';
 END;
+
 GO
 
-CREATE PROCEDURE SP_MODIFICAR_PACIENTE (
-	@IDPERSONA INT,
-    @DNI INT,
-    @NOMBRE VARCHAR(50),
-    @APELLIDO VARCHAR(50),
-    @FECHA_NACIMIENTO DATE,
-    @EMAIL VARCHAR(50),
-    @TELEFONO INT,
-    @DIRECCION VARCHAR(50)
-)
+CREATE PROCEDURE SP_AGREGAR_PACIENTE
+    @NOMBRE VARCHAR(100),           
+    @APELLIDO VARCHAR(100),         
+    @DNI VARCHAR(12),               
+    @FECHA_NACIMIENTO DATE,         
+    @DIRECCION VARCHAR(255),        
+    @EMAIL VARCHAR(255),            
+    @TELEFONO VARCHAR(50),          
+    @USUARIO VARCHAR(100),          
+    @CONTRASENA VARCHAR(255) = NULL 
 AS
 BEGIN
-    BEGIN TRY
-        BEGIN TRANSACTION;
-        
-        UPDATE PERSONA
-		SET NOMBRE = @NOMBRE,
-		APELLIDO = @APELLIDO,
-		FECHA_NACIMIENTO = FECHA_NACIMIENTO,
-		DNI = @DNI
-		WHERE IDPERSONA = @IDPERSONA;
+    SET NOCOUNT ON;
 
-        
+    INSERT INTO pacientes (nombre, apellido, dni, fecha_nacimiento, direccion, email, telefono, activo)
+    VALUES (@NOMBRE, @APELLIDO, @DNI, @FECHA_NACIMIENTO, @DIRECCION, @EMAIL, @TELEFONO, 1);
 
-        UPDATE CONTACTO 
-		SET TELEFONO = @TELEFONO,
-		EMAIL = @EMAIL,
-		DIRECCION = @DIRECCION
-        WHERE IDPERSONA = @IDPERSONA;
-        
-		DECLARE @idPaciente INT;
-        SELECT @idPaciente = IDPACIENTE 
-        FROM PACIENTE 
-        WHERE IDPERSONA = @IDPERSONA;
+    DECLARE @ID_PACIENTE INT;
+    SET @ID_PACIENTE = SCOPE_IDENTITY();
 
-		DECLARE @idUsuario INT;
-		SELECT @idUsuario = IDUSUARIO
-		FROM PACIENTE 
-		WHERE IDPERSONA = @IDPERSONA;
-
-  --      UPDATE USUARIO 
-		--SET NOMBRE_USUARIO = @USUARIO,
-		--CONTRASENA = @PASS
-  --      WHERE IDUSUARIO = @idUsuario;
-        
-        
-        COMMIT TRANSACTION;
-    END TRY
-    BEGIN CATCH
-        ROLLBACK TRANSACTION;
-        THROW;
-    END CATCH;
+    IF (@USUARIO IS NOT NULL AND @CONTRASENA IS NOT NULL)
+    BEGIN
+        INSERT INTO usuarios (usuario, contraseña, tipo_usuario, id_paciente, activo)
+        VALUES (@USUARIO, @CONTRASENA, 'paciente', @ID_PACIENTE, 1);
+    END
 END;
+
+
 GO
-CREATE PROCEDURE SP_MODIFICAR_PROFESIONAL (
-	@IDPERSONA INT,
-    @DNI INT,
-    @NOMBRE VARCHAR(50),
-    @APELLIDO VARCHAR(50),
-    @FECHA_NACIMIENTO DATE,
-    @EMAIL VARCHAR(50),
-    @TELEFONO INT,
-    @DIRECCION VARCHAR(50)
-	
-)
+
+CREATE PROCEDURE SP_MODIFICAR_PACIENTE
+    @ID_PACIENTE INT,                  
+    @NOMBRE VARCHAR(100) = NULL,       
+    @APELLIDO VARCHAR(100) = NULL,     
+    @DNI VARCHAR(12) = NULL,           
+    @FECHA_NACIMIENTO DATE = NULL,     
+    @DIRECCION VARCHAR(255) = NULL,    
+    @EMAIL VARCHAR(255) = NULL,        
+    @TELEFONO VARCHAR(50) = NULL       
 AS
 BEGIN
-    BEGIN TRY
-        BEGIN TRANSACTION;
-        
-        UPDATE PERSONA
-		SET NOMBRE = @NOMBRE,
-		APELLIDO = @APELLIDO,
-		FECHA_NACIMIENTO = FECHA_NACIMIENTO,
-		DNI = @DNI
-		WHERE IDPERSONA = @IDPERSONA;
+    SET NOCOUNT ON;
 
-        
+    IF NOT EXISTS (SELECT 1 FROM pacientes WHERE id_paciente = @ID_PACIENTE)
+    BEGIN
+        PRINT 'El paciente con el ID especificado no existe.';
+        RETURN;
+    END
 
-        UPDATE CONTACTO 
-		SET TELEFONO = @TELEFONO,
-		EMAIL = @EMAIL,
-		DIRECCION = @DIRECCION
-        WHERE IDPERSONA = @IDPERSONA;
-        
-		DECLARE @idProfesional INT;
-        SELECT @idProfesional = IDPROFESIONAL
-        FROM PROFESIONAL
-        WHERE IDPERSONA = @IDPERSONA;
+    UPDATE pacientes
+    SET 
+        nombre = COALESCE(@NOMBRE, nombre),
+        apellido = COALESCE(@APELLIDO, apellido),
+        dni = COALESCE(@DNI, dni),
+        fecha_nacimiento = COALESCE(@FECHA_NACIMIENTO, fecha_nacimiento),
+        direccion = COALESCE(@DIRECCION, direccion),
+        email = COALESCE(@EMAIL, email),
+        telefono = COALESCE(@TELEFONO, telefono)
+    WHERE id_paciente = @ID_PACIENTE;
 
-		DECLARE @idUsuario INT;
-		SELECT @idUsuario = IDUSUARIO
-		FROM PROFESIONAL 
-		WHERE IDPERSONA = @IDPERSONA;
-
-		--UPDATE USUARIO 
-		--SET NOMBRE_USUARIO = @USUARIO,
-		--CONTRASENA = @PASS
-		--WHERE IDUSUARIO = @idUsuario;
-        
-        
-        COMMIT TRANSACTION;
-    END TRY
-    BEGIN CATCH
-        ROLLBACK TRANSACTION;
-        THROW;
-    END CATCH;
 END;

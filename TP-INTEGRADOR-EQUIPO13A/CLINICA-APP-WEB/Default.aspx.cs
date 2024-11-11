@@ -22,7 +22,7 @@ namespace CLINICA_APP_WEB
             AccesoDatos Datos = new AccesoDatos();
             try
             {
-                string consulta = "SELECT IDUSUARIO, TIPOUSUARIO FROM USUARIO WHERE NOMBRE_USUARIO = @USUARIO AND CONTRASENA = @CONTRASEÑA";
+                string consulta = "SELECT id_usuarios,tipo_usuario FROM usuarios WHERE usuario = @USUARIO AND contraseña = @CONTRASEÑA";
                 
                 Datos.setearParametro("@USUARIO", usuario);
                 Datos.setearParametro("@CONTRASEÑA", contraseña);
@@ -32,8 +32,8 @@ namespace CLINICA_APP_WEB
 
                 if (Datos.Lector.Read())
                 {
-                    int idUsuario = (int)Datos.Lector["IDUSUARIO"];
-                    string tipoUsuario = (string)Datos.Lector["TIPOUSUARIO"];
+                    int idUsuario = (int)Datos.Lector["id_usuarios"];
+                    string tipoUsuario = (string)Datos.Lector["tipo_usuario"];
 
                     Session["TipoUsuario"] = tipoUsuario;
 
@@ -41,13 +41,13 @@ namespace CLINICA_APP_WEB
 
                     switch (tipoUsuario)
                     {
-                        case "Paciente":
+                        case "paciente":
                             Response.Redirect("PortalPacientes.aspx", false);
                             break;
-                        case "Medico":
+                        case "profesional":
                             Response.Redirect("PortalMedicos.aspx", false);
                             break;
-                        case "Admin":
+                        case "administrador":
                             Response.Redirect("Administrador.aspx", false);
                             break;
                         default:

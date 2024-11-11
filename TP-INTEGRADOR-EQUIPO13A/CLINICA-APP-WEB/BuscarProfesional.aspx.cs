@@ -56,7 +56,7 @@ namespace CLINICA_APP_WEB
                 string storedProcedure = "SP_BAJA_LOGICA_PROFESIONAL";
 
                 accesoDatos.setearProcedimiento(storedProcedure);
-                accesoDatos.setearParametro("@IDPERSONA", idPersona);
+                accesoDatos.setearParametro("@IDPROFESIONAL", idPersona);
 
                 accesoDatos.ejecutarAccion();
 
