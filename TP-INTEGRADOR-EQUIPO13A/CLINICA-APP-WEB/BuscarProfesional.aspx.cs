@@ -18,10 +18,18 @@ namespace CLINICA_APP_WEB
             if (!IsPostBack)
             {
                 ProfesionalNegocio negocio = new ProfesionalNegocio();
-                ListaProfesionales = negocio.listarProfesionales();
-                repRepeater.DataSource = ListaProfesionales;
+                Session.Add("listarProfesionales", negocio.listarProfesionales());
+                repRepeater.DataSource = Session["listarProfesionales"];
                 repRepeater.DataBind();
             }
+        }
+
+        protected void filtro_TextChanged(object sender, EventArgs e)
+        {
+            List<Profesional> lista = (List<Profesional>)Session["listarProfesionales"];
+            List<Profesional> listaFiltrada = lista.FindAll(x => x.Persona.Nombre.ToUpper().Contains(txtBuscarProfesional.Text.ToUpper()) || x.Persona.Apellido.ToUpper().Contains(txtBuscarProfesional.Text.ToUpper()) || x.Especialidades.Any(especialidad=>especialidad.NombreEspecialidad.ToUpper().Contains(txtBuscarProfesional.Text.ToUpper())) || x.Institucion.Nombre.ToUpper().Contains(txtBuscarProfesional.Text.ToUpper()));
+            repRepeater.DataSource= listaFiltrada;
+            repRepeater.DataBind();
         }
 
         protected void btnVisualizar_Command(object sender, CommandEventArgs e)

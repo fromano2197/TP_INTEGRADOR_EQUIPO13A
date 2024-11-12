@@ -19,10 +19,17 @@ namespace CLINICA_APP_WEB
             if (!IsPostBack)
             {
                 InstitucionNegocio negocio = new InstitucionNegocio();
-                ListaInstituciones = negocio.listar();
-                repRepeaterInstitucion.DataSource = ListaInstituciones;
+                Session.Add("listarInstituciones", negocio.listar());
+                repRepeaterInstitucion.DataSource = Session["listarInstituciones"];
                 repRepeaterInstitucion.DataBind();
             }
+        }
+        protected void filtro_TextChanged(object sender, EventArgs e)
+        {
+            List<Institucion> lista = (List<Institucion>)Session["listarInstituciones"];
+            List<Institucion> listaFiltrada = lista.FindAll(x => x.Nombre.ToUpper().Contains(txtBuscarInstitucion.Text.ToUpper()));
+            repRepeaterInstitucion.DataSource = listaFiltrada;
+            repRepeaterInstitucion.DataBind();
         }
         protected void btnModificar_Command(object sender, CommandEventArgs e)
         {

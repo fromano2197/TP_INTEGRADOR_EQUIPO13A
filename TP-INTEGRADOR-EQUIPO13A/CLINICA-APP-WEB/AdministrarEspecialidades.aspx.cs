@@ -17,19 +17,15 @@ namespace CLINICA_APP_WEB
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //pantalla inicial
             if (!IsPostBack)
             {
                 EspecialidadNegocio negocio = new EspecialidadNegocio();
-                ListaEspecialidades = negocio.listar();
-                repRepeaterEspecialidad.DataSource = ListaEspecialidades;
+                Session.Add("ListaEspecialidades", negocio.listar());
+                repRepeaterEspecialidad.DataSource = Session["ListaEspecialidades"];
                 repRepeaterEspecialidad.DataBind();
 
 
             }
-
-            //modificar
-
 
         }
 
@@ -42,6 +38,14 @@ namespace CLINICA_APP_WEB
 
 
             }
+        }
+
+        protected void filtro_TextChanged(object sender, EventArgs e)
+        {
+            List<Especialidad> lista = (List<Especialidad>)Session["ListaEspecialidades"];
+            List<Especialidad> listaFiltrada = lista.FindAll(x => x.NombreEspecialidad.ToUpper().Contains(txtBuscarEspecialidad.Text.ToUpper()));
+            repRepeaterEspecialidad.DataSource = listaFiltrada;
+            repRepeaterEspecialidad.DataBind();
         }
         protected void btnEliminar_Command(object sender, CommandEventArgs e)
         {

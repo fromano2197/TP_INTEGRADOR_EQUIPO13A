@@ -19,28 +19,20 @@ namespace CLINICA_APP_WEB
             if (!IsPostBack)
             {
                 PacienteNegocio negocio = new PacienteNegocio();
-                ListaPacientes = negocio.listar();
-                repRepeater.DataSource = ListaPacientes;
+                Session.Add("listar", negocio.listar());
+                repRepeater.DataSource = Session["listar"];
                 repRepeater.DataBind();
             }
         }
-        //protected void btnVisualizar_Command(object sender, CommandEventArgs e)
-        //{
-        //    if (e.CommandName == "Visualizar")
-        //    {
-        //        int idPersona = Convert.ToInt32(e.CommandArgument);
-        //        Response.Redirect("DetallesProfesionales.aspx?id=" + idPersona);
 
-        //    }
-        //}
-        //protected void btnEliminar_Command(object sender, CommandEventArgs e)
-        //{
-        //    if (e.CommandName == "Eliminar")
-        //    {
-        //        int idPersona = Convert.ToInt32(e.CommandArgument);
-        //        EliminarLogicoProfesional(idPersona);
-        //    }
-        //}
+        protected void filtro_TextChanged(object sender, EventArgs e)
+        {
+            List<Persona> lista = (List<Persona>)Session["listar"];
+            List<Persona> listaFiltrada = lista.FindAll(x => x.Nombre.ToUpper().Contains(txtBuscarPaciente.Text.ToUpper()) || x.Apellido.ToUpper().Contains(txtBuscarPaciente.Text.ToUpper()) || x.Dni.ToUpper().Contains( txtBuscarPaciente.Text.ToUpper()));
+            repRepeater.DataSource = listaFiltrada;
+            repRepeater.DataBind();
+        }
+        
 
         protected void btnAgregarProfesional_Click(object sender, EventArgs e)
         {
@@ -48,32 +40,7 @@ namespace CLINICA_APP_WEB
         }
 
 
-        //private void EliminarLogicoProfesional(int idPersona)
-        //{
-        //    try
-        //    {
-        //        AccesoDatos accesoDatos = new AccesoDatos();
-        //        string storedProcedure = "SP_BAJA_LOGICA_PROFESIONAL";
-
-        //        accesoDatos.setearProcedimiento(storedProcedure);
-        //        accesoDatos.setearParametro("@IDPERSONA", idPersona);
-
-        //        accesoDatos.ejecutarAccion();
-
-        //        ProfesionalNegocio profesionalNegocio = new ProfesionalNegocio();
-        //        List<Profesional> listaProfesionales = profesionalNegocio.listarProfesionales();
-
-        //        repRepeater.DataSource = listaProfesionales;
-        //        repRepeater.DataBind();
-
-        //        ScriptManager.RegisterStartupScript(this, this.GetType(), "mensaje", "alert('El profesional ha sido dado de baja.');", true);
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //        ScriptManager.RegisterStartupScript(this, this.GetType(), "mensajeError", $"alert('Error al dar de baja al profesional: {ex.Message}');", true);
-        //    }
-        //}
+       
 
         protected void btnModificar_Command(object sender, CommandEventArgs e)
         {
@@ -107,47 +74,6 @@ namespace CLINICA_APP_WEB
             }
         }
 
-        /*protected void VerDetalle_Click(object sender, EventArgs e)
-        {
-
-
-            LinkButton btn = (LinkButton)sender;
-            string articuloId = btn.CommandArgument;
-
-
-            Response.Redirect("Detalle.aspx");
-        }
-
-
-        protected void btnBuscar_Click(object sender, EventArgs e)
-        {
-
-            int dni;
-            if (int.TryParse(txtDni.Text, out dni))
-            {
-                PacienteNegocio negocio = new PacienteNegocio();
-                Persona paciente = negocio.listar(dni);
-                
-                if (paciente != null)
-                {
-
-                    
-                    lblNombre.Text = paciente.Nombre;
-                    lblApellido.Text = paciente.Apellido;
-                    lblDni.Text = paciente.Dni.ToString();
-                }
-                else
-                {
-                    
-                    lblMensaje.Text = "Paciente no encontrado.";
-                }
-            }
-            else
-            {
-                lblMensaje.Text = "Por favor, ingrese un DNI válido.";
-            }
-
-        }*/
 
     }
 }

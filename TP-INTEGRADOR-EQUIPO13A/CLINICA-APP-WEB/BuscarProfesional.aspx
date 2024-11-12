@@ -3,14 +3,16 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <asp:GridView ID="dgvPacientes" runat="server" CssClass="table table-striped table-bordered"></asp:GridView>
     <link rel="stylesheet" type="text/css" href='<%= ResolveUrl("~/Content/estilos.css") %>' />
     <div class="contenedor">
         <h1 class="titulo-resultados">Lista de Profesionales</h1>
-
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
         <label for="txtBuscarProfesional" class="etiqueta-formulario">Buscar Profesional:</label>
-        <asp:TextBox ID="txtBuscarProfesional" CssClass="entrada-formulario" runat="server" placeholder="Buscar por Apellido, Nombre, Especialidad o Institución" />
-    </div>
+        <asp:TextBox ID="txtBuscarProfesional" CssClass="entrada-formulario" runat="server" AutoPostBack="true" OnTextChanged="filtro_TextChanged" placeholder="Buscar por Apellido, Nombre, Especialidad o Institución" />
+  
     <div class="contenedor-boton">
         <asp:Button ID="btnAgregarProfesional" runat="server" Text="AGREGAR PROFESIONAL +" CssClass="btn-agregar-profesional" OnClick="btnAgregarProfesional_Click"  />
     </div>
@@ -56,4 +58,10 @@
             </tbody>
         </table>
     </div>
+                </ContentTemplate>
+             <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="txtBuscarProfesional" EventName="TextChanged" />
+            </Triggers>
+        </asp:UpdatePanel>
+      </div>
 </asp:Content>
