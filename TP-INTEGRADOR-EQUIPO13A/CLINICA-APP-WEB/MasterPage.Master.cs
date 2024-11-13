@@ -16,15 +16,15 @@ namespace CLINICA_APP_WEB
                 {
                     switch (tipoUsuario)
                     {
-                        case "Paciente":
+                        case "paciente":
                             pacienteNavbar.Visible = true;
                             medicoNavbar.Visible = false;
                             break;
-                        case "Medico":
+                        case "profesional":
                             pacienteNavbar.Visible = false;
                             medicoNavbar.Visible = true;
                             break;
-                        case "Admin":
+                        case "administrador":
                             pacienteNavbar.Visible = false;
                             medicoNavbar.Visible = false;
                             adminNavbar.Visible = true;

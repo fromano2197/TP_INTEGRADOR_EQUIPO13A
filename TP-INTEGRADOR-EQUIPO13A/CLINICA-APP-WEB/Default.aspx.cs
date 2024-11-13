@@ -1,4 +1,5 @@
-﻿using Negocio;
+﻿using Dominio;
+using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,14 @@ namespace CLINICA_APP_WEB
             AccesoDatos Datos = new AccesoDatos();
             try
             {
-                string consulta = "SELECT id_usuarios,tipo_usuario FROM usuarios WHERE usuario = @USUARIO AND contraseña = @CONTRASEÑA";
-                
+                string consulta = @"SELECT id_usuarios, tipo_usuario,
+            ISNULL(id_paciente, 0) AS id_paciente,
+            ISNULL(id_profesional, 0) AS id_profesional,
+            ISNULL(id_administrador, 0) AS id_administrador
+            FROM usuarios
+            WHERE usuario = @USUARIO AND contraseña = @CONTRASEÑA";
+
+
                 Datos.setearParametro("@USUARIO", usuario);
                 Datos.setearParametro("@CONTRASEÑA", contraseña);
                 Datos.setConsulta(consulta);
@@ -33,8 +40,12 @@ namespace CLINICA_APP_WEB
                 if (Datos.Lector.Read())
                 {
                     int idUsuario = (int)Datos.Lector["id_usuarios"];
+                    int idPaciente = (int)Datos.Lector["id_paciente"];
+                    int idProfesional = (int)Datos.Lector["id_profesional"];
+                    int idAdministrador = (int)Datos.Lector["id_administrador"];
                     string tipoUsuario = (string)Datos.Lector["tipo_usuario"];
 
+                    Session["idPaciente"] = idPaciente;
                     Session["TipoUsuario"] = tipoUsuario;
 
 
@@ -72,6 +83,5 @@ namespace CLINICA_APP_WEB
                 Datos.cerrarConexion();
             }
         }
-
     }
 }

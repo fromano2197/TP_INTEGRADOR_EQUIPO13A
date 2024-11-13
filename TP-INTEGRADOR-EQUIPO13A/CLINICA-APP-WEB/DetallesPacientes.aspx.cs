@@ -27,7 +27,6 @@ namespace CLINICA_APP_WEB
                         if (lista.Count > 0)
                         {
                             Paciente seleccionado = lista[0];
-
                             txtDni.Text = seleccionado.DatosPersona.Dni.ToString();
                             txtNombre.Text = seleccionado.DatosPersona.Nombre;
                             txtApellido.Text = seleccionado.DatosPersona.Apellido;
@@ -35,8 +34,6 @@ namespace CLINICA_APP_WEB
                             txtEmail.Text = seleccionado.DatosPersona.ContactoCliente.Email;
                             txtTelefono.Text = seleccionado.DatosPersona.ContactoCliente.telefono.ToString();
                             txtDireccion.Text = seleccionado.DatosPersona.ContactoCliente.Direccion;
-
-
 
                         }
                         else
