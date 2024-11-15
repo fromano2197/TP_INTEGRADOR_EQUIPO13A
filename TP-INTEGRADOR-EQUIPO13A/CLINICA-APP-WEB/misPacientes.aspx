@@ -2,37 +2,37 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-        <h1 class="titulo-principal">Mis Pacientes</h1>
-
-<div class="form-container">
-    <div class="turno-item">
-        <div class="form-group">
-            <h2>Lucia Monges</h2>
-            <p>DNI: 41804460</p>
-            <p>Fecha ultima consulta: Sábado, 09 Nov. 2024</p>
-            <p>Lugar: Clinica UTN, Larralde 123, CABA</p>
-        </div>
-        <asp:Button ID="btnVerHistoriaClinica" onclick="btnVerHistoriaClinica_Click" runat="server" Text="Historia Clinica" CssClass="btn-primary" />
-    </div>
-
-     <div class="turno-item">
-      <div class="form-group">
-          <h2>Pepe Marquez</h2>
-          <p>DNI: 41456784</p>
-          <p>Fecha ultima consulta: Sábado, 09 Nov. 2024</p>
-          <p>Lugar: Clinica UTN, Larralde 123, CABA</p>
-      </div>
-      <asp:Button ID="btnVerHistoriaClinica2" OnClick="btnVerHistoriaClinica2_Click" runat="server" Text="Historia Clinica" CssClass="btn-primary" />
-  </div>
-
-       <div class="turno-item">
-    <div class="form-group">
-        <h2>Matias Martinez</h2>
-        <p>DNI: 44556775</p>
-        <p>Fecha ultima consulta: Viernes, 18 Oct. 2024</p>
-        <p>Lugar: Clinica UTN, Larralde 123, CABA</p>
-    </div>
-    <asp:Button ID="btnVerHistoriaClinica3" OnClick="btnVerHistoriaClinica3_Click" runat="server" Text="Historia Clinica" CssClass="btn-primary" />
-</div>
-</div>
+       <ContentTemplate>
+     <asp:GridView ID="dgvPacientes" runat="server" CssClass="table table-striped table-bordered"></asp:GridView>
+     <link rel="stylesheet" type="text/css" href='<%= ResolveUrl("~/Content/estilos.css") %>' />
+     <hr />
+   <div class="contenedor">
+         <h1 class="titulo-resultados">Mis Pacientes</h1>
+         <%--<label for="txtBuscarPaciente" class="etiqueta-formulario">Buscar Paciente:</label>--%>
+        <%-- <asp:TextBox ID="txtBuscarPaciente" CssClass="entrada-formulario" runat="server" AutoPostBack="true" OnTextChanged="filtro_TextChanged" placeholder="Buscar por Apellido,Nombre o Dni" />--%>
+     </div>
+     
+     <div class="table-responsive">
+         <table class="table table-bordered table-hover">
+             <thead>
+                 <tr>
+                     <th>Apellido</th>
+                     <th>Nombre</th>
+                     <th>DNI</th>
+                 </tr>
+             </thead>
+             <tbody>
+                 <asp:Repeater ID="repRepeater" runat="server">
+                     <ItemTemplate>
+                         <tr>
+                             <td><%# Eval("Apellido") %></td>
+                             <td><%# Eval("Nombre") %></td>
+                             <td><%# Eval("Dni") %></td>
+                         </tr>
+                     </ItemTemplate>
+                 </asp:Repeater>
+             </tbody>
+         </table>
+     </div>
+ </ContentTemplate>
 </asp:Content>

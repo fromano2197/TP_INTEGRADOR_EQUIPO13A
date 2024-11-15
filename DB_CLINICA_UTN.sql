@@ -478,4 +478,18 @@ BEGIN
     WHERE id_paciente = @ID_PACIENTE;
 
 END;
+GO
+
+CREATE TABLE pacientes_por_profesional (
+    id INT PRIMARY KEY IDENTITY(1,1),
+    id_profesional INT NOT NULL,          
+    id_paciente INT NOT NULL,            
+
+    activo BIT NOT NULL DEFAULT 1,       
+
+    FOREIGN KEY (id_profesional) REFERENCES profesionales(id_profesional),
+    FOREIGN KEY (id_paciente) REFERENCES pacientes(id_paciente),
+    CONSTRAINT UQ_paciente_profesional UNIQUE (id_profesional, id_paciente)
+);
+
 

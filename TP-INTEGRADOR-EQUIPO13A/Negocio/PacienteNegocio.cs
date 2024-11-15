@@ -48,6 +48,44 @@ namespace Negocio
             return lista;
         }
 
+        public List<Persona> listarPorProfesional(int id)
+        {
+            List<Persona> lista = new List<Persona>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setConsulta("SELECT p.apellido, p.nombre, p.dni FROM pacientes_por_profesional AS pxp " +
+                                "INNER JOIN pacientes AS p ON p.id_paciente = pxp.id_paciente " +
+                                "WHERE pxp.id_profesional = @id;");
+
+                datos.setearParametro("@id", id);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Persona aux = new Persona();
+
+                    aux.Apellido = (string)datos.Lector["apellido"];
+                    aux.Nombre = (string)datos.Lector["nombre"];
+                    aux.Dni = (string)datos.Lector["dni"];
+
+
+
+                    lista.Add(aux);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return lista;
+        }
+
         public void eliminarPaciente(int id)
         {
             AccesoDatos datos = new AccesoDatos();

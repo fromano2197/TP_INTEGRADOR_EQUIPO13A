@@ -20,7 +20,11 @@ namespace CLINICA_APP_WEB
 
         protected void btnMisPacientes_Command(object sender, CommandEventArgs e)
         {
-
+            if (e.CommandName == "Pacientes")
+            {
+                int id = Session["idProfesional"] != null ? int.Parse(Session["idProfesional"].ToString()) : 0;
+                Response.Redirect("misPacientes.aspx?id=" + id);
+            }
         }
 
         protected void btnTurnos_Command(object sender, CommandEventArgs e)

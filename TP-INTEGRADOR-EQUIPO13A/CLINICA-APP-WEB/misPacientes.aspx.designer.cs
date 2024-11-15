@@ -15,30 +15,21 @@ namespace CLINICA_APP_WEB
     {
 
         /// <summary>
-        /// Control btnVerHistoriaClinica.
+        /// Control dgvPacientes.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnVerHistoriaClinica;
+        protected global::System.Web.UI.WebControls.GridView dgvPacientes;
 
         /// <summary>
-        /// Control btnVerHistoriaClinica2.
+        /// Control repRepeater.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnVerHistoriaClinica2;
-
-        /// <summary>
-        /// Control btnVerHistoriaClinica3.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnVerHistoriaClinica3;
+        protected global::System.Web.UI.WebControls.Repeater repRepeater;
     }
 }

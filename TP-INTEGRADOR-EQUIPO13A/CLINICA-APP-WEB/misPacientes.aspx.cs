@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,22 +12,16 @@ namespace CLINICA_APP_WEB
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                int id = Session["idProfesional"] != null ? int.Parse(Session["idProfesional"].ToString()) : 0;
+                PacienteNegocio negocio = new PacienteNegocio();
+                Session.Add("listarPacientes", negocio.listarPorProfesional(id));
+                repRepeater.DataSource = Session["listarPacientes"];
+                repRepeater.DataBind();
+            }
         }
 
-        protected void btnVerHistoriaClinica3_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("HistoriaClinica.aspx", false);
-        }
-
-        protected void btnVerHistoriaClinica2_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("HistoriaClinica.aspx", false);
-        }
-
-        protected void btnVerHistoriaClinica_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("HistoriaClinica.aspx", false);
-        }
+       
     }
 }
