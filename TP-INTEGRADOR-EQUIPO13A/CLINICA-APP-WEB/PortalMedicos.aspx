@@ -9,9 +9,10 @@
             <h1>Portal Médico</h1>
         </div>
         <div class="inicio-botones">
-            <a href="misPacientes.aspx" class="inicio-btn">Mis Pacientes</a>
-            <a href="turnosDia.aspx" class="inicio-btn">Turnos del Día</a>
-            <a href="registrarConsulta.aspx" class="inicio-btn">Registrar Consulta</a>
+            <asp:Button ID="btnMisPacientes" CommandName="Pacientes" Oncommand="btnMisPacientes_Command" CssClass="inicio-btn" runat="server" Text="Mis Pacientes" />
+            <asp:Button ID="btnTurnos" CommandName="Turnos"  Oncommand="btnTurnos_Command" CssClass="inicio-btn" runat="server" Text="Mis Turnos" />
+            <asp:Button ID="btnRegistrarConsulta" CommandName="Consulta" Oncommand="btnRegistrarConsulta_Command" CssClass="inicio-btn" runat="server" Text="Registrar Consulta" />
+           
         </div>
     </div>
 </asp:Content>

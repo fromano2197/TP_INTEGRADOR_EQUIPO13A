@@ -47,6 +47,7 @@ namespace CLINICA_APP_WEB
 
                     Session["idPaciente"] = idPaciente;
                     Session["TipoUsuario"] = tipoUsuario;
+                    Session["idProfesional"] = idProfesional;
 
 
 

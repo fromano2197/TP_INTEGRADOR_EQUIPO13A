@@ -207,7 +207,7 @@ GO
 
 INSERT INTO turnos (id_paciente, id_profesional, id_especialidad, id_institucion, fecha, hora, observaciones, estado)
 VALUES
-(1, 1, 1, 1, '2024-11-30', '10:00', 'Revisión de rutina', 'disponible'),
+(2, 1, 1, 1, '2024-12-14', '09:00', 'Revisión de rutina', 'disponible'),
 (2, 2, 2, 2, '2024-11-12', '11:30', 'Consulta dermatológica', 'disponible'),
 (3, 3, 3, 3, '2024-11-14', '09:00', 'Revisión pediátrica', 'reservado'),
 (4, 4, 4, 4, '2024-11-15', '13:00', 'Consulta ginecológica', 'cancelado'),
@@ -478,3 +478,4 @@ BEGIN
     WHERE id_paciente = @ID_PACIENTE;
 
 END;
+

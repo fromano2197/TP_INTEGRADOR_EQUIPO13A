@@ -12,9 +12,11 @@ namespace CLINICA_APP_WEB
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            int id = int.Parse(Session["idProfesional"].ToString());
             TurnoNegocio negocio = new TurnoNegocio();
-            dgvTurnosDia.DataSource = negocio.listar();
-            dgvTurnosDia.DataBind();
+            Session.Add("listarTurnos", negocio.listarPorProfesional(id));
+            repRepeater.DataSource = Session["listarTurnos"];
+            repRepeater.DataBind();
         }
     }
 }
