@@ -7,50 +7,57 @@
     <div class="form-container">
         <form class="space-y-4">
             <div class="form-group">
-                <label for="paciente" class="form-label">Paciente:</label>
-                <select id="paciente" class="form-select">
-                    <option>ROMANO FACUNDO EZEQUIEL</option>
-                    <option>HERNAN MOLINA</option>
-                    <option>LUCIA MONGES</option>
-                    <option>MAXI PROGRAMA</option>
-                </select>
-            </div>
-
-
-            <div class="form-group">
-    <label for="Cobertura" class="form-label">Cobertura:</label>
-    <select id="Cobertura" class="form-select">
-        <option>SELECCIONAR</option>
-        <option>OSDE</option>
-        <option>CAMIONEROS</option>
-        <option>PARTICULAR</option>
-    </select>
-</div>
-
-            <div class="form-group">
-                <label for="especialidad" class="form-label">Especialidad:</label>
-                <select id="especialidad" class="form-select">
-                    <option>SELECCIONAR</option>
-                    <option>CLINICA MEDICA</option>
-                    <option>CARDIOLOGÍA</option>
-                    <option>TRAUMATOLOGÍA</option>
-                    <option>GINECOLOGÍA</option>
-                </select>
+                <label for="ddlInstitucion" class="form-label">Institución:</label>
+                <asp:DropDownList ID="ddlInstitucion" runat="server" CssClass="form-select">
+                    <asp:ListItem Text="SELECCIONAR" Value=""></asp:ListItem>
+                </asp:DropDownList>
             </div>
 
             <div class="form-group">
-                <label for="medico" class="form-label">Médico:</label>
-                <select id="medico" class="form-select">
-                    <option>TODOS</option>
-                    <option>DOCTOR AMOR</option>
-                    <option>DOCTOR DOLITTLE</option>
-                    <option>GASTON PORTAL</option>
-                    <option>DOCTOR ACHURA</option>
-                </select>
+                <label for="ddlEspecialidad" class="form-label">Especialidad:</label>
+                <asp:DropDownList ID="ddlEspecialidad" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlEspecialidad_SelectedIndexChanged">
+                    <asp:ListItem Text="SELECCIONAR" Value=""></asp:ListItem>
+                </asp:DropDownList>
+
+            </div>
+
+            <div class="form-group">
+                <label for="ddlMedico" class="form-label">Médico:</label>
+                <asp:DropDownList ID="ddlMedico" runat="server" CssClass="form-select">
+                    <asp:ListItem Text="TODOS" Value=""></asp:ListItem>
+                </asp:DropDownList>
             </div>
 
             <asp:Button ID="btnConsultarTurnos" runat="server" CssClass="btn-primary" Text="Consultar turnos disponibles" OnClick="btnConsultarTurnos_Click" />
 
+            <asp:Label ID="lblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
         </form>
     </div>
+
+    <hr />
+    <div class="results-container">
+        <asp:GridView ID="gvTurnos" runat="server" CssClass="table table-striped" AutoGenerateColumns="False" OnRowDataBound="gvTurnos_RowDataBound">
+
+            <Columns>
+                <asp:BoundField DataField="Institucion" HeaderText="Institución" />
+                <asp:BoundField DataField="Especialidad" HeaderText="Especialidad" />
+                <asp:BoundField DataField="Medico" HeaderText="Médico" />
+                <asp:BoundField DataField="Fecha" HeaderText="Fecha" />
+                <asp:BoundField DataField="Hora" HeaderText="Hora" />
+
+                <asp:TemplateField HeaderText="Acción">
+                    <ItemTemplate>
+                        <asp:Button ID="btnTomarTurno" runat="server"
+                                    Text="Tomar Turno"
+                                    CommandName="TomarTurno"
+                                    CommandArgument='<%# Eval("id_turno") %>'
+                                    OnClick="btnTomarTurno_Click" />
+                    </ItemTemplate>
+                </asp:TemplateField>
+
+
+            </Columns>
+        </asp:GridView>
+    </div>
+
 </asp:Content>
