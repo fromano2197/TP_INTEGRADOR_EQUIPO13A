@@ -19,6 +19,7 @@
                      <th>Apellido</th>
                      <th>Nombre</th>
                      <th>DNI</th>
+                     <th>Acciones</th>
                  </tr>
              </thead>
              <tbody>
@@ -28,6 +29,7 @@
                              <td><%# Eval("Apellido") %></td>
                              <td><%# Eval("Nombre") %></td>
                              <td><%# Eval("Dni") %></td>
+                             <td><asp:Button ID="btnDetalles" CommandName="Detalles" Oncommand="btnDetalles_Command" CommandArgument='<%# Eval("IdPersona") %>' CssClass="btn-especialidad" runat="server" Text="Ver detalle de Paciente" /></td>
                          </tr>
                      </ItemTemplate>
                  </asp:Repeater>

@@ -22,6 +22,14 @@ namespace CLINICA_APP_WEB
             }
         }
 
-       
+        protected void btnDetalles_Command(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "Detalles")
+            {
+                int id = Convert.ToInt32(e.CommandArgument);
+                Response.Redirect("DetallesPacientes.aspx?id=" + id);
+            }
+
+        }
     }
 }

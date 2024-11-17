@@ -1,6 +1,7 @@
 ﻿using Dominio;
 using Negocio;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -55,9 +56,74 @@ namespace Negocio
             }
             return lista;
         }
-    
+
+        public Turno listar(int id)
+        {
+            Turno aux = new Turno();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setConsulta(@"select t.id_turno,t.fecha,t.hora, p.nombre,p.apellido,pr.id_profesional,e.nombre,t.observaciones,p.id_paciente,p.dni
+                                    from turnos t
+                                    inner join pacientes p on t.id_paciente=p.id_paciente
+                                    inner join profesionales pr on t.id_profesional=pr.id_profesional
+                                    inner join profesionales_especialidades pe on pe.id_profesional=pr.id_profesional
+                                    inner join especialidades e on e.id_especialidad=pe.id_especialidad
+	                                where id_turno = @id;");
+
+                datos.setearParametro("@id", id);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    
+                    aux.IdTurno = datos.Lector.GetInt32(0);
+                    aux.Fecha = (DateTime)datos.Lector["fecha"];
+                    aux.Paciente = new Paciente();
+                    aux.Paciente.IdPaciente = (int)datos.Lector["id_paciente"];
+                    aux.Paciente.DatosPersona = new Persona();
+                    aux.Paciente.DatosPersona.Nombre = datos.Lector["nombre"].ToString();
+                    aux.Paciente.DatosPersona.Apellido = datos.Lector["apellido"].ToString();
+                    aux.Paciente.DatosPersona.Dni = datos.Lector["dni"].ToString();
+                    
+                }
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return aux;
+        }
+
+        public void RegistrarObservacion(Turno aux)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearProcedimiento("SP_CARGAR_OBSERVACION");
+                datos.setearParametro("@ID", aux.IdTurno);
+                datos.setearParametro("@OBSERVACIONES", aux.Observaciones);
+                datos.ejecutarAccion();
 
 
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+
+        }
 public List<Turno> listarPorProfesional(int id)
 {
     List<Turno> lista = new List<Turno>();

@@ -55,7 +55,7 @@ namespace Negocio
 
             try
             {
-                datos.setConsulta("SELECT p.apellido, p.nombre, p.dni FROM pacientes_por_profesional AS pxp " +
+                datos.setConsulta("SELECT p.id_paciente, p.apellido, p.nombre, p.dni FROM pacientes_por_profesional AS pxp " +
                                 "INNER JOIN pacientes AS p ON p.id_paciente = pxp.id_paciente " +
                                 "WHERE pxp.id_profesional = @id;");
 
@@ -65,7 +65,7 @@ namespace Negocio
                 while (datos.Lector.Read())
                 {
                     Persona aux = new Persona();
-
+                    aux.IdPersona= datos.Lector.GetInt32(0);
                     aux.Apellido = (string)datos.Lector["apellido"];
                     aux.Nombre = (string)datos.Lector["nombre"];
                     aux.Dni = (string)datos.Lector["dni"];
@@ -129,15 +129,15 @@ namespace Negocio
         }
 
 
-        public Persona listar(int DNI)
+        public Persona listar(int id)
         {
             Persona aux = null;
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setConsulta("select apellido,nombre,dni from pacientes WHERE dni = @DNI");
-                datos.setearParametro("@DNI", DNI);
+                datos.setConsulta("select apellido,nombre,dni from pacientes WHERE id_paciente = @id");
+                datos.setearParametro("@id", id);
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {

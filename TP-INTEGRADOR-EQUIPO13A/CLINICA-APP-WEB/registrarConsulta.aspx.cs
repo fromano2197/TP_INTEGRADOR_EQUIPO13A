@@ -13,27 +13,38 @@ namespace CLINICA_APP_WEB
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-           
+            if (!IsPostBack)
+            {
+                int id = 0;
+                if (int.TryParse(Request.QueryString["id"], out id) && id > 0) { 
+                TurnoNegocio negocio = new TurnoNegocio();
+
+                Turno seleccionado = new Turno();
+
+                seleccionado = negocio.listar(id);
+                txtDni.Text = seleccionado.Paciente.DatosPersona.Dni;
+                txtApellidoPaciente.Text = seleccionado.Paciente.DatosPersona.Apellido;
+                txtNombrePaciente.Text = seleccionado.Paciente.DatosPersona.Nombre;
+                    
+
+            }
+            }
         }
 
-        protected void txtDni_TextChanged(object sender, EventArgs e)
-        {
-            int DNI = int.Parse(txtDni.Text);
-            PacienteNegocio negocio = new PacienteNegocio();
-            Persona seleccionado = new Persona();
-            seleccionado = negocio.listar(DNI);
-
-            txtApellidoPaciente.Text = seleccionado.Apellido;
-            txtNombrePaciente.Text = seleccionado.Nombre;
-        }
 
         protected void btnRegistrarConsulta_Click(object sender, EventArgs e)
         {
-            int DNI = int.Parse(txtDni.Text);
-            PacienteNegocio negocio = new PacienteNegocio();
-            Paciente aux = new Paciente();
-           
-            int IDPACIENTE = negocio.buscarIDPaciente(DNI);
+            TurnoNegocio negocio = new TurnoNegocio();
+            Turno aux = new Turno();
+            int id = 0;
+            if (int.TryParse(Request.QueryString["id"], out id) && id > 0)
+            {
+                aux.IdTurno = id;
+                aux.Observaciones = TxtAreaObservacionesConsulta.Value;
+                negocio.RegistrarObservacion(aux);
+
+             }
+            Response.Redirect("turnosDia.aspx", false);
 
         }
     }

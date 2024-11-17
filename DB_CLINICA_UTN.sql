@@ -100,13 +100,13 @@ CREATE TABLE turnos (
   hora TIME  NOT NULL,
   observaciones VARCHAR (MAX),
    estado VARCHAR(20) NOT NULL DEFAULT 'disponible' CHECK (
-    estado IN ('disponible', 'reservado', 'cancelado')
+    estado IN ('disponible', 'reservado', 'cancelado', 'atendido')
   ),
   FOREIGN KEY (id_paciente) REFERENCES pacientes (id_paciente),
   FOREIGN KEY (id_profesional) REFERENCES profesionales (id_profesional),
   FOREIGN KEY (id_especialidad) REFERENCES especialidades (id_especialidad),
   FOREIGN KEY (id_institucion) REFERENCES instituciones (id_institucion),
-  CONSTRAINT CHK_fecha CHECK (fecha >= GETDATE())
+  
  );
 
  GO
@@ -233,6 +233,23 @@ VALUES
 ('admin4', '123', 'administrador', NULL, NULL, 4, 1),
 ('admin5', '123', 'administrador', NULL, NULL, 5, 1);
 
+
+GO
+
+INSERT INTO turnos (id_paciente, id_profesional, id_especialidad, id_institucion, fecha, hora, estado, observaciones)
+VALUES
+(1, 1, 1, 1, '2024-11-10', '09:00', 'atendido', 'Paciente revisado, seguimiento en 3 meses'),
+(2, 2, 2, 2, '2024-11-11', '10:30', 'atendido', 'Consulta concluida, todo en orden'),
+(3, 3, 3, 3, '2024-11-12', '11:00', 'atendido', 'Recetados medicamentos para control'),
+(4, 4, 4, 4, '2024-11-13', '12:30', 'atendido', 'Se requiere análisis adicional'),
+(5, 5, 5, 5, '2024-11-14', '14:00', 'atendido', 'Seguimiento recomendado en 6 meses'),
+
+(1, 1, 1, 1, '2024-11-15', '09:30', 'reservado', NULL),
+(2, 2, 2, 2, '2024-11-16', '10:00', 'reservado', NULL),
+
+(3, 3, 3, 3, '2024-11-17', '11:30', 'cancelado', NULL),
+(4, 4, 4, 4, '2024-11-18', '13:00', 'cancelado', NULL),
+(5, 5, 5, 5, '2024-11-19', '15:00', 'cancelado', NULL);
 
 GO
 
@@ -480,6 +497,7 @@ BEGIN
 END;
 GO
 
+
 CREATE TABLE pacientes_por_profesional (
     id INT PRIMARY KEY IDENTITY(1,1),
     id_profesional INT NOT NULL,          
@@ -491,5 +509,33 @@ CREATE TABLE pacientes_por_profesional (
     FOREIGN KEY (id_paciente) REFERENCES pacientes(id_paciente),
     CONSTRAINT UQ_paciente_profesional UNIQUE (id_profesional, id_paciente)
 );
+
+GO
+
+CREATE TRIGGER trg_RelacionPacienteProfesional
+ON turnos
+AFTER INSERT
+AS
+BEGIN
+    INSERT INTO pacientes_por_profesional (id_profesional, id_paciente, activo)
+    SELECT DISTINCT i.id_profesional, i.id_paciente, 1
+    FROM inserted i
+    LEFT JOIN pacientes_por_profesional pp
+        ON i.id_profesional = pp.id_profesional AND i.id_paciente = pp.id_paciente
+    WHERE pp.id_profesional IS NULL AND pp.id_paciente IS NULL;
+END;
+GO
+
+CREATE PROCEDURE SP_CARGAR_OBSERVACION
+@ID INT,
+@OBSERVACIONES VARCHAR(MAX)
+AS
+BEGIN
+UPDATE TURNOS SET observaciones = @OBSERVACIONES WHERE id_turno = @ID
+UPDATE TURNOS SET estado = 'atendido' where id_turno=@ID;
+END
+
+
+
 
 

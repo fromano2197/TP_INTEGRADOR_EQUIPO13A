@@ -16,6 +16,7 @@
                            <th>DNI</th>
                            <th>Fecha</th>
                            <th>Observaciones</th>
+                           <th>Acciones</th>
                        </tr>
                    </thead>
                    <tbody>
@@ -28,6 +29,9 @@
                                    <td><%# Eval("Paciente.DatosPersona.Dni") %></td>
                                    <td><%# Eval("Fecha") %></td>
                                    <td><%# Eval("Observaciones") %></td>
+                                   <td>
+                                       <asp:Button ID="btnObservaciones" CommandName="Observaciones" OnCommand="btnObservaciones_Command" CommandArgument='<%# Eval("IdTurno") %>' CssClass="btn-especialidad" runat="server" Text="Agregar Observacion"/>
+                                       <asp:Button ID="btnDetalles" CommandName="Detalles" OnCommand="btnDetalles_Command" CommandArgument='<%# Eval("Paciente.IdPaciente") %>' CssClass="btn-especialidad" runat="server" Text="Ver detalle de Paciente" /></td>
                                </tr>
                            </ItemTemplate>
                        </asp:Repeater>

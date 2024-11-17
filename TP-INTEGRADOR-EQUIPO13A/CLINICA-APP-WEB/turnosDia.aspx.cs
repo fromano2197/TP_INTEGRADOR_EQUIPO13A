@@ -12,11 +12,32 @@ namespace CLINICA_APP_WEB
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            int id = int.Parse(Session["idProfesional"].ToString());
+            if (!IsPostBack) { 
+            int id = Session["idProfesional"] != null ? int.Parse(Session["idProfesional"].ToString()) : 0;
             TurnoNegocio negocio = new TurnoNegocio();
             Session.Add("listarTurnos", negocio.listarPorProfesional(id));
             repRepeater.DataSource = Session["listarTurnos"];
             repRepeater.DataBind();
+            }
+        }
+
+        protected void btnObservaciones_Command(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "Observaciones")
+            {
+                int idTurno = Convert.ToInt32(e.CommandArgument);
+                Response.Redirect("RegistrarConsulta.aspx?id=" + idTurno);
+            }
+        }
+
+        protected void btnDetalles_Command(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "Detalles")
+            {
+                int id = Convert.ToInt32(e.CommandArgument);
+                Response.Redirect("DetallesPacientes.aspx?id=" + id);
+            }
+  
         }
     }
 }
