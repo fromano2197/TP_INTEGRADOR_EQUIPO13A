@@ -30,6 +30,9 @@ namespace CLINICA_APP_WEB
                 ddlInstitucion.DataTextField = "nombre";
                 ddlInstitucion.DataValueField = "id_institucion";
                 ddlInstitucion.DataBind();
+
+                // Agregar el "Seleccionar" como primer elemento
+                ddlInstitucion.Items.Insert(0, new ListItem("Selecciona una institución", "0"));
             }
             catch (Exception ex)
             {
@@ -40,6 +43,7 @@ namespace CLINICA_APP_WEB
                 datos.cerrarConexion();
             }
         }
+
 
         private void CargarEspecialidades()
         {
@@ -52,6 +56,8 @@ namespace CLINICA_APP_WEB
                 ddlEspecialidad.DataTextField = "nombre";
                 ddlEspecialidad.DataValueField = "id_especialidad";
                 ddlEspecialidad.DataBind();
+
+                ddlEspecialidad.Items.Insert(0, new ListItem("Selecciona una especialidad", "0"));
             }
             catch (Exception ex)
             {
@@ -110,24 +116,28 @@ namespace CLINICA_APP_WEB
             string especialidad = ddlEspecialidad.SelectedValue;
             string medico = ddlMedico.SelectedValue;
 
+            // Comienza la consulta con los filtros generales
             string consulta = @"SELECT P.nombre + ' ' + P.apellido AS Medico, E.nombre AS especialidad, T.id_turno, T.id_paciente, T.id_profesional, T.id_especialidad, T.id_institucion, T.fecha, T.hora, I.nombre as institucion, T.estado
-                     FROM TURNOS T
-                     INNER JOIN profesionales P ON P.id_profesional = T.id_profesional
-                     INNER JOIN especialidades E ON E.id_especialidad = T.id_especialidad
-                     INNER JOIN instituciones I ON I.id_institucion = T.id_institucion
-                     WHERE T.estado = 'disponible' AND P.activo = 1 AND E.activo = 1 AND I.activo = 1";
+                        FROM TURNOS T
+                        INNER JOIN profesionales P ON P.id_profesional = T.id_profesional
+                        INNER JOIN especialidades E ON E.id_especialidad = T.id_especialidad
+                        INNER JOIN instituciones I ON I.id_institucion = T.id_institucion
+                        WHERE T.estado = 'disponible' AND P.activo = 1 AND E.activo = 1 AND I.activo = 1";
 
-            if (!string.IsNullOrEmpty(institucion)) consulta += " AND I.id_institucion = @institucion";
-            if (!string.IsNullOrEmpty(especialidad)) consulta += " AND E.id_especialidad = @especialidad";
-            if (!string.IsNullOrEmpty(medico)) consulta += " AND P.id_profesional = @medico";
+            // Agregar los filtros opcionales
+            if (!string.IsNullOrEmpty(institucion) && institucion != "0") consulta += " AND I.id_institucion = @institucion";
+            if (!string.IsNullOrEmpty(especialidad) && especialidad != "0") consulta += " AND E.id_especialidad = @especialidad";
+            if (!string.IsNullOrEmpty(medico) && medico != "0") consulta += " AND P.id_profesional = @medico";
 
             AccesoDatos datos = new AccesoDatos();
             try
             {
                 datos.setConsulta(consulta);
-                if (!string.IsNullOrEmpty(institucion)) datos.setearParametro("@institucion", institucion);
-                if (!string.IsNullOrEmpty(especialidad)) datos.setearParametro("@especialidad", especialidad);
-                if (!string.IsNullOrEmpty(medico)) datos.setearParametro("@medico", medico);
+
+                // Añadir parámetros solo si no son el valor por defecto (0)
+                if (!string.IsNullOrEmpty(institucion) && institucion != "0") datos.setearParametro("@institucion", institucion);
+                if (!string.IsNullOrEmpty(especialidad) && especialidad != "0") datos.setearParametro("@especialidad", especialidad);
+                if (!string.IsNullOrEmpty(medico) && medico != "0") datos.setearParametro("@medico", medico);
 
                 datos.ejecutarLectura();
                 gvTurnos.DataSource = datos.Lector;
@@ -144,22 +154,26 @@ namespace CLINICA_APP_WEB
         }
 
 
+
         protected void ddlEspecialidad_SelectedIndexChanged(object sender, EventArgs e)
         {
             int idEspecialidad = int.Parse(ddlEspecialidad.SelectedValue);
             int idInstitucion = int.Parse(ddlInstitucion.SelectedValue);
 
             ddlMedico.Items.Clear();
+            ddlMedico.Items.Add(new ListItem("Selecciona un médico", "0"));
 
+            // Cargar médicos solo si tanto la especialidad como la institución están seleccionadas
             if (idEspecialidad > 0 && idInstitucion > 0)
             {
-                CargarMedicos(idEspecialidad, idInstitucion); 
+                CargarMedicos(idEspecialidad, idInstitucion);
             }
             else
             {
                 ddlMedico.Items.Add(new ListItem("Selecciona una especialidad e institución", "0"));
             }
         }
+
 
         protected void btnTomarTurno_Click(object sender, EventArgs e)
         {
@@ -176,6 +190,7 @@ namespace CLINICA_APP_WEB
                 int idTurno = Convert.ToInt32(btn.CommandArgument);
 
                 TomarTurno(idTurno, idPaciente);
+                CargarTurnos();
             }
             catch (Exception ex)
             {

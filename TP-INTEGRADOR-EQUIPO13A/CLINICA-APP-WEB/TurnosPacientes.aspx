@@ -9,22 +9,23 @@
             <div class="form-group">
                 <label for="ddlInstitucion" class="form-label">Institución:</label>
                 <asp:DropDownList ID="ddlInstitucion" runat="server" CssClass="form-select">
-                    <asp:ListItem Text="SELECCIONAR" Value=""></asp:ListItem>
+                    <asp:ListItem Text="SELECCIONAR" Value="" Selected="True"></asp:ListItem>
+                    
                 </asp:DropDownList>
             </div>
 
             <div class="form-group">
                 <label for="ddlEspecialidad" class="form-label">Especialidad:</label>
                 <asp:DropDownList ID="ddlEspecialidad" runat="server" CssClass="form-select" AutoPostBack="true" OnSelectedIndexChanged="ddlEspecialidad_SelectedIndexChanged">
-                    <asp:ListItem Text="SELECCIONAR" Value=""></asp:ListItem>
-                </asp:DropDownList>
+                    <asp:ListItem Text="SELECCIONAR" Value="" Selected="True"></asp:ListItem> 
 
+                </asp:DropDownList>
             </div>
 
             <div class="form-group">
                 <label for="ddlMedico" class="form-label">Médico:</label>
                 <asp:DropDownList ID="ddlMedico" runat="server" CssClass="form-select">
-                    <asp:ListItem Text="TODOS" Value=""></asp:ListItem>
+                    <asp:ListItem Text="SELECCIONAR" Value="" Selected="True"></asp:ListItem>                   
                 </asp:DropDownList>
             </div>
 
@@ -37,7 +38,6 @@
     <hr />
     <div class="results-container">
         <asp:GridView ID="gvTurnos" runat="server" CssClass="table table-striped" AutoGenerateColumns="False" OnRowDataBound="gvTurnos_RowDataBound">
-
             <Columns>
                 <asp:BoundField DataField="Institucion" HeaderText="Institución" />
                 <asp:BoundField DataField="Especialidad" HeaderText="Especialidad" />
@@ -54,8 +54,6 @@
                                     OnClick="btnTomarTurno_Click" />
                     </ItemTemplate>
                 </asp:TemplateField>
-
-
             </Columns>
         </asp:GridView>
     </div>
