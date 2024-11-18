@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.AccessControl;
 using System.Web;
 using System.Web.Services.Description;
@@ -15,7 +16,7 @@ namespace CLINICA_APP_WEB
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+
         }
         protected void btnRegistrar_Click(object sender, EventArgs e)
         {
@@ -39,8 +40,10 @@ namespace CLINICA_APP_WEB
 
                 lblMensaje.Text = "Registro exitoso. Serás redirigido a la página principal.";
                 lblMensaje.Visible = true;
-                 
-                string script = "setTimeout(function() { window.location.href = 'default.aspx'; }, 3000);"; 
+
+                EnviarCorreoConfirmacion(paciente.DatosPersona.ContactoCliente.Email);
+
+                string script = "setTimeout(function() { window.location.href = 'default.aspx'; }, 3000);";
                 ClientScript.RegisterStartupScript(this.GetType(), "Redirigir", script, true);
             }
             catch (Exception ex)
@@ -49,8 +52,46 @@ namespace CLINICA_APP_WEB
                 lblMensaje.Text = "Ocurrió un error al registrar el paciente: " + ex.Message;
                 lblMensaje.Visible = true;
             }
-        }
 
+        }
+        private void EnviarCorreoConfirmacion(string emailDestino)
+        {
+            try
+            {
+                MailMessage mensaje = new MailMessage();
+                mensaje.From = new MailAddress("hernan39742374@gmail.com");
+                mensaje.To.Add(emailDestino);
+                mensaje.Subject = "Confirmación de registro";
+
+
+                mensaje.Body = @"
+                    <html>
+                        <body style=""font-family: Arial, sans-serif; color: #333; text-align: center;"">
+                            <h1 style=""color: #0056b3;"">¡Registro exitoso!</h1>
+                            p>Gracias por registrarte en nuestra clínica. Tu registro ha sido exitoso.</p>
+                            <p style=""margin-top: 20px;"">
+                            <img src=""https://i.pinimg.com/236x/76/91/f8/7691f809425069fa599eb6137f4d6071.jpg"" 
+                            alt=""Logotipo"" style=""width: 300px; height: auto; display: block; margin: 0 auto;"" />
+                            </p>
+                            <p>Si tienes alguna duda, no dudes en <a href=""mailto:hernan39742374@gmail.com"" style=""color: #0056b3;"">contactarnos</a>.</p>
+                        </body>
+                   </html>";
+                mensaje.IsBodyHtml = true;
+
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.Credentials = new System.Net.NetworkCredential("hernan39742374@gmail.com", "lbwwgljjoqxnbxqo");
+                smtp.EnableSsl = true;
+
+                smtp.Send(mensaje);
+            }
+            catch (Exception ex)
+            {
+                lblMensaje.Text = "El registro fue exitoso, pero ocurrió un problema al enviar el correo de confirmación.";
+                lblMensaje.Visible = true;
+            }
+        }
 
     }
 }
