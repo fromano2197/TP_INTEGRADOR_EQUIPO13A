@@ -93,9 +93,9 @@ namespace Negocio
 
             try
             {
-                datos.setearProcedimiento("SP_ELIMINAR_PACIENTE_PERSONA");
+                datos.setearProcedimiento("SP_MODIFICAR_ESTADO_PACIENTE");
                 datos.setearParametro("@ID_PACIENTE", paciente.IdPaciente);
-                datos.setearParametro("@ACTIVO", paciente.IdPaciente);
+                datos.setearParametro("@ACTIVO", paciente.activo);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
@@ -230,7 +230,7 @@ namespace Negocio
 
             try
             {
-                datos.setConsulta(@"select nombre,apellido,fecha_nacimiento,dni,telefono,email,direccion from pacientes where id_paciente=@IDPACIENTE;");
+                datos.setConsulta(@"select id_paciente, activo, nombre,apellido,fecha_nacimiento,dni,telefono,email,direccion from pacientes where id_paciente=@IDPACIENTE;");
 
                 datos.setearParametro("@IDPACIENTE", ID);
                 datos.ejecutarLectura();
@@ -246,7 +246,8 @@ namespace Negocio
                     aux.DatosPersona.ContactoCliente.Email = (string)datos.Lector["email"];
                     aux.DatosPersona.ContactoCliente.telefono = (string)datos.Lector["telefono"];
                     aux.DatosPersona.ContactoCliente.Direccion = (string)datos.Lector["direccion"];
-
+                    aux.activo = (bool)datos.Lector["activo"];
+                    aux.IdPaciente = (int)datos.Lector["id_paciente"];
                     lista.Add(aux);
                 }
             }

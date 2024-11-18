@@ -11,7 +11,7 @@ namespace CLINICA_APP_WEB
 {
     public partial class BuscarPaciente : System.Web.UI.Page
     {
-        public List<Persona> ListaPacientes { get; set; }
+        public List<Paciente> ListaPacientes { get; set; }
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -27,8 +27,8 @@ namespace CLINICA_APP_WEB
 
         protected void filtro_TextChanged(object sender, EventArgs e)
         {
-            List<Persona> lista = (List<Persona>)Session["listar"];
-            List<Persona> listaFiltrada = lista.FindAll(x => x.Nombre.ToUpper().Contains(txtBuscarPaciente.Text.ToUpper()) || x.Apellido.ToUpper().Contains(txtBuscarPaciente.Text.ToUpper()) || x.Dni.ToUpper().Contains( txtBuscarPaciente.Text.ToUpper()));
+            List<Paciente> lista = (List<Paciente>)Session["listar"];
+            List<Paciente> listaFiltrada = lista.FindAll(x => x.DatosPersona.Nombre.ToUpper().Contains(txtBuscarPaciente.Text.ToUpper()) || x.DatosPersona.Apellido.ToUpper().Contains(txtBuscarPaciente.Text.ToUpper()) || x.DatosPersona.Dni.ToUpper().Contains( txtBuscarPaciente.Text.ToUpper()));
             repRepeater.DataSource = listaFiltrada;
             repRepeater.DataBind();
         }
@@ -54,16 +54,24 @@ namespace CLINICA_APP_WEB
 
         protected void btnEliminar_Command1(object sender, CommandEventArgs e)
         {
-            //if (e.CommandName == "Eliminar")
-            //{
-            //    PacienteNegocio negocio = new PacienteNegocio();
-            //    int idPersona = Convert.ToInt32(e.CommandArgument);
-            //    Paciente aux = new Paciente();
+            if (e.CommandName == "Eliminar")
+            {
+                PacienteNegocio negocio = new PacienteNegocio();
+                int idPaciente = Convert.ToInt32(e.CommandArgument);
+                Paciente aux = new Paciente();
+                List<Paciente> lista= new List<Paciente>();
+                lista=negocio.listar_porID(idPaciente);
+                aux = lista[0];
+                if (aux.activo == true)
+                {
+                    aux.activo = false;
+                }
+                else { aux.activo = true; }
 
-            //    negocio.modificarEstado(idPersona);
-            //    Response.Redirect("BuscarPaciente.aspx", false);
+                negocio.modificarEstado(aux);
+                Response.Redirect("BuscarPaciente.aspx", false);
 
-            //}
+            }
         }
 
         protected void btnVisualizar_Command(object sender, CommandEventArgs e)

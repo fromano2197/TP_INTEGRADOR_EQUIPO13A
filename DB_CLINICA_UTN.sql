@@ -411,26 +411,6 @@ BEGIN
     END CATCH;
 END;
 
-GO
-
-CREATE PROCEDURE SP_ELIMINAR_PACIENTE_PERSONA
-    @ID_PACIENTE INT
-AS
-BEGIN
-    SET NOCOUNT ON;
-
-    UPDATE pacientes
-    SET activo = 0
-    WHERE id_paciente = @ID_PACIENTE;
-
-    UPDATE usuarios
-    SET activo = 0
-    WHERE id_paciente = @ID_PACIENTE AND tipo_usuario = 'paciente';
-
-    UPDATE turnos
-    SET estado = 'cancelado'
-    WHERE id_paciente = @ID_PACIENTE AND estado <> 'cancelado';
-END;
 
 GO
 
@@ -530,11 +510,105 @@ CREATE PROCEDURE SP_CARGAR_OBSERVACION
 @OBSERVACIONES VARCHAR(MAX)
 AS
 BEGIN
+ BEGIN TRY
+        BEGIN TRANSACTION;
 UPDATE TURNOS SET observaciones = @OBSERVACIONES WHERE id_turno = @ID
 UPDATE TURNOS SET estado = 'atendido' where id_turno=@ID;
+ COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+    END CATCH;
 END
 
+GO
 
+CREATE PROCEDURE SP_MODIFICAR_ESTADO_ESPECIALIDAD
+    @ID INT,        
+    @ACTIVO BIT     
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        UPDATE especialidades
+        SET activo = @ACTIVO
+        WHERE id_especialidad = @ID;
+
+        UPDATE profesionales_especialidades
+        SET activo = @ACTIVO
+        WHERE id_especialidad = @ID;
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+    END CATCH;
+END;
+
+GO
+
+CREATE PROCEDURE SP_MODIFICAR_ESTADO_INSTITUCION
+    @ID INT,        
+    @ACTIVO BIT     
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        UPDATE instituciones
+        SET activo = @ACTIVO
+        WHERE id_institucion = @ID;
+
+        UPDATE profesionales_instituciones
+        SET activo = @ACTIVO
+        WHERE id_institucion = @ID;
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+    END CATCH;
+END;
+
+GO
+
+CREATE PROCEDURE SP_MODIFICAR_ESTADO_PACIENTE
+    @ID_PACIENTE INT,
+    @ACTIVO BIT
+AS
+BEGIN
+    BEGIN TRY
+        -- Iniciar la transacción
+        BEGIN TRANSACTION;
+
+        UPDATE pacientes
+        SET activo = @ACTIVO
+        WHERE id_paciente = @ID_PACIENTE;
+
+        UPDATE usuarios
+        SET activo = @ACTIVO
+        WHERE id_paciente = @ID_PACIENTE AND tipo_usuario = 'paciente';
+
+        IF @ACTIVO = 0
+        BEGIN
+            UPDATE turnos
+            SET estado = 'cancelado'
+            WHERE id_paciente = @ID_PACIENTE;
+        END
+
+        UPDATE pacientes_por_profesional
+        SET activo = @ACTIVO
+        WHERE id_paciente = @ID_PACIENTE;
+
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+
+        ROLLBACK TRANSACTION;
+    END CATCH;
+END;
 
 
 

@@ -76,9 +76,9 @@ namespace Negocio
             try
             {
 
-                datos.setConsulta("UPDATE instituciones SET activo = @activo where id_institucion=@id");
-                datos.setearParametro("@id", aux.IdInstitucion);
-                datos.setearParametro("@activo", aux.Activo);
+                datos.setearProcedimiento("SP_MODIFICAR_ESTADO_INSTITUCION");
+                datos.setearParametro("@ID", aux.IdInstitucion);
+                datos.setearParametro("@ACTIVO", aux.Activo);
                 datos.ejecutarAccion();
             }
 

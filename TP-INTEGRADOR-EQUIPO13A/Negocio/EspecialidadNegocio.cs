@@ -128,9 +128,9 @@ namespace Negocio
             try
                 {
                     
-                    datos.setConsulta("UPDATE especialidades SET ACTIVO = @activo where id_especialidad=@id");
-                    datos.setearParametro("@id", aux.IdEspecialidad);
-                    datos.setearParametro("@activo", aux.Activo);
+                    datos.setearProcedimiento("SP_MODIFICAR_ESTADO_ESPECIALIDAD");
+                    datos.setearParametro("@ID", aux.IdEspecialidad);
+                    datos.setearParametro("@ACTIVO", aux.Activo);
                     datos.ejecutarAccion();
                 }
 
