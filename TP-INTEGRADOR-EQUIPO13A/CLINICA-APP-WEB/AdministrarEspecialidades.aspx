@@ -15,13 +15,16 @@
                 <label for="txtBuscarEspecialidad" class="etiqueta-formulario">Buscar Especialidad:</label>
                 <asp:TextBox ID="txtBuscarEspecialidad" CssClass="entrada-formulario" runat="server" AutoPostBack="true" OnTextChanged="filtro_TextChanged" placeholder="Buscar por Especialidad" />
             </div>
-
+            <div class="contenedor-boton">
+    <asp:Button ID="btnAgregar" OnClick="btnAgregar_Click" CssClass="btn-agregar-profesional" runat="server" Text="Agregar Especialidad +" />
+            </div>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>ID</th>
                             <th>Especialidad</th>
+                            <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -31,9 +34,10 @@
                                 <tr>
                                     <td><%# Eval("IdEspecialidad") %></td>
                                     <td><%# Eval("NombreEspecialidad") %></td>
+                                    <td><%# Eval("activo").ToString() == "False" ? "Eliminado" : "Activo" %></td>
                                     <td>
                                         <asp:Button ID="btnModificar" CommandName="Modificar" CommandArgument='<%# Eval("IdEspecialidad") %>' OnCommand="btnModificar_Command" CssClass="btn-especialidad" runat="server" Text="Modificar" />
-                                        <asp:Button ID="btnEliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdEspecialidad") %>' OnCommand="btnEliminar_Command" CssClass="btn-especialidad" runat="server" Text="Eliminar" />
+                                        <asp:Button ID="btnEliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdEspecialidad") %>' OnCommand="btnEliminar_Command" CssClass="btn-especialidad" runat="server" Text='<%# Eval("activo").ToString() == "True" ? "Eliminar" : "Activar" %>' />
                                     </td>
                                 </tr>
                             </ItemTemplate>
@@ -43,9 +47,7 @@
             </div>
 
             <hr />
-            <div>
-                <asp:Button ID="btnAgregar" OnClick="btnAgregar_Click" CssClass="btn-especialidad" runat="server" Text="Agregar Especialidad" />
-            </div>
+            
         </ContentTemplate>
     </asp:UpdatePanel>
 

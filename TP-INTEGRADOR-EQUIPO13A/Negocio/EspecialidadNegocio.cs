@@ -17,7 +17,7 @@ namespace Negocio
 
             try
             {
-                datos.setConsulta("select * from especialidades WHERE activo = 1");
+                datos.setConsulta("select * from especialidades");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -41,9 +41,9 @@ namespace Negocio
             return lista;
         }
 
-        public List<Especialidad> listar_porID(int ID)
+        public Especialidad listar_porID(int ID)
         {
-            List<Especialidad> lista = new List<Especialidad>();
+            Especialidad aux = new Especialidad();
             AccesoDatos datos = new AccesoDatos();
 
             try
@@ -53,12 +53,10 @@ namespace Negocio
 
                 while (datos.Lector.Read())
                 {
-                    Especialidad aux = new Especialidad();
                     aux.IdEspecialidad = int.Parse(datos.Lector["id_especialidad"].ToString());
                     aux.NombreEspecialidad = (string)datos.Lector["nombre"];
-
-
-                    lista.Add(aux);
+                    aux.Activo = (bool)datos.Lector["activo"];
+                    
                 }
             }
             catch (Exception ex)
@@ -69,7 +67,7 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
-            return lista;
+            return aux;
         }
 
         public void Agregar(Especialidad aux)
@@ -123,15 +121,16 @@ namespace Negocio
             }
         }
 
-        public void eliminar(int ID)
+        public void cambiarEstado(Especialidad aux)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
                 {
                     
-                    datos.setConsulta("UPDATE especialidades SET ACTIVO = 0 where id_especialidad=@id");
-                    datos.setearParametro("@id", ID);
+                    datos.setConsulta("UPDATE especialidades SET ACTIVO = @activo where id_especialidad=@id");
+                    datos.setearParametro("@id", aux.IdEspecialidad);
+                    datos.setearParametro("@activo", aux.Activo);
                     datos.ejecutarAccion();
                 }
 

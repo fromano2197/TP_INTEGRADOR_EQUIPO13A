@@ -10,10 +10,11 @@ namespace Dominio
     {
         public int IdTurno { get; set; }
         public DateTime Fecha { get; set; }
+        public TimeSpan Hora  { get; set; }
         public Paciente Paciente { get; set; }
         public Profesional Profesional { get; set; }
         public Especialidad Especialidad { get; set; }
-        public string Estado { get; set; }
+        public bool Estado { get; set; }
         public string Observaciones { get; set; }
     }
 }

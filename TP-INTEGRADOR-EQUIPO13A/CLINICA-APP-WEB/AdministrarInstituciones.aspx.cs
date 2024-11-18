@@ -47,7 +47,16 @@ namespace CLINICA_APP_WEB
             {
                 int idInstitucion = Convert.ToInt32(e.CommandArgument);
                 InstitucionNegocio negocio = new InstitucionNegocio();
-                negocio.eliminar(idInstitucion);
+                Institucion aux = new Institucion();
+                aux=negocio.listar_porID(idInstitucion);
+
+                if (aux.Activo == true)
+                {
+                    aux.Activo = false;
+                }
+                else { aux.Activo = true; }
+
+                negocio.cambiarEstado(aux);
                 Response.Redirect("AdministrarInstituciones.aspx", false);
 
             }

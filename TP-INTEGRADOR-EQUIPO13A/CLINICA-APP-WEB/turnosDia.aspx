@@ -15,6 +15,7 @@
                            <th>Nombre</th>
                            <th>DNI</th>
                            <th>Fecha</th>
+                           <th>Hora</th>
                            <th>Observaciones</th>
                            <th>Acciones</th>
                        </tr>
@@ -27,7 +28,8 @@
                                    <td><%# Eval("Paciente.DatosPersona.Apellido") %></td>
                                    <td><%# Eval("Paciente.DatosPersona.Nombre") %></td>
                                    <td><%# Eval("Paciente.DatosPersona.Dni") %></td>
-                                   <td><%# Eval("Fecha") %></td>
+                                   <td><%# Eval("Fecha", "{0:dd/MM/yyyy}") %></td>
+                                   <td><%# Eval("hora", "{0:hh\\:mm}") %></td>
                                    <td><%# Eval("Observaciones") %></td>
                                    <td>
                                        <asp:Button ID="btnObservaciones" CommandName="Observaciones" OnCommand="btnObservaciones_Command" CommandArgument='<%# Eval("IdTurno") %>' CssClass="btn-especialidad" runat="server" Text="Agregar Observacion"/>

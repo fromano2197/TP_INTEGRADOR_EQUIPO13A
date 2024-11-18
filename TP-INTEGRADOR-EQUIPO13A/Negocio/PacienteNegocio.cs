@@ -14,23 +14,24 @@ namespace Negocio
     public class PacienteNegocio
     {
 
-        public List<Persona> listar()
+        public List<Paciente> listar()
         {
-            List<Persona> lista = new List<Persona>();
+            List<Paciente> lista = new List<Paciente>();
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setConsulta("select id_paciente,apellido,nombre,dni from pacientes where activo=1 order by apellido asc;");
+                datos.setConsulta("select id_paciente,apellido,nombre,dni, activo from pacientes order by apellido asc;");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
-                    Persona aux = new Persona();
-                    aux.IdPersona = datos.Lector.GetInt32(0);
-                    aux.Apellido = (string)datos.Lector["apellido"];
-                    aux.Nombre = (string)datos.Lector["nombre"];
-                    aux.Dni = (string)datos.Lector["dni"];
+                    Paciente aux = new Paciente();
+                    aux.IdPaciente = datos.Lector.GetInt32(0);
+                    aux.DatosPersona.Apellido = (string)datos.Lector["apellido"];
+                    aux.DatosPersona.Nombre = (string)datos.Lector["nombre"];
+                    aux.DatosPersona.Dni = (string)datos.Lector["dni"];
+                    aux.activo = (bool)datos.Lector["activo"];
                     
 
 
@@ -86,14 +87,15 @@ namespace Negocio
             return lista;
         }
 
-        public void eliminarPaciente(int id)
+        public void modificarEstado(Paciente paciente)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
                 datos.setearProcedimiento("SP_ELIMINAR_PACIENTE_PERSONA");
-                datos.setearParametro("@ID_PACIENTE", id);
+                datos.setearParametro("@ID_PACIENTE", paciente.IdPaciente);
+                datos.setearParametro("@ACTIVO", paciente.IdPaciente);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)

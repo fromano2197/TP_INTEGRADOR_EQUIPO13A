@@ -23,8 +23,8 @@ namespace CLINICA_APP_WEB
                 if (id > 0)
                 {
                     Especialidad seleccionado = new Especialidad();
-                    List<Especialidad> lista = negocio.listar_porID(id);
-                    seleccionado = lista[0];
+                    seleccionado = negocio.listar_porID(id);
+          
                     txtIDEspecialidad.Text = seleccionado.IdEspecialidad.ToString();
                     txtEspecialidad.Text = seleccionado.NombreEspecialidad.ToString();
                 }

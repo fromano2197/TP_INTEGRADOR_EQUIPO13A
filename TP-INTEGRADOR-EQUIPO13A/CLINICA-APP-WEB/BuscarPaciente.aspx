@@ -33,13 +33,13 @@
                         <asp:Repeater ID="repRepeater" runat="server">
                             <ItemTemplate>
                                 <tr>
-                                    <td><%# Eval("Apellido") %></td>
-                                    <td><%# Eval("Nombre") %></td>
-                                    <td><%# Eval("Dni") %></td>
+                                    <td><%# Eval("DatosPersona.Apellido") %></td>
+                                    <td><%# Eval("DatosPersona.Nombre") %></td>
+                                    <td><%# Eval("DatosPersona.Dni") %></td>
                                     <td>
-                                        <asp:Button ID="btnVisualizar" CommandName="Visualizar" CommandArgument='<%# Eval("IdPersona") %>' OnCommand="btnVisualizar_Command" CssClass="btn-especialidad" runat="server" Text="Visualizar" />
-                                        <asp:Button ID="btnModificar" CommandName="Modificar" CommandArgument='<%# Eval("IdPersona") %>' OnCommand="btnModificar_Command" CssClass="btn-especialidad" runat="server" Text="Modificar" />
-                                        <asp:Button ID="btnEliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdPersona") %>' OnCommand="btnEliminar_Command1" CssClass="btn-especialidad" runat="server" Text="Eliminar" />
+                                        <asp:Button ID="btnVisualizar" CommandName="Visualizar" CommandArgument='<%# Eval("IdPaciente") %>' OnCommand="btnVisualizar_Command" CssClass="btn-especialidad" runat="server" Text="Visualizar" />
+                                        <asp:Button ID="btnModificar" CommandName="Modificar" CommandArgument='<%# Eval("IdPaciente") %>' OnCommand="btnModificar_Command" CssClass="btn-especialidad" runat="server" Text="Modificar" />
+                                        <asp:Button ID="btnEliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdPaciente") %>' OnCommand="btnEliminar_Command1" CssClass="btn-especialidad" runat="server" Text="Eliminar" />
                                     </td>
                                 </tr>
                             </ItemTemplate>

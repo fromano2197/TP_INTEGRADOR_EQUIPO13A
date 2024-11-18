@@ -22,10 +22,9 @@ namespace CLINICA_APP_WEB
                 if (id > 0)
                 {
                     Institucion seleccionado = new Institucion();
-                    List<Institucion> lista = negocio.listar_porID(id);
-                    seleccionado = lista[0];
+                    seleccionado = negocio.listar_porID(id);
                     txtIDInstitucion.Text = seleccionado.IdInstitucion.ToString();
-                    txtNombreInstitucion.Text = seleccionado.Nombre.ToString();
+                    txtNombreInstitucion.Text = seleccionado.Nombre;
                     txtDireccionInstitucion.Text = seleccionado.Direccion.ToString();
                     txtFechaInstitucion.Text = seleccionado.Fecha_Apertura.ToString();
                 }

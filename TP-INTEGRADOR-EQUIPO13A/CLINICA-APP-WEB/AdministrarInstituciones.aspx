@@ -15,7 +15,9 @@
                 <label for="txtBuscarInstitucion" class="etiqueta-formulario">Buscar Institucion:</label>
                 <asp:TextBox ID="txtBuscarInstitucion" CssClass="entrada-formulario" runat="server" AutoPostBack="true" OnTextChanged="filtro_TextChanged" placeholder="Introducir Institución" />
             </div>
-            
+                    <div class="contenedor-boton">
+        <asp:Button ID="btnAgregar" OnClick="btnAgregar_Click" CssClass="btn-agregar-profesional" runat="server" Text="Agregar Institucion +" />
+        </div>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover">
                     <thead>
@@ -24,6 +26,7 @@
                             <th>Nombre Institucion</th>
                             <th>Direccion</th>
                             <th>Fecha Apertura</th>
+                            <th>Estado</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -34,10 +37,11 @@
                                     <td><%# Eval("IdInstitucion") %></td>
                                     <td><%# Eval("Nombre") %></td>
                                     <td><%# Eval("Direccion") %></td>
-                                    <td><%# Eval("Fecha_Apertura") %></td>
+                                    <td><%# Eval("Fecha_Apertura", "{0:dd/MM/yyyy}") %></td>
+                                    <td><%# Eval("activo").ToString() == "False" ? "Eliminado" : "Activo" %></td>
                                     <td>
                                         <asp:Button ID="btnModificar" CommandName="Modificar" CommandArgument='<%# Eval("IdInstitucion") %>' OnCommand="btnModificar_Command" CssClass="btn-especialidad" runat="server" Text="Modificar" />
-                                        <asp:Button ID="btnEliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdInstitucion") %>' OnCommand="btnEliminar_Command" CssClass="btn-especialidad" runat="server" Text="Eliminar" />
+                                        <asp:Button ID="btnEliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdInstitucion") %>' OnCommand="btnEliminar_Command" CssClass="btn-especialidad" runat="server" Text='<%# Eval("activo").ToString() == "True" ? "Eliminar" : "Activar" %>' />
                                     </td>
                                 </tr>
                             </ItemTemplate>
@@ -47,9 +51,7 @@
             </div>
 
             <hr />
-            <div>
-                <asp:Button ID="btnAgregar" OnClick="btnAgregar_Click" CssClass="btn-especialidad" runat="server" Text="Agregar Institucion" />
-            </div>
+            
         </ContentTemplate>
     </asp:UpdatePanel>
 

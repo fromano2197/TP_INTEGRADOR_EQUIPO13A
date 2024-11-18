@@ -36,6 +36,7 @@ namespace Negocio
                     Turno aux = new Turno();
                     aux.IdTurno = datos.Lector.GetInt32(0);
                     aux.Fecha = (DateTime)datos.Lector["fecha"];
+                    aux.Hora = (TimeSpan)datos.Lector["hora"];
                     aux.Paciente = new Paciente();
                     aux.Paciente.IdPaciente = (int)datos.Lector["id_paciente"];
                     aux.Paciente.DatosPersona = new Persona();
@@ -80,6 +81,7 @@ namespace Negocio
                     
                     aux.IdTurno = datos.Lector.GetInt32(0);
                     aux.Fecha = (DateTime)datos.Lector["fecha"];
+                    aux.Hora = (TimeSpan)datos.Lector["hora"];
                     aux.Paciente = new Paciente();
                     aux.Paciente.IdPaciente = (int)datos.Lector["id_paciente"];
                     aux.Paciente.DatosPersona = new Persona();
@@ -131,7 +133,7 @@ public List<Turno> listarPorProfesional(int id)
 
     try
     {
-        datos.setConsulta(@"select t.id_turno, e.nombre as 'nombreespecialidad',t.fecha,t.hora,p.id_paciente ,p.nombre,p.apellido,p.dni,t.observaciones
+        datos.setConsulta(@"select t.id_turno, e.nombre as 'nombreespecialidad',CAST(t.fecha AS DATE) AS Fecha,t.hora,p.id_paciente ,p.nombre,p.apellido,p.dni,t.observaciones
                                     from turnos t
                                     inner join pacientes p on t.id_paciente=p.id_paciente
                                     inner join profesionales pr on t.id_profesional=pr.id_profesional
@@ -147,7 +149,8 @@ public List<Turno> listarPorProfesional(int id)
         {
             Turno aux = new Turno();
             aux.IdTurno = datos.Lector.GetInt32(0);
-            aux.Fecha = (DateTime)datos.Lector["fecha"];
+            aux.Fecha = (DateTime)datos.Lector["Fecha"];
+            aux.Hora = (TimeSpan)datos.Lector["hora"];
             aux.Paciente = new Paciente();
             aux.Paciente.IdPaciente = (int)datos.Lector["id_paciente"];
             aux.Paciente.DatosPersona = new Persona();

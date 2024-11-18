@@ -14,5 +14,7 @@ namespace Dominio
         public Contacto ContactoCliente { get; set; } = new Contacto();
         public DateTime FechaNacimiento { get; set; }
         public string Dni { get; set; }
+
+
     }
 }

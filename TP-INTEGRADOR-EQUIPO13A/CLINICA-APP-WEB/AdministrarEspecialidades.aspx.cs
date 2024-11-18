@@ -53,7 +53,15 @@ namespace CLINICA_APP_WEB
             {
                 int idEspecialidad = Convert.ToInt32(e.CommandArgument);
                 EspecialidadNegocio negocio = new EspecialidadNegocio();
-                negocio.eliminar(idEspecialidad);
+                Especialidad aux = new Especialidad();
+                aux = negocio.listar_porID(idEspecialidad);
+                if(aux.Activo == true)
+                {
+                    aux.Activo = false;
+                }
+                else { aux.Activo= true; }
+
+                negocio.cambiarEstado(aux);
                 Response.Redirect("AdministrarEspecialidades.aspx", false);
 
             }

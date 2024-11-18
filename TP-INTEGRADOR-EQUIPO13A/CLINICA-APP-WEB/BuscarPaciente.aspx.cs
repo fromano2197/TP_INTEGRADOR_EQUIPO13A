@@ -54,14 +54,16 @@ namespace CLINICA_APP_WEB
 
         protected void btnEliminar_Command1(object sender, CommandEventArgs e)
         {
-            if (e.CommandName == "Eliminar")
-            {
-                PacienteNegocio negocio = new PacienteNegocio();
-                int idPersona = Convert.ToInt32(e.CommandArgument);
-                negocio.eliminarPaciente(idPersona);
-                Response.Redirect("BuscarPaciente.aspx", false);
+            //if (e.CommandName == "Eliminar")
+            //{
+            //    PacienteNegocio negocio = new PacienteNegocio();
+            //    int idPersona = Convert.ToInt32(e.CommandArgument);
+            //    Paciente aux = new Paciente();
 
-            }
+            //    negocio.modificarEstado(idPersona);
+            //    Response.Redirect("BuscarPaciente.aspx", false);
+
+            //}
         }
 
         protected void btnVisualizar_Command(object sender, CommandEventArgs e)

@@ -16,7 +16,7 @@ namespace Negocio
 
             try
             {
-                datos.setConsulta("select * from instituciones WHERE activo = 1");
+                datos.setConsulta("select * from instituciones");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -69,15 +69,16 @@ namespace Negocio
             }
         }
 
-        public void eliminar(int ID)
+        public void cambiarEstado(Institucion aux)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
 
-                datos.setConsulta("UPDATE instituciones SET activo = 0 where id_institucion=@id");
-                datos.setearParametro("@id", ID);
+                datos.setConsulta("UPDATE instituciones SET activo = @activo where id_institucion=@id");
+                datos.setearParametro("@id", aux.IdInstitucion);
+                datos.setearParametro("@activo", aux.Activo);
                 datos.ejecutarAccion();
             }
 
@@ -97,9 +98,9 @@ namespace Negocio
 
         }
 
-        public List<Institucion> listar_porID(int ID)
+        public Institucion listar_porID(int ID)
         {
-            List<Institucion> lista = new List<Institucion>();
+            Institucion aux = new Institucion();
             AccesoDatos datos = new AccesoDatos();
 
             try
@@ -109,14 +110,13 @@ namespace Negocio
 
                 while (datos.Lector.Read())
                 {
-                    Institucion aux = new Institucion();
                     aux.IdInstitucion = int.Parse(datos.Lector["id_institucion"].ToString());
                     aux.Fecha_Apertura = DateTime.Parse(datos.Lector["fecha_apertura"].ToString());
                     aux.Nombre = (string)datos.Lector["nombre"];
                     aux.Direccion = (string)datos.Lector["direccion"];
                     aux.Activo = bool.Parse(datos.Lector["activo"].ToString());
 
-                    lista.Add(aux);
+                 
                 }
             }
             catch (Exception ex)
@@ -127,7 +127,7 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
-            return lista;
+            return aux;
         }
 
         public void Modificar(Institucion aux)
