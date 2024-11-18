@@ -4,38 +4,30 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <h1 class="titulo-principal">Mis Turnos</h1>
 
-<div class="form-container">
-    <div class="turno-item">
-        <div class="form-group">
-            <h2>Dr. Kienkarajo Tekura</h2>
-            <p>Especialidad: Traumatología</p>
-            <p>Fecha: Sábado, 09 Nov. 2024</p>
-            <p>Hora: 08:40</p>
-            <p>Lugar: Clinica UTN, Larralde 123, CABA</p>
-        </div>
-        <asp:Button ID="btnTomarTurno1" runat="server" Text="Tomar turno" CssClass="btn-primary" />
-    </div>
+    <asp:Label ID="lblError" runat="server" CssClass="text-danger" Visible="false"></asp:Label>
 
-    <div class="turno-item">
-        <div class="form-group">
-            <h2>Alberto Comino Grande</h2>
-            <p>Especialidad: Dermatología</p>
-            <p>Fecha: Viernes, 15 Nov. 2024</p>
-            <p>Hora: 09:40</p>
-            <p>Lugar: Clinica UTN, Larralde 123, CABA</p>
-        </div>
-        <asp:Button ID="btnTomarTurno2" runat="server" Text="Tomar turno" CssClass="btn-primary" />
-    </div>
 
-    <div class="turno-item">
-        <div class="form-group">
-            <h2>María Teresa Panzzita</h2>
-            <p>Especialidad: Nutrición</p>
-            <p>Fecha: Viernes, 15 Nov. 2024</p>
-            <p>Hora: 10:00</p>
-            <p>Lugar: Clinica UTN, Larralde 123, CABA</p>
-        </div>
-        <asp:Button ID="btnTomarTurno3" runat="server" Text="Tomar turno" CssClass="btn-primary" />
-    </div>
-</div>
+    <asp:GridView 
+        ID="gvTurnos" 
+        runat="server" 
+        AutoGenerateColumns="False" 
+        DataKeyNames="id_turno" 
+        OnRowCommand="gvTurnos_RowCommand" 
+        CssClass="table table-striped">
+        <Columns>
+            <asp:BoundField DataField="Medico" HeaderText="Médico" />
+            <asp:BoundField DataField="Especialidad" HeaderText="Especialidad" />
+            <asp:BoundField DataField="fecha" HeaderText="Fecha" DataFormatString="{0:dd/MM/yyyy}" />
+            <asp:BoundField DataField="hora" HeaderText="Hora" />
+            <asp:BoundField DataField="Institucion" HeaderText="Institución" />
+            <asp:BoundField DataField="Direccion" HeaderText="Dirección" />
+            
+
+            <asp:ButtonField 
+                ButtonType="Button" 
+                Text="Cancelar" 
+                CommandName="CancelarTurno" 
+                HeaderText="Acciones" />
+        </Columns>
+    </asp:GridView>
 </asp:Content>

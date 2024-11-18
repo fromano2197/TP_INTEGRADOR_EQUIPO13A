@@ -207,11 +207,11 @@ GO
 
 INSERT INTO turnos (id_paciente, id_profesional, id_especialidad, id_institucion, fecha, hora, observaciones, estado)
 VALUES
-(2, 1, 1, 1, '2024-12-14', '09:00', 'Revisión de rutina', 'disponible'),
-(2, 2, 2, 2, '2024-11-12', '11:30', 'Consulta dermatológica', 'disponible'),
+(2, 1, 1, 1, '2024-12-14', '09:00', 'Revisión de rutina', 'reservado'),
+(2, 2, 2, 2, '2024-11-12', '11:30', 'Consulta dermatológica', 'reservado'),
 (3, 3, 3, 3, '2024-11-14', '09:00', 'Revisión pediátrica', 'reservado'),
 (4, 4, 4, 4, '2024-11-15', '13:00', 'Consulta ginecológica', 'cancelado'),
-(5, 5, 5, 5, '2024-11-17', '15:30', 'Revisión neurológica', 'disponible');
+(5, 5, 5, 5, '2024-11-17', '15:30', 'Revisión neurológica', 'reservado');
 
 GO
 
@@ -579,7 +579,6 @@ CREATE PROCEDURE SP_MODIFICAR_ESTADO_PACIENTE
 AS
 BEGIN
     BEGIN TRY
-        -- Iniciar la transacción
         BEGIN TRANSACTION;
 
         UPDATE pacientes
