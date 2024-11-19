@@ -91,23 +91,24 @@ CREATE TABLE profesionales_instituciones (
 GO
 
 CREATE TABLE turnos (
-  id_turno INT PRIMARY KEY IDENTITY (1,1),
+  id_turno INT PRIMARY KEY IDENTITY(1,1),
   id_paciente INT NULL,
   id_profesional INT NOT NULL,
   id_especialidad INT NOT NULL, 
   id_institucion INT NOT NULL,
   fecha DATE NOT NULL,
-  hora TIME  NOT NULL,
-  observaciones VARCHAR (MAX),
-   estado VARCHAR(20) NOT NULL DEFAULT 'disponible' CHECK (
+  hora TIME NOT NULL,
+  observaciones VARCHAR(MAX),
+  estado VARCHAR(20) NOT NULL DEFAULT 'disponible' CHECK (
     estado IN ('disponible', 'reservado', 'cancelado', 'atendido')
   ),
-  FOREIGN KEY (id_paciente) REFERENCES pacientes (id_paciente),
-  FOREIGN KEY (id_profesional) REFERENCES profesionales (id_profesional),
-  FOREIGN KEY (id_especialidad) REFERENCES especialidades (id_especialidad),
-  FOREIGN KEY (id_institucion) REFERENCES instituciones (id_institucion),
+  FOREIGN KEY (id_paciente) REFERENCES pacientes(id_paciente),
+  FOREIGN KEY (id_profesional) REFERENCES profesionales(id_profesional),
+  FOREIGN KEY (id_especialidad) REFERENCES especialidades(id_especialidad),
+  FOREIGN KEY (id_institucion) REFERENCES instituciones(id_institucion),
   
- );
+  CONSTRAINT UC_Profesional_Fecha_Hora UNIQUE (id_profesional, fecha, hora)
+);
 
  GO
 

@@ -31,7 +31,6 @@ namespace CLINICA_APP_WEB
                 ddlInstitucion.DataValueField = "id_institucion";
                 ddlInstitucion.DataBind();
 
-                // Agregar el "Seleccionar" como primer elemento
                 ddlInstitucion.Items.Insert(0, new ListItem("Selecciona una institución", "0"));
             }
             catch (Exception ex)

@@ -11,13 +11,15 @@
             <div class="grupo-formulario">
                 <label for="numero-documento" class="etiqueta-formulario">Número de documento:</label>
                 <div>
+                    <asp:Label ID="lblMensaje" runat="server" ForeColor="Red" Visible="False"></asp:Label>
+
                     <asp:TextBox ID="txtDni" CssClass="entrada-formulario" runat="server" placeholder="Ingrese su DNI" />
                 </div>
                 
             </div>
             <div>
                 <br />
-                <asp:Button ID="btnRecuperar" Text="Recuperar contraseña" CssClass="btn-enviar" runat="server" />
+                <asp:Button ID="btnRecuperar" Text="Recuperar contraseña" CssClass="btn-enviar" runat="server" OnClick="btnRecuperar_Click" />
             </div>
             <div>
                 <br />

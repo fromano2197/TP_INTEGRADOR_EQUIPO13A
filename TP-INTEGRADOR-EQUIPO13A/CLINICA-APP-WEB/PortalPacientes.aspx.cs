@@ -33,8 +33,7 @@ namespace CLINICA_APP_WEB
                 }
                 else
                 {
-                    // Manejo de errores: el CommandArgument no es un número válido
-                    // Puedes mostrar un mensaje o registrar el error según corresponda
+                    
                     Response.Write("Error: El ID no es un número válido.");
                 }
             }

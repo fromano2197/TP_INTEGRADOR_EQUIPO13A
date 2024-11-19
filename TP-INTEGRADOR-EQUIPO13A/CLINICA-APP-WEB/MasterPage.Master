@@ -1,70 +1,65 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.master.cs" Inherits="CLINICA_APP_WEB.MasterPage" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head runat="server">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
     <title>Clinica UTN</title>
     <link rel="icon" href="./Images/clinica.ico" type="image/x-icon" />
     <link href="./Content/estilos.css" rel="stylesheet" type="text/css" />
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
-
 </head>
 <body>
     <form id="form1" runat="server">
-
+        <!-- Navbar para Pacientes -->
         <nav id="pacienteNavbar" class="navbar" runat="server" visible="false">
             <div class="container">
-                <a class="nav-link" href="PortalPacientes.aspx">Inicio</a>
+                <a class="nav-link" href="PortalPacientes.aspx?id=<%: Session["idPaciente"] %>">Inicio</a>
                 <ul class="navbar-links">
-                    <li><a class="nav-link" href="TurnosPacientes.aspx">Nuevo Turno</a></li>
-                    <li><a class="nav-link" href="MisTurnos.aspx">Mis Turnos</a></li>
-                    <li><a class="nav-link" href="MisEstudios.aspx">Mis Estudios</a></li>
-                    <li><a class="nav-link" href="MisDatos.aspx">Mis Datos Personales</a></li>
+                    <li><a class="nav-link" href="TurnosPacientes.aspx?id=<%: Session["idPaciente"] %>">Nuevo Turno</a></li>
+                    <li><a class="nav-link" href="MisTurnos.aspx?id=<%: Session["idPaciente"] %>">Mis Turnos</a></li>
+                    <li><a class="nav-link" href="MisEstudios.aspx?id=<%: Session["idPaciente"] %>">Mis Estudios</a></li>
+                    <li><a class="nav-link" href="MisDatos.aspx?id=<%: Session["idPaciente"] %>">Mis Datos Personales</a></li>
                 </ul>
-                <asp:Button ID="btnCerrarSesion" Text="Cerrar Sesión" CssClass="btn-cerrar-sesion" OnClick="CerrarSesion" runat="server" Visible="true" />
+                <asp:Button ID="btnCerrarSesionPaciente" Text="Cerrar Sesión" CssClass="btn-cerrar-sesion" OnClick="CerrarSesion" runat="server" />
             </div>
         </nav>
 
-
-
+        <!-- Navbar para Profesionales -->
         <nav id="medicoNavbar" class="navbar" runat="server" visible="false">
             <div class="container">
-                <a class="nav-link" href="PortalMedicos.aspx">Portal Médico</a>
+                <a class="nav-link" href="PortalMedicos.aspx?id=<%: Session["idProfesional"] %>">Portal Médico</a>
                 <ul class="navbar-links">
-                    <li><a class="nav-link" href="misPacientes.aspx">Mis Pacientes</a></li>
-                    <li><a class="nav-link" href="turnosDia.aspx">Mis Turnos</a></li>
+                    <li><a class="nav-link" href="misPacientes.aspx?id=<%: Session["idProfesional"] %>">Mis Pacientes</a></li>
+                    <li><a class="nav-link" href="turnosDia.aspx?id=<%: Session["idProfesional"] %>">Mis Turnos</a></li>
                 </ul>
-
-                <asp:Button ID="Button1" Text="Cerrar Sesión" CssClass="btn-cerrar-sesion" OnClick="CerrarSesion" runat="server" Visible="true" />
-
+                <asp:Button ID="btnCerrarSesionMedico" Text="Cerrar Sesión" CssClass="btn-cerrar-sesion" OnClick="CerrarSesion" runat="server" />
             </div>
         </nav>
 
+        <!-- Navbar para Administradores -->
         <nav id="adminNavbar" class="navbar" runat="server" visible="false">
             <div class="container">
-                <a class="nav-link" href="Administrador.aspx">Portal Administrador</a>
+                <a class="nav-link" href="Administrador.aspx?id=<%: Session["idAdministrador"] %>">Portal Administrador</a>
                 <ul class="navbar-links">
-                    <li><a class="nav-link" href="BuscarPaciente.aspx">Pacientes</a></li>
-                    <li><a class="nav-link" href="BuscarProfesional.aspx">Profesionales</a></li>
-                    <li><a class="nav-link" href="AdministrarEspecialidades.aspx">Especialidades</a></li>
-                    <li><a class="nav-link" href="AdministrarInstituciones.aspx">Instituciones</a></li>
+                    <li><a class="nav-link" href="BuscarPaciente.aspx?id=<%: Session["idAdministrador"] %>">Pacientes</a></li>
+                    <li><a class="nav-link" href="BuscarProfesional.aspx?id=<%: Session["idAdministrador"] %>">Profesionales</a></li>
+                    <li><a class="nav-link" href="AdministrarEspecialidades.aspx?id=<%: Session["idAdministrador"] %>">Especialidades</a></li>
+                    <li><a class="nav-link" href="AdministrarInstituciones.aspx?id=<%: Session["idAdministrador"] %>">Instituciones</a></li>
                 </ul>
-
-                <asp:Button ID="Button2" Text="Cerrar Sesión" CssClass="btn-cerrar-sesion" OnClick="CerrarSesion" runat="server" Visible="true" />
-
+                <asp:Button ID="btnCerrarSesionAdmin" Text="Cerrar Sesión" CssClass="btn-cerrar-sesion" OnClick="CerrarSesion" runat="server" />
             </div>
         </nav>
 
+        <!-- Contenido principal -->
         <div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
         </div>
-
     </form>
 
+    <!-- Pie de página -->
     <footer>
         <p>&copy; <%: DateTime.Now.Year %> - Clinica UTN</p>
     </footer>
-
 </body>
 </html>

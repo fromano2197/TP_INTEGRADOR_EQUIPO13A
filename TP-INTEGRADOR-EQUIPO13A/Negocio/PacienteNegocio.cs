@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using Dominio;
 using System.Reflection;
+using System.Net.Mail;
+using System.Net;
 
 namespace Negocio
 {
@@ -32,7 +34,7 @@ namespace Negocio
                     aux.DatosPersona.Nombre = (string)datos.Lector["nombre"];
                     aux.DatosPersona.Dni = (string)datos.Lector["dni"];
                     aux.activo = (bool)datos.Lector["activo"];
-                    
+
 
 
                     lista.Add(aux);
@@ -66,7 +68,7 @@ namespace Negocio
                 while (datos.Lector.Read())
                 {
                     Persona aux = new Persona();
-                    aux.IdPersona= datos.Lector.GetInt32(0);
+                    aux.IdPersona = datos.Lector.GetInt32(0);
                     aux.Apellido = (string)datos.Lector["apellido"];
                     aux.Nombre = (string)datos.Lector["nombre"];
                     aux.Dni = (string)datos.Lector["dni"];
@@ -146,7 +148,7 @@ namespace Negocio
                     if (aux == null)
                     {
                         aux = new Persona();
-                        aux.Dni =  (string)datos.Lector["dni"];
+                        aux.Dni = (string)datos.Lector["dni"];
                         aux.Apellido = (string)datos.Lector["apellido"];
                         aux.Nombre = (string)datos.Lector["nombre"];
                     }
@@ -177,7 +179,7 @@ namespace Negocio
                 {
                     aux.IdPaciente = int.Parse(datos.Lector["id_paciente"].ToString());
                     IDPACIENTE = aux.IdPaciente;
-                    
+
                 }
 
             }
@@ -192,10 +194,137 @@ namespace Negocio
             return IDPACIENTE;
         }
 
-
-        public int  nuevoPaciente(Paciente nuevo, Usuario usuario)
+        public string RecuperarContraseña(int DNI)
         {
-            AccesoDatos datos = new AccesoDatos ();
+            AccesoDatos datos = new AccesoDatos();
+            string password = string.Empty;
+
+            try
+            {
+                
+                datos.setConsulta("SELECT id_paciente FROM pacientes WHERE dni = @DNI;");
+                datos.setearParametro("@DNI", DNI);
+                datos.ejecutarLectura();
+
+                int idPaciente = 0;
+                if (datos.Lector.Read())
+                {
+                    idPaciente = int.Parse(datos.Lector["id_paciente"].ToString());
+                }
+                datos.cerrarConexion(); 
+
+                
+                if (idPaciente > 0)
+                {
+                    datos = new AccesoDatos(); 
+                    datos.setConsulta("SELECT contraseña FROM usuarios WHERE id_paciente = @IDPACIENTE;");
+                    datos.setearParametro("@IDPACIENTE", idPaciente);
+                    datos.ejecutarLectura();
+
+                    if (datos.Lector.Read())
+                    {
+                        password = datos.Lector["contraseña"].ToString();
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(password))
+                {
+                    string email = ObtenerEmailPorIdPaciente(idPaciente); 
+                    if (!string.IsNullOrEmpty(email))
+                    {
+                        EnviarCorreoRecuperacion(email, password); 
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex; 
+            }
+            finally
+            {
+                datos.cerrarConexion(); 
+            }
+            return password; 
+        }
+
+        private string ObtenerEmailPorIdPaciente(int idPaciente)
+        {
+            string email = string.Empty;
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setConsulta("SELECT email FROM pacientes WHERE id_paciente = @IDPACIENTE;");
+                datos.setearParametro("@IDPACIENTE", idPaciente);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    email = datos.Lector["email"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return email;
+        }
+
+        public void EnviarCorreoRecuperacion(string email, string contraseña)
+        {
+
+            try
+            {
+                MailMessage mensaje = new MailMessage();
+                mensaje.From = new MailAddress("hernan39742374@gmail.com");
+                mensaje.To.Add(email);
+                mensaje.Subject = "Recuperación de Contraseña";
+
+                
+                mensaje.Body = $@"
+            <html>
+                <body style=""font-family: Arial, sans-serif; color: #333; text-align: center;"">
+                    <h1 style=""color: #0056b3;"">Recuperación de Contraseña</h1>
+                    <p>Has solicitado recuperar tu contraseña. Aquí está la información:</p>
+                    <p><strong>Contraseña:</strong> {contraseña}</p>
+                    <p style=""margin-top: 20px;"">
+                    <img src=""https://i.pinimg.com/236x/76/91/f8/7691f809425069fa599eb6137f4d6071.jpg"" 
+                     alt=""Logotipo"" style=""width: 300px; height: auto; display: block; margin: 0 auto;"" />
+                     </p>
+                     <p>Si tienes alguna duda, no dudes en <a href=""mailto:hernan39742374@gmail.com"" style=""color: #0056b3;"">contactarnos</a>.</p>
+                    <p>Gracias por confiar en nuestra clínica.</p>
+                </body>
+            </html>";
+
+                mensaje.IsBodyHtml = true;
+
+                SmtpClient smtp = new SmtpClient
+                {
+                    Host = "smtp.gmail.com",
+                    Port = 587,
+                    Credentials = new NetworkCredential("hernan39742374@gmail.com", "lbwwgljjoqxnbxqo"),
+                    EnableSsl = true
+                };
+
+                smtp.Send(mensaje);
+                return; //"Correo enviado exitosamente.";
+            }
+            catch (Exception ex)
+            {
+                return;//return "Ocurrió un error al enviar el correo";
+            }
+
+        }
+
+
+        public int nuevoPaciente(Paciente nuevo, Usuario usuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
             try
             {
                 datos.setearProcedimiento("SP_AGREGAR_PACIENTE");
@@ -204,7 +333,7 @@ namespace Negocio
                 datos.setearParametro("@APELLIDO", nuevo.DatosPersona.Apellido);
                 datos.setearParametro("@FECHA_NACIMIENTO", nuevo.DatosPersona.FechaNacimiento);
                 datos.setearParametro("@EMAIL", nuevo.DatosPersona.ContactoCliente.Email);
-                datos.setearParametro ("@TELEFONO", nuevo.DatosPersona.ContactoCliente.telefono);
+                datos.setearParametro("@TELEFONO", nuevo.DatosPersona.ContactoCliente.telefono);
                 datos.setearParametro("@DIRECCION", nuevo.DatosPersona.ContactoCliente.Direccion);
                 datos.setearParametro("@USUARIO", usuario.User);
                 datos.setearParametro("@CONTRASENA", usuario.Password);

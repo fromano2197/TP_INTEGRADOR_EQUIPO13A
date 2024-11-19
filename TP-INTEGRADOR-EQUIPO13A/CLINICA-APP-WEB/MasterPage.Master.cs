@@ -8,12 +8,13 @@ namespace CLINICA_APP_WEB
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack) 
+            if (!IsPostBack)
             {
-                string tipoUsuario = Session["TipoUsuario"] as string; 
+                string tipoUsuario = Session["TipoUsuario"] as string;
 
                 if (tipoUsuario != null)
                 {
+                    // Configuración de la visibilidad de los botones del navbar
                     switch (tipoUsuario)
                     {
                         case "paciente":
@@ -30,20 +31,56 @@ namespace CLINICA_APP_WEB
                             adminNavbar.Visible = true;
                             break;
                         default:
-                   
                             break;
                     }
                 }
             }
         }
 
+        protected void RedirigirPortalPaciente(object sender, EventArgs e)
+        {
+            if (Session["idPaciente"] != null)
+            {
+                int idPaciente = (int)Session["idPaciente"];
+                Response.Redirect($"PortalPacientes.aspx?idPaciente={idPaciente}", false);
+            }
+            else
+            {
+                Response.Redirect("Default.aspx", false);
+            }
+        }
+
+        protected void RedirigirPortalProfesional(object sender, EventArgs e)
+        {
+            if (Session["idProfesional"] != null)
+            {
+                int idProfesional = (int)Session["idProfesional"];
+                Response.Redirect($"PortalMedicos.aspx?idProfesional={idProfesional}", false);
+            }
+            else
+            {
+                Response.Redirect("Default.aspx", false);
+            }
+        }
+
+        protected void RedirigirAdministrador(object sender, EventArgs e)
+        {
+            if (Session["TipoUsuario"] != null && (string)Session["TipoUsuario"] == "administrador")
+            {
+                Response.Redirect("Administrador.aspx", false);
+            }
+            else
+            {
+                Response.Redirect("Default.aspx", false);
+            }
+        }
+
         protected void CerrarSesion(object sender, EventArgs e)
         {
-            
-            Session.Abandon();  
-
-            
-            Response.Redirect("Default.aspx",false);
+            // Abandonar la sesión y redirigir al inicio de sesión
+            Session.Abandon();
+            Response.Redirect("Default.aspx", false);
         }
     }
 }
+
