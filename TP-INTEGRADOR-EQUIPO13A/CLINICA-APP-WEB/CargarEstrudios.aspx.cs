@@ -14,15 +14,12 @@ namespace CLINICA_APP_WEB
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack) // Solo ejecutar esta lógica en la primera carga de la página
+            if (!IsPostBack) 
             {
-                // Verificar si el parámetro "id" está presente en la URL
                 if (Request.QueryString["id"] != null)
                 {
-                    // Intentar convertir el valor del parámetro a un entero
                     if (int.TryParse(Request.QueryString["id"], out int idPaciente))
                     {
-                        // Guarda el ID del paciente en una variable privada, si es necesario
                         ViewState["idPaciente"] = idPaciente;
                     }
                     else
@@ -56,8 +53,6 @@ namespace CLINICA_APP_WEB
                 {
                     string fileName = FileUploadEstudio.FileName;
                     string directoryPath = @"C:\Users\roman\OneDrive\Desktop\Estudios\";
-
-                    // Asegurarse de que la carpeta existe
                     if (!Directory.Exists(directoryPath))
                     {
                         Directory.CreateDirectory(directoryPath);
@@ -65,17 +60,14 @@ namespace CLINICA_APP_WEB
 
                     string filePath = Path.Combine(directoryPath, fileName);
 
-                    // Intentar guardar el archivo
                     FileUploadEstudio.SaveAs(filePath);
 
-                    // Verificar si el archivo realmente se guardó
                     if (File.Exists(filePath))
                     {
                         lblMensaje.Text = "Archivo guardado exitosamente.";
                         lblMensaje.ForeColor = System.Drawing.Color.Green;
-                        lblMensaje.Visible = true;  // Asegúrate de que el mensaje se vea
+                        lblMensaje.Visible = true; 
 
-                        // Cargar el archivo en la base de datos
                         Estudio nuevoEstudio = new Estudio
                         {
                             IdPaciente = (int)ViewState["idPaciente"],
@@ -92,21 +84,21 @@ namespace CLINICA_APP_WEB
                     {
                         lblMensaje.Text = "Error al guardar el archivo.";
                         lblMensaje.ForeColor = System.Drawing.Color.Red;
-                        lblMensaje.Visible = true;  // Asegúrate de que el mensaje se vea
+                        lblMensaje.Visible = true;  
                     }
                 }
                 catch (Exception ex)
                 {
                     lblMensaje.Text = "Error al cargar el archivo: " + ex.Message;
                     lblMensaje.ForeColor = System.Drawing.Color.Red;
-                    lblMensaje.Visible = true;  // Asegúrate de que el mensaje se vea
+                    lblMensaje.Visible = true; 
                 }
             }
             else
             {
                 lblMensaje.Text = "Por favor, seleccione un archivo.";
                 lblMensaje.ForeColor = System.Drawing.Color.Red;
-                lblMensaje.Visible = true;  // Asegúrate de que el mensaje se vea
+                lblMensaje.Visible = true;
             }
         }
     }

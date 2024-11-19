@@ -26,10 +26,7 @@ namespace Negocio
                 accesoDatos.setearParametro("@tipoEstudio", estudio.TipoEstudio);
                 accesoDatos.setearParametro("@fechaEstudio", estudio.FechaEstudio);
 
-                // Depuración: Muestra la consulta generada
                 Console.WriteLine("Consulta: " + consulta);
-
-                // Depuración: Muestra los parámetros antes de ejecutar
                 Console.WriteLine("Parametros:");
                 Console.WriteLine("idPaciente: " + estudio.IdPaciente);
                 Console.WriteLine("nombreArchivo: " + estudio.NombreArchivo);
@@ -37,7 +34,6 @@ namespace Negocio
                 Console.WriteLine("tipoEstudio: " + estudio.TipoEstudio);
                 Console.WriteLine("fechaEstudio: " + estudio.FechaEstudio);
 
-                // Ejecutar la acción
                 accesoDatos.ejecutarAccion();
             }
             catch (Exception ex)

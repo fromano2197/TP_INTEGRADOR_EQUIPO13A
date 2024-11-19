@@ -7,42 +7,25 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="contenedor-estudios">
         <h1 class="titulo-resultados">Resultados de estudios</h1>
-        <div class="espaciado-estudios">
-            <div class="contenedor-estudio contenedor-ancho">
-                <h2 class="titulo-estudio">SERVICIO LABORATORIO. - 30927</h2>
-                <p class="informacion-estudio">
-                    <span class="usuario-estudio">👤 ROMANO FACUNDO EZEQUIEL</span>
-                    <span class="fecha-estudio">📅 Jueves, 19 Sep. 2024</span>
-                </p>
-                <a href="#" class="enlace-descarga">Descargar</a>
-            </div>
 
-            <div class="contenedor-estudio contenedor-ancho">
-                <h2 class="titulo-estudio">SERVICIO LABORATORIO. - 28518</h2>
-                <p class="informacion-estudio">
-                    <span class="usuario-estudio">👤 ROMANO FACUNDO EZEQUIEL</span>
-                    <span class="fecha-estudio">📅 Sábado, 18 May. 2024</span>
-                </p>
-                <a href="#" class="enlace-descarga">Descargar</a>
-            </div>
+  
+        <asp:GridView ID="gvEstudios" runat="server" AutoGenerateColumns="False" CssClass="table" 
+                      OnRowCommand="gvEstudios_RowCommand">
+            <Columns>
+ 
+                <asp:BoundField DataField="tipo_estudio" HeaderText="Tipo de Estudio" SortExpression="tipo_estudio" />
+                
 
-            <div class="contenedor-estudio contenedor-ancho">
-                <h2 class="titulo-estudio">SERVICIO LABORATORIO. - 27023</h2>
-                <p class="informacion-estudio">
-                    <span class="usuario-estudio">👤 ROMANO FACUNDO EZEQUIEL</span>
-                    <span class="fecha-estudio">📅 Martes, 27 Feb. 2024</span>
-                </p>
-                <a href="#" class="enlace-descarga">Descargar</a>
-            </div>
+                <asp:BoundField DataField="fecha_estudio" HeaderText="Fecha de Estudio" SortExpression="fecha_estudio" 
+                                DataFormatString="{0:dd/MM/yyyy}" />
 
-            <div class="contenedor-estudio contenedor-ancho">
-                <h2 class="titulo-estudio">SERVICIO LABORATORIO. - 26804</h2>
-                <p class="informacion-estudio">
-                    <span class="usuario-estudio">👤 ROMANO FACUNDO EZEQUIEL</span>
-                    <span class="fecha-estudio">📅 Miércoles, 14 Feb. 2024</span>
-                </p>
-                <a href="#" class="enlace-descarga">Descargar</a>
-            </div>
-        </div>
+                <asp:TemplateField>
+                    <ItemTemplate>
+                        <asp:Button ID="btnDescargar" runat="server" Text="Descargar" CommandName="Descargar" 
+                                    CommandArgument='<%# Eval("id_estudio") %>' CssClass="btn btn-primary" />
+                    </ItemTemplate>
+                </asp:TemplateField>
+            </Columns>
+        </asp:GridView>
     </div>
 </asp:Content>
