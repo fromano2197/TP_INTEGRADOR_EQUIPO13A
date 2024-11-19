@@ -135,6 +135,18 @@ CREATE TABLE usuarios (
 
 GO
 
+CREATE TABLE Estudios (
+    id_estudio INT IDENTITY(1,1) PRIMARY KEY,  
+    id_paciente INT NOT NULL,                  
+    nombre_archivo NVARCHAR(255) NOT NULL,     
+    ruta_archivo NVARCHAR(500) NOT NULL,       
+    tipo_estudio NVARCHAR(100) NOT NULL,       
+    fecha_estudio DATETIME DEFAULT GETDATE(),   
+    CONSTRAINT FK_Estudios_Pacientes FOREIGN KEY (id_paciente) REFERENCES Pacientes(id_paciente)  
+);
+
+GO
+
 INSERT INTO pacientes (nombre, apellido, dni, fecha_nacimiento, direccion, email, telefono, activo)
 VALUES
 ('Juan', 'Pérez', '12345678', '1990-05-20', 'Calle Ficticia 123', 'juanperez@example.com', '1112345678', 1),

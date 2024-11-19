@@ -11,6 +11,7 @@
          <a href="BuscarProfesional.aspx" class="inicio-btn">Profesionales</a>
          <a href="AdministrarEspecialidades.aspx" class="inicio-btn">Especialidades</a>
          <a href="AdministrarInstituciones.aspx" class="inicio-btn">Instituciones</a>
+         <a href="EstudiosDePacientes.aspx" class="inicio-btn">Cargar Estudios</a>
      </div>
  </div>
 </asp:Content>

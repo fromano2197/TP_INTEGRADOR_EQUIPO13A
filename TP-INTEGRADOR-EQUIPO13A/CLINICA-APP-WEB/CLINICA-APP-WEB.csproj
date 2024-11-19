@@ -74,11 +74,13 @@
     <Content Include="AgregarPaciente.aspx" />
     <Content Include="BuscarPaciente.aspx" />
     <Content Include="BuscarProfesional.aspx" />
+    <Content Include="CargarEstrudios.aspx" />
     <Content Include="Content\estilos.css" />
     <Content Include="ContraseñaOlvidada.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="DetallesPacientes.aspx" />
     <Content Include="DetallesProfesionales.aspx" />
+    <Content Include="EstudiosDePacientes.aspx" />
     <Content Include="Global.asax" />
     <Content Include="HistoriaClinica.aspx" />
     <Content Include="Images\clinica.ico" />
@@ -165,6 +167,13 @@
     <Compile Include="BuscarProfesional.aspx.designer.cs">
       <DependentUpon>BuscarProfesional.aspx</DependentUpon>
     </Compile>
+    <Compile Include="CargarEstrudios.aspx.cs">
+      <DependentUpon>CargarEstrudios.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CargarEstrudios.aspx.designer.cs">
+      <DependentUpon>CargarEstrudios.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ContraseñaOlvidada.aspx.cs">
       <DependentUpon>ContraseñaOlvidada.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -192,6 +201,13 @@
     </Compile>
     <Compile Include="DetallesProfesionales.aspx.designer.cs">
       <DependentUpon>DetallesProfesionales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EstudiosDePacientes.aspx.cs">
+      <DependentUpon>EstudiosDePacientes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EstudiosDePacientes.aspx.designer.cs">
+      <DependentUpon>EstudiosDePacientes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
