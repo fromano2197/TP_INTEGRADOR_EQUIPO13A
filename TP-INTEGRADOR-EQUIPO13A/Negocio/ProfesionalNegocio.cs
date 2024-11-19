@@ -83,14 +83,14 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setConsulta(@"SELECT p.id_profesional,p.nombre,p.apellido ,STRING_AGG(e.nombre, ', ') AS especialidades,i.nombre as institucion
+                datos.setConsulta(@"SELECT p.activo, p.id_profesional,p.nombre,p.apellido ,STRING_AGG(e.nombre, ', ') AS especialidades,i.nombre as institucion
                                     FROM profesionales p
                                     INNER JOIN profesionales_especialidades pe on pe.id_profesional=p.id_profesional
                                     INNER JOIN especialidades e on e.id_especialidad=pe.id_especialidad
                                     INNER JOIN profesionales_instituciones pxi on pxi.id_profesional=p.id_profesional
                                     INNER JOIN instituciones i on i.id_institucion=pxi.id_institucion
-                                    WHERE p.activo=1
-                                    GROUP BY p.id_profesional,p.nombre,p.apellido ,i.nombre
+                           
+                                    GROUP BY p.id_profesional,p.nombre,p.apellido ,i.nombre, p.activo
                                     ORDER BY p.apellido ASC;");
                 datos.ejecutarLectura();
 
@@ -121,6 +121,10 @@ namespace Negocio
                         Nombre = (string)datos.Lector["institucion"]
                     };
 
+                    aux.IdProfesional = (int)datos.Lector["id_profesional"];
+
+                    aux.Estado = (bool)datos.Lector["activo"];
+
                     lista.Add(aux);
                 }
             }
@@ -142,13 +146,13 @@ namespace Negocio
 
             try
             {
-                datos.setConsulta(@"SELECT p.dni,p.nombre,p.apellido,p.fecha_nacimiento,p.email,p.telefono,p.direccion,u.usuario,STRING_AGG(e.nombre, ', ') AS especialidades
+                datos.setConsulta(@"SELECT p.activo, p.id_profesional, p.dni,p.nombre,p.apellido,p.fecha_nacimiento,p.email,p.telefono,p.direccion,u.usuario,STRING_AGG(e.nombre, ', ') AS especialidades
                                     FROM profesionales p
                                     LEFT JOIN usuarios u ON u.id_profesional=p.id_profesional
                                     LEFT JOIN profesionales_especialidades pe on pe.id_profesional=p.id_profesional
                                     LEFT JOIN especialidades e on e.id_especialidad=pe.id_especialidad
                                     WHERE p.id_profesional=@IDPROFESIONAL
-                                    GROUP BY p.dni,p.nombre,p.apellido,p.fecha_nacimiento,p.email,p.telefono,p.direccion,u.usuario;");
+                                    GROUP BY p.dni,p.nombre,p.apellido,p.fecha_nacimiento,p.email,p.telefono,p.direccion,u.usuario, p.activo, p.id_profesional;");
 
                 datos.setearParametro("@IDPROFESIONAL", ID);
                 datos.ejecutarLectura();
@@ -170,6 +174,8 @@ namespace Negocio
                         .Split(',')
                         .Select(especialidad => new Especialidad { NombreEspecialidad = especialidad.Trim() })
                         .ToList();
+                    aux.Estado = (bool)datos.Lector["activo"];
+                    aux.IdProfesional = (int)datos.Lector["id_profesional"];
 
                     lista.Add(aux);
                 }
@@ -183,6 +189,23 @@ namespace Negocio
                 datos.cerrarConexion();
             }
             return lista;
+        }
+        public void modificarEstado(Profesional profesional)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setearProcedimiento("SP_MODIFICAR_ESTADO_PROFESIONAL");
+                datos.setearParametro("@ID_PROFESIONAL", profesional.IdProfesional);
+                datos.setearParametro("@ACTIVO", profesional.Estado);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
         public void Agregar(Profesional aux)

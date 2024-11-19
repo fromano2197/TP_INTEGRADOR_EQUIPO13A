@@ -608,6 +608,12 @@ BEGIN
             SET estado = 'cancelado'
             WHERE id_paciente = @ID_PACIENTE;
         END
+		IF @ACTIVO = 1
+        BEGIN
+            UPDATE turnos
+            SET estado = 'reservado'
+            WHERE id_paciente = @ID_PACIENTE AND estado = 'cancelado';
+        END
 
         UPDATE pacientes_por_profesional
         SET activo = @ACTIVO
@@ -621,6 +627,58 @@ BEGIN
         ROLLBACK TRANSACTION;
     END CATCH;
 END;
+
+GO
+
+CREATE PROCEDURE SP_MODIFICAR_ESTADO_PROFESIONAL
+    @ID_PROFESIONAL INT,
+    @ACTIVO BIT
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+        UPDATE profesionales
+        SET activo = @ACTIVO
+        WHERE id_profesional = @ID_PROFESIONAL;
+
+        UPDATE usuarios
+        SET activo = @ACTIVO
+        WHERE id_profesional = @ID_PROFESIONAL AND tipo_usuario = 'profesional';
+
+        IF @ACTIVO = 0
+        BEGIN
+            UPDATE turnos
+            SET estado = 'cancelado'
+            WHERE id_profesional = @ID_PROFESIONAL;
+        END
+		IF @ACTIVO = 1
+        BEGIN
+            UPDATE turnos
+            SET estado = 'reservado'
+            WHERE id_paciente = @ID_PROFESIONAL AND estado = 'cancelado';
+        END
+
+        UPDATE pacientes_por_profesional
+        SET activo = @ACTIVO
+        WHERE id_profesional = @ID_PROFESIONAL;
+
+		UPDATE profesionales_especialidades
+        SET activo = @ACTIVO
+        WHERE id_profesional = @ID_PROFESIONAL;
+
+		UPDATE profesionales_instituciones
+        SET activo = @ACTIVO
+        WHERE id_profesional = @ID_PROFESIONAL;
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+
+        ROLLBACK TRANSACTION;
+    END CATCH;
+END;
+
 
 
 

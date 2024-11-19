@@ -6,7 +6,7 @@
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <asp:GridView ID="dgvPacientes" runat="server" CssClass="table table-striped table-bordered"></asp:GridView>
     <link rel="stylesheet" type="text/css" href='<%= ResolveUrl("~/Content/estilos.css") %>' />
-    <div class="contenedor">
+
         <h1 class="titulo-resultados">Lista de Profesionales</h1>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
@@ -24,6 +24,7 @@
                     <th>Nombre</th>
                     <th>Especialidad</th>
                     <th>Institución</th>
+                    <th>Estado</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -36,6 +37,7 @@
                             <td><%# Eval("Persona.Nombre") %></td>
                             <td><%# String.Join(", ", ((List<Dominio.Especialidad>)Eval("Especialidades")).Select(especialidad => especialidad.NombreEspecialidad)) %></td>
                             <td><%# Eval("Institucion.Nombre") %></td>
+                            <td><%# Eval("Estado").ToString() == "False" ? "Eliminado" : "Activo" %></td>
                             <td>
                                 <asp:Button ID="btnVisualizar" CommandName="Visualizar"
                                     CommandArgument='<%# Eval("Persona.IdPersona") %>'
@@ -47,10 +49,12 @@
                                     OnCommand="btnModificar_Command"
                                     CssClass="btn-especialidad" runat="server" Text="Modificar" />
                              
-                                <asp:Button ID="btnEliminar" CommandName="Eliminar"
-                                    CommandArgument='<%# Eval("Persona.IdPersona") %>'
+                                    <asp:Button ID="btnEliminar" CommandName="Eliminar"
+                                    CommandArgument='<%# Eval("IdProfesional") %>' 
                                     OnCommand="btnEliminar_Command"
-                                    CssClass="btn-especialidad" runat="server" Text="Eliminar" />
+                                    CssClass="btn-especialidad" runat="server" 
+                                    Text='<%# Eval("Estado").ToString() == "True" ? "Eliminar" : "Activar" %>' />
+
                             </td>
                         </tr>
                     </ItemTemplate>
@@ -63,5 +67,5 @@
                 <asp:AsyncPostBackTrigger ControlID="txtBuscarProfesional" EventName="TextChanged" />
             </Triggers>
         </asp:UpdatePanel>
-      </div>
+      
 </asp:Content>

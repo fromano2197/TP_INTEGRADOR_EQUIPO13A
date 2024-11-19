@@ -45,8 +45,21 @@ namespace CLINICA_APP_WEB
         {
             if (e.CommandName == "Eliminar")
             {
-                int idPersona = Convert.ToInt32(e.CommandArgument);
-                EliminarLogicoProfesional(idPersona);
+                int idProfesional = Convert.ToInt32(e.CommandArgument);
+                ProfesionalNegocio negocio = new ProfesionalNegocio();
+                Profesional aux = new Profesional();
+                List<Profesional> lista = new List<Profesional>();
+                lista = negocio.listar_porID(idProfesional);
+                aux = lista[0];
+                if (aux.Estado == true)
+                {
+                    aux.Estado = false;
+                }
+                else { aux.Estado = true; }
+
+                negocio.modificarEstado(aux);
+                Response.Redirect("BuscarProfesional.aspx", false);
+
             }
         }
 
@@ -56,32 +69,7 @@ namespace CLINICA_APP_WEB
         }
 
 
-        private void EliminarLogicoProfesional(int idPersona)
-        {
-            try
-            {
-                AccesoDatos accesoDatos = new AccesoDatos();
-                string storedProcedure = "SP_BAJA_LOGICA_PROFESIONAL";
-
-                accesoDatos.setearProcedimiento(storedProcedure);
-                accesoDatos.setearParametro("@IDPROFESIONAL", idPersona);
-
-                accesoDatos.ejecutarAccion();
-
-                ProfesionalNegocio profesionalNegocio = new ProfesionalNegocio();
-                List<Profesional> listaProfesionales = profesionalNegocio.listarProfesionales();
-
-                repRepeater.DataSource = listaProfesionales;
-                repRepeater.DataBind();
-
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "mensaje", "alert('El profesional ha sido dado de baja.');", true);
-            }
-            catch (Exception ex)
-            {
-
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "mensajeError", $"alert('Error al dar de baja al profesional: {ex.Message}');", true);
-            }
-        }
+       
 
         protected void btnModificar_Command(object sender, CommandEventArgs e)
         {
