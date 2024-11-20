@@ -465,11 +465,15 @@ CREATE PROCEDURE SP_MODIFICAR_PACIENTE
     @FECHA_NACIMIENTO DATE = NULL,     
     @DIRECCION VARCHAR(255) = NULL,    
     @EMAIL VARCHAR(255) = NULL,        
-    @TELEFONO VARCHAR(50) = NULL       
+    @TELEFONO VARCHAR(50) = NULL,
+	@USUARIO VARCHAR(100) = NULL,
+	@PASSWORD VARCHAR(255) = NULL
 AS
 BEGIN
-    SET NOCOUNT ON;
 
+    SET NOCOUNT ON;
+	BEGIN TRY
+        BEGIN TRANSACTION;
     IF NOT EXISTS (SELECT 1 FROM pacientes WHERE id_paciente = @ID_PACIENTE)
     BEGIN
         PRINT 'El paciente con el ID especificado no existe.';
@@ -486,7 +490,18 @@ BEGIN
         email = COALESCE(@EMAIL, email),
         telefono = COALESCE(@TELEFONO, telefono)
     WHERE id_paciente = @ID_PACIENTE;
+	
+	UPDATE usuarios 
+	SET 
+		usuario = COALESCE (@USUARIO, usuario),
+		contraseña = COALESCE (@PASSWORD, contraseña)
+		where id_paciente = @ID_PACIENTE AND tipo_usuario='paciente'
 
+		COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+    END CATCH;
 END;
 GO
 
@@ -679,6 +694,8 @@ BEGIN
     END CATCH;
 END;
 
+GO 
+
 INSERT INTO turnos (id_profesional, id_paciente, id_especialidad, id_institucion, fecha, hora, estado)
 VALUES
 
@@ -698,5 +715,4 @@ VALUES
 (2, 3, 1, 1, '2024-12-11', '11:00', 'reservado'),
 (2, 4, 1, 1, '2024-12-21', '12:30', 'reservado'),
 (2, 5, 1, 1, '2024-12-26', '13:30', 'reservado');
-
 

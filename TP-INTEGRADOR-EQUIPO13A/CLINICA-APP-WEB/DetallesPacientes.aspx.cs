@@ -34,7 +34,8 @@ namespace CLINICA_APP_WEB
                             txtEmail.Text = seleccionado.DatosPersona.ContactoCliente.Email;
                             txtTelefono.Text = seleccionado.DatosPersona.ContactoCliente.telefono.ToString();
                             txtDireccion.Text = seleccionado.DatosPersona.ContactoCliente.Direccion;
-
+                            TxtUsuario.Text = seleccionado.Usuario.User.ToString();
+                            TxtPass.Text = seleccionado.Usuario.Password.ToString();
                         }
                         else
                         {

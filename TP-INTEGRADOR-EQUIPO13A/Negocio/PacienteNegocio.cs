@@ -359,7 +359,9 @@ namespace Negocio
 
             try
             {
-                datos.setConsulta(@"select id_paciente, activo, nombre,apellido,fecha_nacimiento,dni,telefono,email,direccion from pacientes where id_paciente=@IDPACIENTE;");
+                datos.setConsulta(@"select p.id_paciente, p.activo, p.nombre,apellido,p.fecha_nacimiento,p.dni,p.telefono,p.email,p.direccion, u.usuario, u.contraseña, u.id_paciente from pacientes as p
+                                    inner join usuarios as u on p.id_paciente = u.id_paciente
+                                    where p.id_paciente=@IDPACIENTE AND u.tipo_usuario = 'paciente';");
 
                 datos.setearParametro("@IDPACIENTE", ID);
                 datos.ejecutarLectura();
@@ -377,6 +379,10 @@ namespace Negocio
                     aux.DatosPersona.ContactoCliente.Direccion = (string)datos.Lector["direccion"];
                     aux.activo = (bool)datos.Lector["activo"];
                     aux.IdPaciente = (int)datos.Lector["id_paciente"];
+                    aux.Usuario = new Usuario();
+                    aux.Usuario.User = datos.Lector["usuario"].ToString();
+                    aux.Usuario.Password = datos.Lector["contraseña"].ToString();
+
                     lista.Add(aux);
                 }
             }
@@ -405,6 +411,8 @@ namespace Negocio
                 datos.setearParametro("@EMAIL", seleccionado.DatosPersona.ContactoCliente.Email);
                 datos.setearParametro("@TELEFONO", seleccionado.DatosPersona.ContactoCliente.telefono);
                 datos.setearParametro("@DIRECCION", seleccionado.DatosPersona.ContactoCliente.Direccion);
+                datos.setearParametro("@USUARIO", seleccionado.Usuario.User);
+                datos.setearParametro("@PASSWORD", seleccionado.Usuario.Password);
                 datos.ejecutarAccion();
 
 

@@ -12,6 +12,7 @@ namespace Dominio
         public int IdPaciente { get; set; }
         public int IdUsuario { get; set; }
 
+        public Usuario Usuario = new Usuario();
         public Paciente()
         {
             DatosPersona = new Persona();

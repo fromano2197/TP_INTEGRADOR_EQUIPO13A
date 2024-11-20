@@ -11,7 +11,6 @@
         <div class="inicio-botones">
             <asp:Button ID="btnMisPacientes" CommandName="Pacientes" Oncommand="btnMisPacientes_Command" CssClass="inicio-btn" runat="server" Text="Mis Pacientes" />
             <asp:Button ID="btnTurnos" CommandName="Turnos"  Oncommand="btnTurnos_Command" CssClass="inicio-btn" runat="server" Text="Mis Turnos" />
-            <asp:Button ID="btnRegistrarConsulta" CommandName="Consulta" Oncommand="btnRegistrarConsulta_Command" CssClass="inicio-btn" runat="server" Text="Registrar Consulta" />
            
         </div>
     </div>

@@ -33,7 +33,8 @@ namespace CLINICA_APP_WEB
                         txtEmail.Text = seleccionado.DatosPersona.ContactoCliente.Email;
                         txtTelefono.Text = seleccionado.DatosPersona.ContactoCliente.telefono.ToString();
                         txtDireccion.Text = seleccionado.DatosPersona.ContactoCliente.Direccion;
-
+                        TxtUser.Text = seleccionado.Usuario.User.ToString();
+                        txtPass.Text = seleccionado.Usuario.Password.ToString();
 
 
                     }
@@ -65,6 +66,8 @@ namespace CLINICA_APP_WEB
             seleccionado.DatosPersona.ContactoCliente.Email = txtEmail.Text;
             seleccionado.DatosPersona.ContactoCliente.telefono = txtTelefono.Text;
             seleccionado.DatosPersona.ContactoCliente.Direccion = txtDireccion.Text;
+            seleccionado.Usuario.User = TxtUser.Text;
+            seleccionado.Usuario.Password = txtPass.Text;
             negocio.ModificarPaciente(seleccionado);
             Response.Redirect("BuscarPaciente.aspx", false);
 

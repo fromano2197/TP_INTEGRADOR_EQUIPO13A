@@ -44,6 +44,14 @@
                 <label for="txtDireccion" class="etiqueta-formulario">Dirección:</label>
                 <asp:TextBox ID="txtDireccion" CssClass="entrada-formulario" runat="server" placeholder="Dirección" />
         </div>
+                <div class="grupo-formulario">
+                <label for="txtUser" class="etiqueta-formulario">Usuario:</label>
+             <asp:TextBox ID="TxtUser" CssClass="entrada-formulario" runat="server" placeholder="Usuario" />
+        </div>
+                <div class="grupo-formulario">
+                <label for="txtPass" class="etiqueta-formulario">Contraseña:</label>
+                <asp:TextBox ID="txtPass" CssClass="entrada-formulario" runat="server" placeholder="Contraseña" />
+                </div>
         <div>
          <asp:Button ID="btnModificarPaciente" onclick="btnModificarPaciente_Click" Text="Modificar Paciente" CssClass="btn-enviar" runat="server" />
         </div>
