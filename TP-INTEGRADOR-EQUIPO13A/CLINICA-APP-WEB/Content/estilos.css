@@ -464,7 +464,7 @@ footer {
 
 .container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     width: 100%;
 }
@@ -477,6 +477,8 @@ footer {
     margin: 0;
     padding: 0;
     margin-left: auto;
+    flex-grow: 1; 
+    justify-content: center;
 }
 
 .nav-link {
@@ -492,26 +494,21 @@ footer {
         border-radius: 5px;
     }
 
-
+}
 .btn-cerrar-sesion {
-    background-color: #ff4d4d;
+    background-color: #e74c3c; 
     color: white;
     border: none;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    border-radius: 5px;
+    padding: 12px 20px;
     font-size: 1rem;
-    transition: background-color 0.3s ease;
-    margin-left: auto;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
     .btn-cerrar-sesion:hover {
-        background-color: #e60000;
-    }
-
-    .btn-cerrar-sesion:focus {
-        outline: none;
-        box-shadow: 0 0 5px rgba(255, 0, 0, 0.5);
+        background-color: #c0392b; 
+        transform: translateY(-2px);
     }
 
 .btn-perfil {
