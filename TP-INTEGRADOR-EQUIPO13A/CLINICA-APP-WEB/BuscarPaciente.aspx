@@ -14,7 +14,7 @@
             <div class="contenedor">
                 <h1 class="titulo-resultados">Lista de Pacientes</h1>
                 <label for="txtBuscarPaciente" class="etiqueta-formulario">Buscar Paciente:</label>
-                <asp:TextBox ID="txtBuscarPaciente" CssClass="entrada-formulario" runat="server" AutoPostBack="true" OnTextChanged="filtro_TextChanged" placeholder="Buscar por Apellido,Nombre o Dni" />
+                <asp:TextBox ID="txtBuscarPaciente" CssClass="entrada-formulario" runat="server" AutoPostBack="true" OnTextChanged="filtro_TextChanged" placeholder="Buscar por Apellido,Nombre,Dni o Estado" />
             </div>
             <div class="contenedor-boton">
                 <asp:Button ID="btnAgregarProfesional" runat="server" Text="AGREGAR PACIENTE +" CssClass="btn-agregar-profesional" OnClick="btnAgregarProfesional_Click" />

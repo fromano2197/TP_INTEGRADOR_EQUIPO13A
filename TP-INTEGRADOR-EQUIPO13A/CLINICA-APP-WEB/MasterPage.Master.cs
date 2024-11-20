@@ -14,7 +14,7 @@ namespace CLINICA_APP_WEB
 
                 if (tipoUsuario != null)
                 {
-                    // Configuración de la visibilidad de los botones del navbar
+    
                     switch (tipoUsuario)
                     {
                         case "paciente":

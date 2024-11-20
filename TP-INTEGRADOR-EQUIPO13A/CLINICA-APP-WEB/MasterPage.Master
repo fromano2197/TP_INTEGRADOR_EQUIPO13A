@@ -11,7 +11,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <!-- Navbar para Pacientes -->
+
         <nav id="pacienteNavbar" class="navbar" runat="server" visible="false">
             <div class="container">
                 <a class="nav-link" href="PortalPacientes.aspx?id=<%: Session["idPaciente"] %>">Inicio</a>
@@ -25,7 +25,6 @@
             </div>
         </nav>
 
-        <!-- Navbar para Profesionales -->
         <nav id="medicoNavbar" class="navbar" runat="server" visible="false">
             <div class="container">
                 <a class="nav-link" href="PortalMedicos.aspx?id=<%: Session["idProfesional"] %>">Portal Médico</a>
@@ -37,7 +36,7 @@
             </div>
         </nav>
 
-        <!-- Navbar para Administradores -->
+
         <nav id="adminNavbar" class="navbar" runat="server" visible="false">
             <div class="container">
                 <a class="nav-link" href="Administrador.aspx?id=<%: Session["idAdministrador"] %>">Portal Administrador</a>
@@ -46,18 +45,18 @@
                     <li><a class="nav-link" href="BuscarProfesional.aspx?id=<%: Session["idAdministrador"] %>">Profesionales</a></li>
                     <li><a class="nav-link" href="AdministrarEspecialidades.aspx?id=<%: Session["idAdministrador"] %>">Especialidades</a></li>
                     <li><a class="nav-link" href="AdministrarInstituciones.aspx?id=<%: Session["idAdministrador"] %>">Instituciones</a></li>
+                    <li><a class="nav-link" href="EstudiosDePacientes.aspx?id=<%: Session["idAdministrador"] %>">Cargar Estudios</a></li>
+                    <li><a class="nav-link" href="PortalTurnos.aspx?id=<%: Session["idAdministrador"] %>">Turnos</a></li>
                 </ul>
                 <asp:Button ID="btnCerrarSesionAdmin" Text="Cerrar Sesión" CssClass="btn-cerrar-sesion" OnClick="CerrarSesion" runat="server" />
             </div>
         </nav>
 
-        <!-- Contenido principal -->
         <div>
             <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
         </div>
     </form>
 
-    <!-- Pie de página -->
     <footer>
         <p>&copy; <%: DateTime.Now.Year %> - Clinica UTN</p>
     </footer>
