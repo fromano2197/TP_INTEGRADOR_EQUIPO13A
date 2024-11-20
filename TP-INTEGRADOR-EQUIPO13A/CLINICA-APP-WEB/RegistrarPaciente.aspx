@@ -27,7 +27,7 @@
             </div>
             <div class="grupo-formulario">
                 <label for="txtFechaNac" class="etiqueta-formulario">Fecha de nacimiento:</label>
-                <asp:TextBox ID="txtFechaNac" CssClass="entrada-formulario" runat="server" placeholder="Fecha de nacimiento" required="required" />
+                <asp:TextBox ID="txtFechaNac" CssClass="entrada-formulario" runat="server" placeholder="Fecha de nacimiento" required="required" TextMode="Date"/>
             </div>
             <div class="grupo-formulario">
                 <label for="txtEmail" class="etiqueta-formulario">Correo Electrónico:</label>

@@ -15,8 +15,7 @@ namespace CLINICA_APP_WEB
         {
             if (!IsPostBack)
             {
-                calFechaNac.Visible = false;
-                calFechaIngreso.Visible = false;
+                
                 CargarEspecialidades();
                 CargarInstituciones();
             }
@@ -49,32 +48,6 @@ namespace CLINICA_APP_WEB
 
 
 
-        protected void btnMostrarCalendario_Click(object sender, EventArgs e)
-        {
-
-            calFechaNac.Visible = !calFechaNac.Visible;
-
-        }
-        protected void btnMostrarCalendarioIngreso_Click(object sender, EventArgs e)
-        {
-            calFechaIngreso.Visible = !calFechaIngreso.Visible;
-
-        }
-
-
-        protected void calFechaNac_SelectionChanged(object sender, EventArgs e)
-        {
-
-            txtFechaNac.Text = calFechaNac.SelectedDate.ToString("dd/MM/yyyy");
-
-            calFechaNac.Visible = false;
-        }
-
-        protected void calFechaIngreso_SelectionChanged(object sender, EventArgs e)
-        {
-            txtFechaIngreso.Text = calFechaIngreso.SelectedDate.ToString("dd/MM/yyyy");
-            calFechaIngreso.Visible = false;
-        }
         protected void btnAgregar_Click(object sender, EventArgs e)
         {
             Profesional aux = new Profesional();

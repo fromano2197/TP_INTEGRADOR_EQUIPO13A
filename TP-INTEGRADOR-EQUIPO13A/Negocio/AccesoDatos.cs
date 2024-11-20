@@ -22,6 +22,7 @@ namespace Negocio
         {
             conexion = new SqlConnection("server =.\\SQLEXPRESS; database = ClinicaDB; Integrated Security = True; ");
 
+
             comando = new SqlCommand();
 
         }

@@ -28,9 +28,8 @@
 
                         <div class="grupo-formulario">
                             <label for="txtFechaNac" class="etiqueta-formulario">Fecha de nacimiento:</label>
-                            <asp:TextBox ID="txtFechaNac" CssClass="entrada-formulario" runat="server" placeholder="Fecha de nacimiento" />
-                            <asp:Calendar ID="calFechaNac" runat="server" OnSelectionChanged="calFechaNac_SelectionChanged" Visible="false" />
-                            <asp:Button ID="btnMostrarCalendario" runat="server" Text="Seleccionar Fecha" OnClick="btnMostrarCalendario_Click" />
+                            <asp:TextBox ID="txtFechaNac" CssClass="entrada-formulario" runat="server" placeholder="Fecha de nacimiento"  TextMode="Date"/>
+       
                         </div>
                         
                         <div class="grupo-formulario">
@@ -61,9 +60,8 @@
 
                         <div class="grupo-formulario">
                             <label for="txtFechaIngreso" class="etiqueta-formulario">Fecha de Ingreso:</label>
-                            <asp:TextBox ID="txtFechaIngreso" CssClass="entrada-formulario" runat="server" placeholder="Fecha de ingreso" />
-                            <asp:Calendar ID="calFechaIngreso" runat="server" OnSelectionChanged="calFechaIngreso_SelectionChanged" Visible="false" />
-                            <asp:Button ID="btnMostrarCalendarioIngreso" runat="server" Text="Seleccionar Fecha" OnClick="btnMostrarCalendarioIngreso_Click" />
+                            <asp:TextBox ID="txtFechaIngreso" CssClass="entrada-formulario" runat="server" placeholder="Fecha de ingreso"  TextMode="Date" />
+            
                         </div>
 
                         <div class="grupo-formulario">
