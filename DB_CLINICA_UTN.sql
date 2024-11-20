@@ -505,7 +505,57 @@ BEGIN
 END;
 GO
 
+CREATE PROCEDURE SP_MODIFICAR_PROFESIONAL
+    @ID_PROFESIONAL INT,                  
+    @NOMBRE VARCHAR(100) = NULL,       
+    @APELLIDO VARCHAR(100) = NULL,     
+    @DNI VARCHAR(12) = NULL,           
+    @FECHA_NACIMIENTO DATE = NULL,     
+    @DIRECCION VARCHAR(255) = NULL,    
+    @EMAIL VARCHAR(255) = NULL,        
+    @TELEFONO VARCHAR(50) = NULL,
+	@MATRICULA VARCHAR(20) = NULL,
+	@FECHA_ING DATE = NULL,
+	@USUARIO VARCHAR(100) = NULL,
+	@PASSWORD VARCHAR(255) = NULL
+AS
+BEGIN
 
+    SET NOCOUNT ON;
+	BEGIN TRY
+        BEGIN TRANSACTION;
+    IF NOT EXISTS (SELECT 1 FROM pacientes WHERE id_paciente = @ID_PROFESIONAL)
+    BEGIN
+        PRINT 'El profesional con el ID especificado no existe.';
+        RETURN;
+    END
+
+    UPDATE profesionales
+    SET 
+        nombre = COALESCE(@NOMBRE, nombre),
+        apellido = COALESCE(@APELLIDO, apellido),
+        dni = COALESCE(@DNI, dni),
+        fecha_nacimiento = COALESCE(@FECHA_NACIMIENTO, fecha_nacimiento),
+        direccion = COALESCE(@DIRECCION, direccion),
+        email = COALESCE(@EMAIL, email),
+        telefono = COALESCE(@TELEFONO, telefono),
+		matricula = COALESCE(@MATRICULA, matricula),
+		fecha_ingreso = COALESCE(@FECHA_ING, fecha_ingreso)
+    WHERE id_profesional = @ID_PROFESIONAL;
+	
+	UPDATE usuarios 
+	SET 
+		usuario = COALESCE (@USUARIO, usuario),
+		contraseña = COALESCE (@PASSWORD, contraseña)
+		where id_paciente = @ID_PROFESIONAL AND tipo_usuario='profesional'
+
+		COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+    END CATCH;
+END;
+GO
 CREATE TABLE pacientes_por_profesional (
     id INT PRIMARY KEY IDENTITY(1,1),
     id_profesional INT NOT NULL,          
@@ -716,3 +766,4 @@ VALUES
 (2, 4, 1, 1, '2024-12-21', '12:30', 'reservado'),
 (2, 5, 1, 1, '2024-12-26', '13:30', 'reservado');
 
+select * from usuarios

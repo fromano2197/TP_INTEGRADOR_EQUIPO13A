@@ -51,6 +51,18 @@
             <label for="txtUsuario" class="etiqueta-formulario">Usuario:</label>
             <asp:TextBox ID="txtUsuario" CssClass="entrada-formulario" runat="server" placeholder="Usuario" />
         </div>
+        <div class="grupo-formulario">
+    <label for="txtPass" class="etiqueta-formulario">Password:</label>
+    <asp:TextBox ID="TxtPass" CssClass="entrada-formulario" runat="server" placeholder="contraseña" />
+</div>
+                <div class="grupo-formulario">
+    <label for="TxtFechaIng" class="etiqueta-formulario">Fecha Ingreso:</label>
+    <asp:TextBox ID="TxtFechaIng" CssClass="entrada-formulario" runat="server" placeholder="Fecha Ingreso" />
+</div>
+                        <div class="grupo-formulario">
+    <label for="TxtMatricula" class="etiqueta-formulario">Matricula:</label>
+    <asp:TextBox ID="TxtMatricula" CssClass="entrada-formulario" runat="server" placeholder="Matricula" />
+</div>
 
         <div class="grupo-formulario">
             <label class="etiqueta-formulario">Especialidades:</label>

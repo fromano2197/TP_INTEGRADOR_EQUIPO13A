@@ -15,7 +15,7 @@ namespace Dominio
         public List<Especialidad> Especialidades { get; set; } = new List<Especialidad>();
         public bool Estado { get; set; }
         public DateTime FechaIngreso { get; set; } = new DateTime();
-        public int Matricula { get; set; }
+        public string Matricula { get; set; }
         public Institucion Institucion { get; set; } = new Institucion();
     }
 }

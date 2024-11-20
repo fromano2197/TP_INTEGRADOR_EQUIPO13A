@@ -146,13 +146,13 @@ namespace Negocio
 
             try
             {
-                datos.setConsulta(@"SELECT p.activo, p.id_profesional, p.dni,p.nombre,p.apellido,p.fecha_nacimiento,p.email,p.telefono,p.direccion,u.usuario,STRING_AGG(e.nombre, ', ') AS especialidades
+                datos.setConsulta(@"SELECT p.activo, p.id_profesional, p.dni,p.nombre,p.apellido,p.fecha_nacimiento,p.email,p.telefono,p.direccion,u.usuario, u.contraseña, p.matricula, p.fecha_ingreso, STRING_AGG(e.nombre, ', ') AS especialidades
                                     FROM profesionales p
                                     LEFT JOIN usuarios u ON u.id_profesional=p.id_profesional
                                     LEFT JOIN profesionales_especialidades pe on pe.id_profesional=p.id_profesional
                                     LEFT JOIN especialidades e on e.id_especialidad=pe.id_especialidad
-                                    WHERE p.id_profesional=@IDPROFESIONAL
-                                    GROUP BY p.dni,p.nombre,p.apellido,p.fecha_nacimiento,p.email,p.telefono,p.direccion,u.usuario, p.activo, p.id_profesional;");
+                                    WHERE p.id_profesional= @IDPROFESIONAL
+                                    GROUP BY p.dni,p.nombre,p.apellido,p.fecha_nacimiento,p.email,p.telefono,p.direccion,u.usuario,u.contraseña, p.activo, p.id_profesional,  p.matricula, p.fecha_ingreso;");
 
                 datos.setearParametro("@IDPROFESIONAL", ID);
                 datos.ejecutarLectura();
@@ -169,6 +169,7 @@ namespace Negocio
                     aux.Persona.ContactoCliente.telefono = (string)datos.Lector["telefono"];
                     aux.Persona.ContactoCliente.Direccion = (string)datos.Lector["direccion"];
                     aux.Usuario.User = (string)datos.Lector["usuario"];
+                    aux.Usuario.Password = datos.Lector["contraseña"].ToString();
                     string especialidadesCadena = (string)datos.Lector["especialidades"];
                     aux.Especialidades = especialidadesCadena
                         .Split(',')
@@ -176,7 +177,8 @@ namespace Negocio
                         .ToList();
                     aux.Estado = (bool)datos.Lector["activo"];
                     aux.IdProfesional = (int)datos.Lector["id_profesional"];
-
+                    aux.Matricula = datos.Lector["matricula"].ToString();
+                    aux.FechaIngreso = (DateTime)datos.Lector["fecha_ingreso"];
                     lista.Add(aux);
                 }
             }
@@ -352,46 +354,43 @@ namespace Negocio
         }
 
 
-        public int ModificarProfesional(Profesional seleccionado)
-        {
-            AccesoDatos datos = new AccesoDatos();
-            try
+       
+            public int ModificarProfesional(Profesional seleccionado)
             {
-                string consulta = @"
-            UPDATE profesionales
-            SET
-                dni = @dni,
-                nombre = @nombre,
-                apellido = @apellido,
-                fecha_nacimiento = @fecha_nacimiento,
-                direccion = @direccion,
-                email = @email,
-                telefono = @telefono
-            WHERE id_profesional = @id_profesional";
+                AccesoDatos datos = new AccesoDatos();
+                try
+                {
+                    datos.setearProcedimiento("SP_MODIFICAR_PROFESIONAL");
+                    datos.setearParametro("@ID_PROFESIONAL", seleccionado.IdProfesional);
+                    datos.setearParametro("@DNI", seleccionado.Persona.Dni);
+                    datos.setearParametro("@NOMBRE", seleccionado.Persona.Nombre);
+                    datos.setearParametro("@APELLIDO", seleccionado.Persona.Apellido);
+                    datos.setearParametro("@FECHA_NACIMIENTO", seleccionado.Persona.FechaNacimiento);
+                    datos.setearParametro("@EMAIL", seleccionado.Persona.ContactoCliente.Email);
+                    datos.setearParametro("@TELEFONO", seleccionado.Persona.ContactoCliente.telefono);
+                    datos.setearParametro("@DIRECCION", seleccionado.Persona.ContactoCliente.Direccion);
+                    datos.setearParametro("@MATRICULA", seleccionado.Matricula);
+                    datos.setearParametro("@FECHA_ING", seleccionado.FechaIngreso);
+                    datos.setearParametro("@USUARIO", seleccionado.Usuario.User);
+                    datos.setearParametro("@PASSWORD", seleccionado.Usuario.Password);
+                    datos.ejecutarAccion();
 
 
-                datos.setConsulta(consulta);
-                datos.setearParametro("@id_profesional", seleccionado.Persona.IdPersona);
-                datos.setearParametro("@dni", seleccionado.Persona.Dni);
-                datos.setearParametro("@nombre", seleccionado.Persona.Nombre);
-                datos.setearParametro("@apellido", seleccionado.Persona.Apellido);
-                datos.setearParametro("@fecha_nacimiento", seleccionado.Persona.FechaNacimiento);
-                datos.setearParametro("@email", seleccionado.Persona.ContactoCliente.Email);
-                datos.setearParametro("@telefono", seleccionado.Persona.ContactoCliente.telefono);
-                datos.setearParametro("@direccion", seleccionado.Persona.ContactoCliente.Direccion);
-                datos.ejecutarAccion();
-                return 1;
+                    return 1;
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+                finally
+                {
+                    datos.cerrarConexion();
+                }
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
+
+
         }
 
-
     }
-}
+

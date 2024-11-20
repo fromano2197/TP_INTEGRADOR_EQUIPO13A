@@ -90,7 +90,7 @@ namespace CLINICA_APP_WEB
             aux.Usuario.Password = txtContraseña.Text;
             aux.Usuario.tipousuario = txtTipoUsuario.Text;
             aux.FechaIngreso = DateTime.ParseExact(txtFechaIngreso.Text, "dd/MM/yyyy", null);
-            aux.Matricula = int.Parse(txtMatricula.Text);
+            aux.Matricula = txtMatricula.Text;
             aux.Institucion.IdInstitucion = int.Parse(ddlInstituciones.SelectedValue);
             aux.Institucion.Nombre = ddlInstituciones.SelectedItem.Text;
             aux.Especialidad.IdEspecialidad = int.Parse(ddlEspecialidades.SelectedValue);

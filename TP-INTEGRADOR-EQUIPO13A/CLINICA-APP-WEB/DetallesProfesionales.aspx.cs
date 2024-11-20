@@ -38,7 +38,7 @@ namespace CLINICA_APP_WEB
                         txtTelefono.Text = seleccionado.Persona.ContactoCliente.telefono.ToString();
                         txtDireccion.Text = seleccionado.Persona.ContactoCliente.Direccion;
                         txtUsuario.Text = seleccionado.Usuario.User;
-
+                        TxtPass.Text = seleccionado.Usuario.Password.ToString();
 
                         lblEspecialidades.Text = string.Join(", ", seleccionado.Especialidades.Select(especialidad => especialidad.NombreEspecialidad));
 
