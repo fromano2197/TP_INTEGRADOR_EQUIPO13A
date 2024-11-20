@@ -17,5 +17,12 @@ namespace Dominio
         public DateTime FechaIngreso { get; set; } = new DateTime();
         public string Matricula { get; set; }
         public Institucion Institucion { get; set; } = new Institucion();
+        public string NombreCompleto
+        {
+            get
+            {
+                return $"{Persona.Nombre} {Persona.Apellido}";
+            }
+        }
     }
 }

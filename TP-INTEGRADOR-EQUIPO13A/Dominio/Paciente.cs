@@ -18,6 +18,14 @@ namespace Dominio
             DatosPersona = new Persona();
         }
         public bool activo { get; set; }
+
+        public string NombreCompleto
+        {
+            get
+            {
+                return $"{DatosPersona.Nombre} {DatosPersona.Apellido}";
+            }
+        }
     }
 
 }

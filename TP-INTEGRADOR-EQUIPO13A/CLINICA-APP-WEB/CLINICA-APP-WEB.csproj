@@ -156,10 +156,12 @@
     <Content Include="Administrador.aspx" />
     <Content Include="AdministrarEspecialidades.aspx" />
     <Content Include="AdministrarInstituciones.aspx" />
+    <Content Include="AdministrarTurnos.aspx" />
     <Content Include="AgragarProfesional.aspx" />
     <Content Include="AgregarEspecialidad.aspx" />
     <Content Include="AgregarInstitucion.aspx" />
     <Content Include="AgregarPaciente.aspx" />
+    <Content Include="AsignarTurno.aspx" />
     <Content Include="BuscarPaciente.aspx" />
     <Content Include="BuscarProfesional.aspx" />
     <Content Include="CargarEstrudios.aspx" />
@@ -184,11 +186,13 @@
     <Content Include="ModificarProfesional.aspx" />
     <Content Include="PortalMedicos.aspx" />
     <Content Include="PortalPacientes.aspx" />
+    <Content Include="PortalTurnos.aspx" />
     <Content Include="registrarConsulta.aspx" />
     <Content Include="RegistrarPaciente.aspx" />
     <Content Include="TomarTurno.aspx" />
     <Content Include="turnosDia.aspx" />
     <Content Include="TurnosPacientes.aspx" />
+    <Content Include="VerTurnos.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -212,6 +216,13 @@
     </Compile>
     <Compile Include="AdministrarInstituciones.aspx.designer.cs">
       <DependentUpon>AdministrarInstituciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AdministrarTurnos.aspx.cs">
+      <DependentUpon>AdministrarTurnos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdministrarTurnos.aspx.designer.cs">
+      <DependentUpon>AdministrarTurnos.aspx</DependentUpon>
     </Compile>
     <Compile Include="AgragarProfesional.aspx.cs">
       <DependentUpon>AgragarProfesional.aspx</DependentUpon>
@@ -240,6 +251,13 @@
     </Compile>
     <Compile Include="AgregarPaciente.aspx.designer.cs">
       <DependentUpon>AgregarPaciente.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="AsignarTurno.aspx.cs">
+      <DependentUpon>AsignarTurno.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AsignarTurno.aspx.designer.cs">
+      <DependentUpon>AsignarTurno.aspx</DependentUpon>
     </Compile>
     <Compile Include="BuscarPaciente.aspx.cs">
       <DependentUpon>BuscarPaciente.aspx</DependentUpon>
@@ -384,6 +402,13 @@
     <Compile Include="PortalPacientes.aspx.designer.cs">
       <DependentUpon>PortalPacientes.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PortalTurnos.aspx.cs">
+      <DependentUpon>PortalTurnos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PortalTurnos.aspx.designer.cs">
+      <DependentUpon>PortalTurnos.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="registrarConsulta.aspx.cs">
       <DependentUpon>registrarConsulta.aspx</DependentUpon>
@@ -419,6 +444,13 @@
     </Compile>
     <Compile Include="TurnosPacientes.aspx.designer.cs">
       <DependentUpon>TurnosPacientes.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="VerTurnos.aspx.cs">
+      <DependentUpon>VerTurnos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="VerTurnos.aspx.designer.cs">
+      <DependentUpon>VerTurnos.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

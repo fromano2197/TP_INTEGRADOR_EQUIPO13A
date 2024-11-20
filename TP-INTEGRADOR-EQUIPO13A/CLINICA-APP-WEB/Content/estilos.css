@@ -605,3 +605,103 @@ footer {
     .btn-danger:hover {
         background-color: darkred;
     }
+
+
+body .administrar-turnos h1 {
+    font-size: 28px;
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+
+body .administrar-turnos .form-container {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 30px; 
+    margin: 40px auto;
+    width: 70%; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: left; 
+}
+
+
+    body .administrar-turnos .form-container h2 {
+        font-size: 24px; 
+        color: #34495e;
+        margin-bottom: 30px; 
+        text-align: center;
+    }
+
+
+    body .administrar-turnos .form-container label {
+        font-weight: bold;
+        margin-right: 15px;
+        color: #7f8c8d;
+        display: inline-block;
+        width: 180px; 
+        margin-bottom: 10px;
+    }
+
+
+    body .administrar-turnos .form-container input[type="text"],
+    body .administrar-turnos .form-container input[type="date"],
+    body .administrar-turnos .form-container input[type="time"],
+    body .administrar-turnos .form-container select {
+        width: calc(100% - 20px); 
+        padding: 10px;
+        margin-bottom: 20px; 
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px; 
+    }
+
+
+    body .administrar-turnos .form-container button {
+        background-color: #3498db;
+        color: white;
+        padding: 12px 24px; 
+        border: none;
+        border-radius: 6px;
+        font-size: 18px; 
+        cursor: pointer;
+        margin-right: 20px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+    }
+
+        body .administrar-turnos .form-container button:hover {
+            background-color: #2980b9;
+        }
+
+  
+    body .administrar-turnos .form-container .button-container {
+        text-align: center; 
+        margin-top: 20px;
+    }
+
+    body .administrar-turnos .form-container .gridview-container {
+        margin-top: 40px; 
+    }
+
+        body .administrar-turnos .form-container .gridview-container table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        body .administrar-turnos .form-container .gridview-container th,
+        body .administrar-turnos .form-container .gridview-container td {
+            padding: 18px; 
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        body .administrar-turnos .form-container .gridview-container th {
+            background-color: #ecf0f1;
+            color: #34495e;
+        }
+
+        body .administrar-turnos .form-container .gridview-container td {
+            color: #7f8c8d;
+        }

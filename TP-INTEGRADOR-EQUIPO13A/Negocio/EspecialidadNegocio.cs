@@ -17,7 +17,7 @@ namespace Negocio
 
             try
             {
-                datos.setConsulta("select * from especialidades");
+                datos.setConsulta("select id_especialidad, nombre, activo from especialidades");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
