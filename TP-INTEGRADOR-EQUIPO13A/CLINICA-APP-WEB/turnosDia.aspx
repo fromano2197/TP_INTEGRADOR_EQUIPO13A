@@ -5,7 +5,13 @@
               <div class="contenedor">
                <h1 class="titulo-resultados">Mis Turnos</h1>
            </div>
-          
+          <div class="contenedor-filtros">
+    <asp:RadioButtonList ID="rbFiltrosTurnos" runat="server" RepeatDirection="Horizontal" AutoPostBack="true" OnSelectedIndexChanged="rbFiltrosTurnos_SelectedIndexChanged">
+        <asp:ListItem Text="Turnos del día" Value="dia" Selected="True" />
+        <asp:ListItem Text="Turnos de la semana" Value="semana" />
+        <asp:ListItem Text="Turnos del mes" Value="mes" />
+    </asp:RadioButtonList>
+</div>
            <div class="table-responsive">
                <table class="table table-bordered table-hover">
                    <thead>

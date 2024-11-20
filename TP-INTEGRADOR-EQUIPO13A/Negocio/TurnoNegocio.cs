@@ -57,6 +57,95 @@ namespace Negocio
             }
             return lista;
         }
+        public List<Turno> CargarTurnosFiltrados(string filtro, int idProfesional) {
+
+            List<Turno> lista = new List<Turno>();
+            DateTime hoy = DateTime.Now;
+            DateTime fechaInicio;
+            DateTime fechaFin;
+            switch (filtro)
+            {
+                case "dia":
+                    fechaInicio = hoy.Date;
+                    fechaFin = hoy.Date;
+                    break;
+
+                case "semana":
+                    fechaInicio = hoy.AddDays(-(int)hoy.DayOfWeek + (int)DayOfWeek.Monday).Date; 
+                    fechaFin = fechaInicio.AddDays(6).Date;
+                    Console.WriteLine($"Rango de la semana: {fechaInicio:yyyy-MM-dd} - {fechaFin:yyyy-MM-dd}");
+                    break;
+
+
+                case "mes":
+                    fechaInicio = new DateTime(hoy.Year, hoy.Month, 1);
+                    fechaFin = fechaInicio.AddMonths(1).AddDays(-1);
+                    break;
+
+                default:
+                    throw new ArgumentException("Filtro no válido", nameof(filtro));
+            }
+
+            return ListarTurnos(fechaInicio, fechaFin, idProfesional);
+        }
+
+        private List<Turno> ListarTurnos(DateTime fechaInicio, DateTime fechaFin, int idProfesional)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            List<Turno> lista = new List<Turno>();
+
+            try
+            {
+                datos.setConsulta(@"SELECT t.id_turno, e.nombre as especialidad, t.id_paciente, p.nombre, p.apellido, p.dni, t.fecha, t.hora, t.id_profesional, t.estado, t.observaciones FROM turnos AS t 
+                                    INNER JOIN pacientes p ON t.id_paciente = p.id_paciente
+                                    INNER JOIN especialidades as e on t.id_especialidad = e.id_especialidad
+                                    where t.estado = 'reservado' AND CAST(t.fecha AS DATE) BETWEEN @fechaInicio AND @fechaFin AND id_profesional = @idProfesional
+                                    ORDER BY t.fecha, t.hora;
+                                  ");
+
+                datos.setearParametro("@fechaInicio", fechaInicio);
+                datos.setearParametro("@fechaFin", fechaFin); 
+                datos.setearParametro("@idProfesional", idProfesional);
+
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Turno aux = new Turno();
+                    aux.IdTurno = datos.Lector.GetInt32(0);
+                    aux.Fecha = (DateTime)datos.Lector["fecha"];
+                    aux.Hora = (TimeSpan)datos.Lector["hora"];
+                    aux.Especialidad = new Especialidad();
+                    aux.Especialidad.NombreEspecialidad = datos.Lector["especialidad"].ToString();
+                    aux.Paciente = new Paciente();
+                    aux.Paciente.IdPaciente = (int)datos.Lector["id_paciente"];
+                    aux.Paciente.DatosPersona = new Persona();
+                    aux.Paciente.DatosPersona.Nombre = datos.Lector["nombre"].ToString();
+                    aux.Paciente.DatosPersona.Apellido = datos.Lector["apellido"].ToString();
+                    aux.Paciente.DatosPersona.Dni = datos.Lector["dni"].ToString();
+                    lista.Add(aux);
+                }
+
+            
+                    
+                
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+            return lista;
+        }
+
+
+
+
+
 
         public Turno listar(int id)
         {
@@ -133,13 +222,13 @@ public List<Turno> listarPorProfesional(int id)
 
     try
     {
-        datos.setConsulta(@"select t.id_turno, e.nombre as 'nombreespecialidad',CAST(t.fecha AS DATE) AS Fecha,t.hora,p.id_paciente ,p.nombre,p.apellido,p.dni,t.observaciones
+        datos.setConsulta(@"select t.id_turno,t.estado, e.nombre as 'nombreespecialidad',CAST(t.fecha AS DATE) AS Fecha,t.hora,p.id_paciente ,p.nombre,p.apellido,p.dni,t.observaciones
                                     from turnos t
                                     inner join pacientes p on t.id_paciente=p.id_paciente
                                     inner join profesionales pr on t.id_profesional=pr.id_profesional
                                     inner join profesionales_especialidades pe on pe.id_profesional=pr.id_profesional
                                     inner join especialidades e on e.id_especialidad=pe.id_especialidad
-									where pr.id_profesional = @id;");
+									where pr.id_profesional = @id and t.estado ='reservado';");
 
         datos.setearParametro("@id", id);
 
@@ -159,7 +248,15 @@ public List<Turno> listarPorProfesional(int id)
             aux.Paciente.DatosPersona.Nombre = datos.Lector["nombre"].ToString();
             aux.Paciente.DatosPersona.Apellido = datos.Lector["apellido"].ToString();
             aux.Paciente.DatosPersona.Dni = datos.Lector["dni"].ToString();
-            aux.Observaciones = datos.Lector["observaciones"].ToString();
+            if (datos.Lector["observaciones"].ToString() == null)
+                    {
+                        aux.Observaciones = "";
+                    }
+                    else {
+                        aux.Observaciones = datos.Lector["observaciones"].ToString();
+                    }
+ 
+            aux.Estado = datos.Lector["estado"].ToString();
             lista.Add(aux);
         }
 

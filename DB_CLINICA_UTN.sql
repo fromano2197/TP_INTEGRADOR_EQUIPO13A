@@ -679,6 +679,24 @@ BEGIN
     END CATCH;
 END;
 
+INSERT INTO turnos (id_profesional, id_paciente, id_especialidad, id_institucion, fecha, hora, estado)
+VALUES
 
+(2, 1, 1, 1, '2024-11-19', '10:00', 'reservado'),
+(2, 2, 1, 1, '2024-11-19', '11:30', 'reservado'),
+
+
+(2, 3, 1, 1, '2024-11-28', '09:00', 'reservado'),
+(2, 4, 1, 1, '2024-11-29', '14:00', 'reservado'),
+
+
+(2, 5, 1, 1, '2024-11-20', '15:00', 'reservado'),
+(2, 1, 1, 1, '2024-11-20', '16:30', 'reservado'),
+
+
+(2, 2, 1, 1, '2024-12-06', '10:00', 'reservado'),
+(2, 3, 1, 1, '2024-12-11', '11:00', 'reservado'),
+(2, 4, 1, 1, '2024-12-21', '12:30', 'reservado'),
+(2, 5, 1, 1, '2024-12-26', '13:30', 'reservado');
 
 

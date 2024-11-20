@@ -51,9 +51,9 @@ namespace Negocio
             return lista;
         }
 
-        public List<Persona> listarPorProfesional(int id)
+        public List<Paciente> listarPorProfesional(int id)
         {
-            List<Persona> lista = new List<Persona>();
+            List<Paciente> lista = new List<Paciente>();
             AccesoDatos datos = new AccesoDatos();
 
             try
@@ -67,11 +67,11 @@ namespace Negocio
 
                 while (datos.Lector.Read())
                 {
-                    Persona aux = new Persona();
-                    aux.IdPersona = datos.Lector.GetInt32(0);
-                    aux.Apellido = (string)datos.Lector["apellido"];
-                    aux.Nombre = (string)datos.Lector["nombre"];
-                    aux.Dni = (string)datos.Lector["dni"];
+                    Paciente aux = new Paciente();
+                    aux.IdPaciente = datos.Lector.GetInt32(0);
+                    aux.DatosPersona.Apellido = (string)datos.Lector["apellido"];
+                    aux.DatosPersona.Nombre = (string)datos.Lector["nombre"];
+                    aux.DatosPersona.Dni = (string)datos.Lector["dni"];
 
 
 

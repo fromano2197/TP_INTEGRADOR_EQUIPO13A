@@ -14,7 +14,7 @@ namespace Dominio
         public Paciente Paciente { get; set; }
         public Profesional Profesional { get; set; }
         public Especialidad Especialidad { get; set; }
-        public bool Estado { get; set; }
+        public string Estado { get; set; }
         public string Observaciones { get; set; }
     }
 }

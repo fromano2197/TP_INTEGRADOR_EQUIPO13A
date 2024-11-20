@@ -11,6 +11,7 @@ using Negocio;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
+using Dominio;
 
 
 
@@ -23,8 +24,8 @@ namespace CLINICA_APP_WEB
             if (!IsPostBack) { 
             int id = Session["idProfesional"] != null ? int.Parse(Session["idProfesional"].ToString()) : 0;
             TurnoNegocio negocio = new TurnoNegocio();
-            Session.Add("listarTurnos", negocio.listarPorProfesional(id));
-            repRepeater.DataSource = Session["listarTurnos"];
+            Session.Add("listarTurnosFiltrados", negocio.CargarTurnosFiltrados("dia", id));
+            repRepeater.DataSource = Session["listarTurnosFiltrados"];
             repRepeater.DataBind();
             }
         }
@@ -114,6 +115,19 @@ namespace CLINICA_APP_WEB
 
         }
 
+        protected void rbFiltrosTurnos_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int idProfesional = (int)Session["idProfesional"];
+            TurnoNegocio negocio = new TurnoNegocio();
+            List<Turno> lista = new List<Turno>();
 
+            string filtro = rbFiltrosTurnos.SelectedValue;
+
+            lista = negocio.CargarTurnosFiltrados(filtro, idProfesional);
+
+            repRepeater.DataSource = lista;
+            repRepeater.DataBind();
+
+        }
     }
 }
