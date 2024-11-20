@@ -312,11 +312,11 @@ namespace Negocio
                 };
 
                 smtp.Send(mensaje);
-                return; //"Correo enviado exitosamente.";
+                return; 
             }
             catch (Exception ex)
             {
-                return;//return "Ocurrió un error al enviar el correo";
+                return;
             }
 
         }

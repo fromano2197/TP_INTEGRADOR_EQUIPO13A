@@ -14,10 +14,22 @@ namespace CLINICA_APP_WEB
         protected void Page_Load(object sender, EventArgs e)
         {
             PacienteNegocio negocio = new PacienteNegocio();
-
+            string tipoUsuario = Session["TipoUsuario"] as string;
             if (!IsPostBack)
             {
-
+                if (tipoUsuario != null)
+                {
+                    if (tipoUsuario == "paciente")
+                    {
+                        divPaciente.Visible = true;
+                        divAdministrador.Visible = false; 
+                    }
+                    else if (tipoUsuario == "administrador")
+                    {
+                        divPaciente.Visible = false; 
+                        divAdministrador.Visible = true; 
+                    }
+                }
                 int id = 0;
                 if (int.TryParse(Request.QueryString["id"], out id) && id > 0)
                 {
@@ -70,6 +82,25 @@ namespace CLINICA_APP_WEB
             seleccionado.Usuario.Password = txtPass.Text;
             negocio.ModificarPaciente(seleccionado);
             Response.Redirect("BuscarPaciente.aspx", false);
+
+        }
+
+        protected void btnModificarPaciente_Click1(object sender, EventArgs e)
+        {
+            Paciente seleccionado = new Paciente();
+            PacienteNegocio negocio = new PacienteNegocio();
+            seleccionado.DatosPersona.IdPersona = int.Parse(Request.QueryString["id"].ToString());
+            seleccionado.DatosPersona.Dni = txtDni.Text;
+            seleccionado.DatosPersona.Nombre = txtNombre.Text;
+            seleccionado.DatosPersona.Apellido = txtApellido.Text;
+            seleccionado.DatosPersona.FechaNacimiento = DateTime.Parse(txtFechaNac.Text);
+            seleccionado.DatosPersona.ContactoCliente.Email = txtEmail.Text;
+            seleccionado.DatosPersona.ContactoCliente.telefono = txtTelefono.Text;
+            seleccionado.DatosPersona.ContactoCliente.Direccion = txtDireccion.Text;
+            seleccionado.Usuario.User = TxtUser.Text;
+            seleccionado.Usuario.Password = txtPass.Text;
+            negocio.ModificarPaciente(seleccionado);
+            Response.Redirect("PortalPacientes.aspx", false);
 
         }
     }

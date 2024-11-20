@@ -216,7 +216,7 @@ namespace Negocio
 
             try
             {
-                // Llamada al procedimiento almacenado
+              
                 datos.setearProcedimiento("SP_AGREGAR_PROFESIONAL");
 
                 datos.setearParametro("@DNI", aux.Persona.Dni);
@@ -232,11 +232,11 @@ namespace Negocio
                 datos.setearParametro("@FECHA_INGRESO", aux.FechaIngreso.ToString("yyyy-MM-dd"));
                 datos.setearParametro("@MATRICULA", aux.Matricula);
 
-                // Crear la cadena de especialidades (si las hay)
+           
                 string especialidades = string.Join(",", aux.Especialidades.Select(e => e.IdEspecialidad.ToString()));
                 datos.setearParametro("@ESPECIALIDADES", especialidades);
 
-                // Si no hay institución asignada, pasa un valor vacío
+      
                 string instituciones = aux.Institucion != null ? aux.Institucion.IdInstitucion.ToString() : "";
                 datos.setearParametro("@INSTITUCIONES", instituciones);
 

@@ -77,9 +77,17 @@ namespace CLINICA_APP_WEB
 
         protected void CerrarSesion(object sender, EventArgs e)
         {
-            // Abandonar la sesión y redirigir al inicio de sesión
             Session.Abandon();
             Response.Redirect("Default.aspx", false);
+        }
+
+        protected void Perfil(object sender, EventArgs e)
+        {
+            if (Session["idPaciente"] != null)
+            {
+                int idPaciente = (int)Session["idPaciente"];
+                Response.Redirect($"ModificarPaciente.aspx?id={idPaciente}", false);
+            }
         }
     }
 }
