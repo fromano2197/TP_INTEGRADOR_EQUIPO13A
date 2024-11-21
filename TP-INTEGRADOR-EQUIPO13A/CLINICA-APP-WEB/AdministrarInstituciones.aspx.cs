@@ -27,7 +27,8 @@ namespace CLINICA_APP_WEB
         protected void filtro_TextChanged(object sender, EventArgs e)
         {
             List<Institucion> lista = (List<Institucion>)Session["listarInstituciones"];
-            List<Institucion> listaFiltrada = lista.FindAll(x => x.Nombre.ToUpper().Contains(txtBuscarInstitucion.Text.ToUpper()));
+            List<Institucion> listaFiltrada = lista.FindAll(x => x.Nombre.ToUpper().Contains(txtBuscarInstitucion.Text.ToUpper()) || (txtBuscarInstitucion.Text.ToUpper() == "ACTIVO" && x.Activo == true) ||
+            (txtBuscarInstitucion.Text.ToUpper() == "ELIMINADO" && x.Activo == false));
             repRepeaterInstitucion.DataSource = listaFiltrada;
             repRepeaterInstitucion.DataBind();
         }

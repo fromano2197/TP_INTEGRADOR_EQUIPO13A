@@ -95,7 +95,7 @@ namespace CLINICA_APP_WEB
                         INNER JOIN profesionales P ON P.id_profesional = T.id_profesional
                         INNER JOIN especialidades E ON E.id_especialidad = T.id_especialidad
                         INNER JOIN instituciones I ON I.id_institucion = T.id_institucion
-                        WHERE P.activo = 1 AND E.activo = 1 AND I.activo = 1 AND T.id_paciente = @idPaciente
+                        WHERE P.activo = 1 AND E.activo = 1 AND I.activo = 1 AND T.id_paciente = @idPaciente AND T.estado='atendido'
                         ORDER BY T.fecha DESC";
 
             accesoDatos.setConsulta(consulta);

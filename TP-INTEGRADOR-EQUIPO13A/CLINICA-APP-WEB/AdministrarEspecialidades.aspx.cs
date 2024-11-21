@@ -43,7 +43,8 @@ namespace CLINICA_APP_WEB
         protected void filtro_TextChanged(object sender, EventArgs e)
         {
             List<Especialidad> lista = (List<Especialidad>)Session["ListaEspecialidades"];
-            List<Especialidad> listaFiltrada = lista.FindAll(x => x.NombreEspecialidad.ToUpper().Contains(txtBuscarEspecialidad.Text.ToUpper()));
+            List<Especialidad> listaFiltrada = lista.FindAll(x => x.NombreEspecialidad.ToUpper().Contains(txtBuscarEspecialidad.Text.ToUpper()) || (txtBuscarEspecialidad.Text.ToUpper() == "ACTIVO" && x.Activo == true) ||
+            (txtBuscarEspecialidad.Text.ToUpper() == "ELIMINADO" && x.Activo == false));
             repRepeaterEspecialidad.DataSource = listaFiltrada;
             repRepeaterEspecialidad.DataBind();
         }

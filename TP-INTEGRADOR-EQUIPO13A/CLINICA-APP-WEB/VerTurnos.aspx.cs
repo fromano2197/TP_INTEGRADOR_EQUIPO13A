@@ -36,7 +36,7 @@ namespace CLINICA_APP_WEB
                     PR.apellido,
                     E.Nombre AS Especialidad,
                     I.nombre AS Institucion,
-                    T.Fecha,
+                    CAST(T.Fecha AS DATE) AS Fecha,
                     T.Hora,
                     T.Estado,
                     ISNULL(T.Observaciones,'Sin Observación') as observacion
