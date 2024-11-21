@@ -197,11 +197,8 @@ namespace Negocio
         public string RecuperarContraseña(int DNI)
         {
             AccesoDatos datos = new AccesoDatos();
-            string password = string.Empty;
-
             try
             {
-                
                 datos.setConsulta("SELECT id_paciente FROM pacientes WHERE dni = @DNI;");
                 datos.setearParametro("@DNI", DNI);
                 datos.ejecutarLectura();
@@ -211,47 +208,54 @@ namespace Negocio
                 {
                     idPaciente = int.Parse(datos.Lector["id_paciente"].ToString());
                 }
-                datos.cerrarConexion(); 
+                datos.cerrarConexion();
 
-                
-                if (idPaciente > 0)
+                if (idPaciente == 0)
                 {
-                    datos = new AccesoDatos(); 
-                    datos.setConsulta("SELECT contraseña FROM usuarios WHERE id_paciente = @IDPACIENTE;");
-                    datos.setearParametro("@IDPACIENTE", idPaciente);
-                    datos.ejecutarLectura();
-
-                    if (datos.Lector.Read())
-                    {
-                        password = datos.Lector["contraseña"].ToString();
-                    }
+                    return "El DNI ingresado no está registrado.";
                 }
 
-                if (!string.IsNullOrEmpty(password))
+                datos = new AccesoDatos();
+                datos.setConsulta("SELECT contraseña FROM usuarios WHERE id_paciente = @IDPACIENTE;");
+                datos.setearParametro("@IDPACIENTE", idPaciente);
+                datos.ejecutarLectura();
+
+                string password = string.Empty;
+                if (datos.Lector.Read())
                 {
-                    string email = ObtenerEmailPorIdPaciente(idPaciente); 
-                    if (!string.IsNullOrEmpty(email))
-                    {
-                        EnviarCorreoRecuperacion(email, password); 
-                    }
+                    password = datos.Lector["contraseña"].ToString();
                 }
+                datos.cerrarConexion();
+
+                if (string.IsNullOrEmpty(password))
+                {
+                    return "No se encontró una contraseña asociada al DNI ingresado.";
+                }
+
+                string email = ObtenerEmailPorIdPaciente(idPaciente);
+                if (string.IsNullOrEmpty(email))
+                {
+                    return "No se encontró un correo electrónico asociado al DNI ingresado.";
+                }
+
+
+                EnviarCorreoRecuperacion(email, password);
+                return "Correo enviado exitosamente.";
             }
             catch (Exception ex)
             {
-                throw ex; 
+                return $"Ocurrió un error al procesar la solicitud: {ex.Message}";
             }
             finally
             {
-                datos.cerrarConexion(); 
+                datos.cerrarConexion();
             }
-            return password; 
         }
 
         private string ObtenerEmailPorIdPaciente(int idPaciente)
         {
             string email = string.Empty;
             AccesoDatos datos = new AccesoDatos();
-
             try
             {
                 datos.setConsulta("SELECT email FROM pacientes WHERE id_paciente = @IDPACIENTE;");
@@ -271,13 +275,11 @@ namespace Negocio
             {
                 datos.cerrarConexion();
             }
-
             return email;
         }
 
         public void EnviarCorreoRecuperacion(string email, string contraseña)
         {
-
             try
             {
                 MailMessage mensaje = new MailMessage();
@@ -285,21 +287,20 @@ namespace Negocio
                 mensaje.To.Add(email);
                 mensaje.Subject = "Recuperación de Contraseña";
 
-                
                 mensaje.Body = $@"
-            <html>
-                <body style=""font-family: Arial, sans-serif; color: #333; text-align: center;"">
-                    <h1 style=""color: #0056b3;"">Recuperación de Contraseña</h1>
-                    <p>Has solicitado recuperar tu contraseña. Aquí está la información:</p>
-                    <p><strong>Contraseña:</strong> {contraseña}</p>
-                    <p style=""margin-top: 20px;"">
+        <html>
+            <body style=""font-family: Arial, sans-serif; color: #333; text-align: center;"">
+                <h1 style=""color: #0056b3;"">Recuperación de Contraseña</h1>
+                <p>Has solicitado recuperar tu contraseña. Aquí está la información:</p>
+                <p><strong>Contraseña:</strong> {contraseña}</p>
+                <p style=""margin-top: 20px;"">
                     <img src=""https://i.pinimg.com/236x/76/91/f8/7691f809425069fa599eb6137f4d6071.jpg"" 
-                     alt=""Logotipo"" style=""width: 300px; height: auto; display: block; margin: 0 auto;"" />
-                     </p>
-                     <p>Si tienes alguna duda, no dudes en <a href=""mailto:hernan39742374@gmail.com"" style=""color: #0056b3;"">contactarnos</a>.</p>
-                    <p>Gracias por confiar en nuestra clínica.</p>
-                </body>
-            </html>";
+                        alt=""Logotipo"" style=""width: 300px; height: auto; display: block; margin: 0 auto;"" />
+                </p>
+                <p>Si tienes alguna duda, no dudes en <a href=""mailto:hernan39742374@gmail.com"" style=""color: #0056b3;"">contactarnos</a>.</p>
+                <p>Gracias por confiar en nuestra clínica.</p>
+            </body>
+        </html>";
 
                 mensaje.IsBodyHtml = true;
 
@@ -312,13 +313,11 @@ namespace Negocio
                 };
 
                 smtp.Send(mensaje);
-                return; 
             }
             catch (Exception ex)
             {
-                return;
+                throw new Exception("Ocurrió un error al enviar el correo: " + ex.Message);
             }
-
         }
 
 

@@ -2,6 +2,7 @@
 using Negocio;
 using System;
 using System.Data.SqlClient;
+using System.Net.Mail;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -115,7 +116,6 @@ namespace CLINICA_APP_WEB
             string especialidad = ddlEspecialidad.SelectedValue;
             string medico = ddlMedico.SelectedValue;
 
-            // Comienza la consulta con los filtros generales
             string consulta = @"SELECT P.nombre + ' ' + P.apellido AS Medico, E.nombre AS especialidad, T.id_turno, T.id_paciente, T.id_profesional, T.id_especialidad, T.id_institucion, T.fecha, T.hora, I.nombre as institucion, T.estado
                         FROM TURNOS T
                         INNER JOIN profesionales P ON P.id_profesional = T.id_profesional
@@ -123,7 +123,6 @@ namespace CLINICA_APP_WEB
                         INNER JOIN instituciones I ON I.id_institucion = T.id_institucion
                         WHERE T.estado = 'disponible' AND P.activo = 1 AND E.activo = 1 AND I.activo = 1";
 
-            // Agregar los filtros opcionales
             if (!string.IsNullOrEmpty(institucion) && institucion != "0") consulta += " AND I.id_institucion = @institucion";
             if (!string.IsNullOrEmpty(especialidad) && especialidad != "0") consulta += " AND E.id_especialidad = @especialidad";
             if (!string.IsNullOrEmpty(medico) && medico != "0") consulta += " AND P.id_profesional = @medico";
@@ -133,7 +132,6 @@ namespace CLINICA_APP_WEB
             {
                 datos.setConsulta(consulta);
 
-                // Añadir parámetros solo si no son el valor por defecto (0)
                 if (!string.IsNullOrEmpty(institucion) && institucion != "0") datos.setearParametro("@institucion", institucion);
                 if (!string.IsNullOrEmpty(especialidad) && especialidad != "0") datos.setearParametro("@especialidad", especialidad);
                 if (!string.IsNullOrEmpty(medico) && medico != "0") datos.setearParametro("@medico", medico);
@@ -173,6 +171,101 @@ namespace CLINICA_APP_WEB
             }
         }
 
+        /*protected void btnTomarTurno_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Obtener el botón que disparó el evento
+                Button btn = (Button)sender;
+
+                // Extraer el ID del turno desde el CommandArgument
+                int idTurno = Convert.ToInt32(btn.CommandArgument);
+
+                // Obtener el ID del paciente (puedes obtenerlo de la sesión o de otro medio)
+                int idPaciente = ObtenerIdPacienteDesdeSesion();
+
+                // Llama al método para tomar el turno
+                TomarTurno(idTurno, idPaciente);
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Error al procesar la solicitud: " + ex.Message;
+                lblError.Visible = true;
+            }
+        }*/
+
+        
+        private string ObtenerEmailPaciente(int idPaciente)
+        {
+            string email = string.Empty;
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = "SELECT email FROM PACIENTES WHERE id_paciente = @idPaciente";
+                datos.setConsulta(consulta);
+                datos.setearParametro("@idPaciente", idPaciente);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    email = datos.Lector["email"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Error al obtener el email del paciente: " + ex.Message;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return email;
+        }
+
+        private void EnviarCorreoConfirmacion(string emailPaciente, string fecha, string hora, string medico, string especialidad, string institucion)
+        {
+            try
+            {
+                DateTime fechaDateTime = DateTime.Parse(fecha);
+                string fechaFormateada = fechaDateTime.ToString("dd/MM/yyyy");
+                MailMessage correo = new MailMessage();
+                correo.From = new MailAddress("hernan39742374@gmail.com");
+                correo.To.Add(emailPaciente);
+                correo.Subject = "Confirmación de Turno";
+                correo.Body = $"Estimado paciente,\n\nSu turno ha sido reservado exitosamente.\n\n" +
+                              $"Detalles del turno:\n" +
+                              $"- Fecha: {fechaFormateada}\n" +
+                              $"- Hora: {hora}\n" +
+                              $"- Médico: {medico}\n" +
+                              $"- Especialidad: {especialidad}\n" +
+                              $"- Institución: {institucion}\n\n" +
+                              "Gracias por elegir nuestra clínica.";
+
+                SmtpClient cliente = new SmtpClient("smtp.gmail.com");
+                cliente.Port = 587;
+                cliente.Credentials = new System.Net.NetworkCredential("hernan39742374@gmail.com", "lbwwgljjoqxnbxqo");
+                cliente.EnableSsl = true;
+
+                cliente.Send(correo);
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Error al enviar el correo de confirmación: " + ex.Message;
+                lblError.Visible = true;
+            }
+        }
+
+        private int ObtenerIdPacienteDesdeSesion()
+        {
+            if (Session["IdPaciente"] != null)
+            {
+                return Convert.ToInt32(Session["IdPaciente"]);
+            }
+            else
+            {
+                throw new Exception("No se encontró un paciente en sesión.");
+            }
+        }
 
         protected void btnTomarTurno_Click(object sender, EventArgs e)
         {
@@ -198,8 +291,54 @@ namespace CLINICA_APP_WEB
             }
         }
 
-
         public void TomarTurno(int idTurno, int idPaciente)
+        {
+            try
+            {
+                string query = "UPDATE TURNOS SET id_paciente = @idPaciente, estado = 'reservado' WHERE id_turno = @idTurno1";
+                AccesoDatos datos = new AccesoDatos();
+                datos.setConsulta(query);
+                datos.setearParametro("@idPaciente", idPaciente);
+                datos.setearParametro("@idTurno1", idTurno);
+                datos.ejecutarAccion();
+
+                string consultaTurno = @"SELECT T.fecha, T.hora, P.nombre + ' ' + P.apellido AS Medico, 
+                                                E.nombre AS Especialidad, I.nombre AS Institucion
+                                         FROM TURNOS T
+                                         INNER JOIN profesionales P ON P.id_profesional = T.id_profesional
+                                         INNER JOIN especialidades E ON E.id_especialidad = T.id_especialidad
+                                         INNER JOIN instituciones I ON I.id_institucion = T.id_institucion
+                                         WHERE T.id_turno = @idTurno";
+                datos.setConsulta(consultaTurno);
+                datos.setearParametro("@idTurno", idTurno);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    string fecha = datos.Lector["fecha"].ToString();
+                    string hora = datos.Lector["hora"].ToString();
+                    string medico = datos.Lector["Medico"].ToString();
+                    string especialidad = datos.Lector["Especialidad"].ToString();
+                    string institucion = datos.Lector["Institucion"].ToString();
+
+                    string emailPaciente = ObtenerEmailPaciente(idPaciente);
+
+                    EnviarCorreoConfirmacion(emailPaciente, fecha, hora, medico, especialidad, institucion);
+                }
+
+                CargarTurnos();
+                lblError.Text = "El turno ha sido reservado exitosamente.";
+                lblError.Visible = true;
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Error al tomar el turno: " + ex.Message;
+                lblError.Visible = true;
+            }
+        }
+
+
+        /*public void TomarTurno(int idTurno, int idPaciente)
         {
             try
             {
@@ -212,13 +351,14 @@ namespace CLINICA_APP_WEB
                 CargarTurnos();
                 lblError.Text = "El turno ha sido reservado exitosamente.";
                 lblError.Visible = true;
+                
             }
             catch (Exception ex)
             {
                 lblError.Text = "Error al tomar el turno: " + ex.Message;
                 lblError.Visible = true;
             }
-        }
+        }*/
 
 
 

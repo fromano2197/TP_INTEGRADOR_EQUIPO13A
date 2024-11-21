@@ -22,6 +22,82 @@ namespace CLINICA_APP_WEB
         {
             try
             {
+
+                if (string.IsNullOrWhiteSpace(txtDni.Text) ||
+                    string.IsNullOrWhiteSpace(txtNombre.Text) ||
+                    string.IsNullOrWhiteSpace(txtApellido.Text) ||
+                    string.IsNullOrWhiteSpace(txtFechaNac.Text) ||
+                    string.IsNullOrWhiteSpace(txtEmail.Text) ||
+                    string.IsNullOrWhiteSpace(txtTelefono.Text) ||
+                    string.IsNullOrWhiteSpace(txtDireccion.Text) ||
+                    string.IsNullOrWhiteSpace(txtUsuario.Text) ||
+                    string.IsNullOrWhiteSpace(txtPass.Text))
+                {
+                    lblMensaje.Text = "Todos los campos son obligatorios.";
+                    lblMensaje.Visible = true;
+                    return;
+                }
+
+
+                if (!long.TryParse(txtDni.Text, out _))
+                {
+                    lblMensaje.Text = "El DNI debe ser numérico.";
+                    lblMensaje.Visible = true;
+                    return;
+                }
+
+
+                if (!System.Text.RegularExpressions.Regex.IsMatch(txtNombre.Text, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"))
+                {
+                    lblMensaje.Text = "El nombre solo puede contener letras y espacios.";
+                    lblMensaje.Visible = true;
+                    return;
+                }
+
+
+                if (!System.Text.RegularExpressions.Regex.IsMatch(txtApellido.Text, @"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$"))
+                {
+                    lblMensaje.Text = "El apellido solo puede contener letras y espacios.";
+                    lblMensaje.Visible = true;
+                    return;
+                }
+
+
+                if (!DateTime.TryParse(txtFechaNac.Text, out DateTime fechaNac) || fechaNac > DateTime.Now)
+                {
+                    lblMensaje.Text = "La fecha de nacimiento no es válida o es futura.";
+                    lblMensaje.Visible = true;
+                    return;
+                }
+
+
+                if (!System.Text.RegularExpressions.Regex.IsMatch(txtEmail.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+                {
+                    lblMensaje.Text = "El correo electrónico no tiene un formato válido.";
+                    lblMensaje.Visible = true;
+                    return;
+                }
+
+
+                if (!long.TryParse(txtTelefono.Text, out _))
+                {
+                    lblMensaje.Text = "El teléfono debe ser numérico.";
+                    lblMensaje.Visible = true;
+                    return;
+                }
+
+
+                if (txtPass.Text.Length < 8 ||
+                    !System.Text.RegularExpressions.Regex.IsMatch(txtPass.Text, @"[A-Z]") ||
+                    !System.Text.RegularExpressions.Regex.IsMatch(txtPass.Text, @"[a-z]") ||
+                    !System.Text.RegularExpressions.Regex.IsMatch(txtPass.Text, @"[0-9]"))
+                {
+                    lblMensaje.Text = "La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula y un número.";
+                    lblMensaje.Visible = true;
+                    return;
+                }
+
+
                 Paciente paciente = new Paciente();
                 Usuario usuario = new Usuario();
                 PacienteNegocio pacienteNegocio = new PacienteNegocio();
@@ -36,12 +112,15 @@ namespace CLINICA_APP_WEB
                 usuario.User = txtUsuario.Text;
                 usuario.Password = txtPass.Text;
 
+
                 pacienteNegocio.nuevoPaciente(paciente, usuario);
 
                 lblMensaje.Text = "Registro exitoso. Serás redirigido a la página principal.";
                 lblMensaje.Visible = true;
 
+
                 EnviarCorreoConfirmacion(paciente.DatosPersona.ContactoCliente.Email);
+
 
                 string script = "setTimeout(function() { window.location.href = 'default.aspx'; }, 3000);";
                 ClientScript.RegisterStartupScript(this.GetType(), "Redirigir", script, true);
@@ -52,7 +131,6 @@ namespace CLINICA_APP_WEB
                 lblMensaje.Text = "Ocurrió un error al registrar el paciente: " + ex.Message;
                 lblMensaje.Visible = true;
             }
-
         }
         private void EnviarCorreoConfirmacion(string emailDestino)
         {

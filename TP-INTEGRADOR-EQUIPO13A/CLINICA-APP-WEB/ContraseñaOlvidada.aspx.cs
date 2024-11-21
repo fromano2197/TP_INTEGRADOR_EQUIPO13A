@@ -26,23 +26,27 @@ namespace CLINICA_APP_WEB
             if (int.TryParse(txtDni.Text.Trim(), out int dni))
             {
                 string mensaje = pacienteNegocio.RecuperarContraseña(dni);
-                
-                if (mensaje != null)
-                {
-                    lblMensaje.Text = "Correo enviado exitosamente, sera dirigido a la página principal";
-                    lblMensaje.ForeColor = System.Drawing.Color.Green;
-                    lblMensaje.Visible = true; 
-                    ClientScript.RegisterStartupScript(this.GetType(), "redirect", "setTimeout(function(){ window.location.href = 'default.aspx'; }, 3000);", true);
+                lblMensaje.Text = mensaje;
 
+                if (mensaje == "Correo enviado exitosamente.")
+                {
+                    lblMensaje.ForeColor = System.Drawing.Color.Green;
+                    lblMensaje.Visible = true;
+                    ClientScript.RegisterStartupScript(this.GetType(), "redirect",
+                        "setTimeout(function(){ window.location.href = 'default.aspx'; }, 3000);", true);
                 }
                 else
                 {
-                    lblMensaje.Text = "Por favor, ingresa un DNI válido.";
                     lblMensaje.ForeColor = System.Drawing.Color.Red;
                     lblMensaje.Visible = true;
                 }
             }
-            
+            else
+            {
+                lblMensaje.Text = "Por favor, ingresa un DNI válido.";
+                lblMensaje.ForeColor = System.Drawing.Color.Red;
+                lblMensaje.Visible = true;
+            }
         }
 
 

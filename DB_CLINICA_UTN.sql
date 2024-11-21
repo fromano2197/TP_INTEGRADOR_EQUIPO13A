@@ -766,4 +766,3 @@ VALUES
 (2, 4, 1, 1, '2024-12-21', '12:30', 'reservado'),
 (2, 5, 1, 1, '2024-12-26', '13:30', 'reservado');
 
-select * from usuarios
