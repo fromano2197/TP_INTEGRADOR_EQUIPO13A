@@ -53,10 +53,7 @@
                             <label for="txtContraseña" class="etiqueta-formulario">Contraseña:</label>
                             <asp:TextBox ID="txtContraseña" CssClass="entrada-formulario" runat="server" placeholder="Contraseña" />
                         </div>
-                        <div class="grupo-formulario">
-                            <label for="txtTipoUsuario" class="etiqueta-formulario">Tipo Usuario:</label>
-                            <asp:TextBox ID="txtTipoUsuario" CssClass="entrada-formulario" runat="server" placeholder="Tipo Usuario" />
-                        </div>
+                     
 
                         <div class="grupo-formulario">
                             <label for="txtFechaIngreso" class="etiqueta-formulario">Fecha de Ingreso:</label>

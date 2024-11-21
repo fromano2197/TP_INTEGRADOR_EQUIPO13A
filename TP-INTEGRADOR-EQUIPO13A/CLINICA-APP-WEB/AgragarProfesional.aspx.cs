@@ -55,14 +55,14 @@ namespace CLINICA_APP_WEB
             aux.Persona.Dni =txtDni.Text;
             aux.Persona.Nombre = txtNombre.Text;
             aux.Persona.Apellido = txtApellido.Text;
-            aux.Persona.FechaNacimiento = DateTime.ParseExact(txtFechaNac.Text, "dd/MM/yyyy", null);
+            aux.Persona.FechaNacimiento = DateTime.Parse(txtFechaNac.Text);
             aux.Persona.ContactoCliente.Email = txtEmail.Text;
             aux.Persona.ContactoCliente.telefono = txtTelefono.Text;
             aux.Persona.ContactoCliente.Direccion = txtDireccion.Text;
             aux.Usuario.User = txtUsuario.Text;
             aux.Usuario.Password = txtContraseña.Text;
-            aux.Usuario.tipousuario = txtTipoUsuario.Text;
-            aux.FechaIngreso = DateTime.ParseExact(txtFechaIngreso.Text, "dd/MM/yyyy", null);
+            aux.Usuario.tipousuario = "profesional";
+            aux.FechaIngreso = DateTime.Parse(txtFechaIngreso.Text);
             aux.Matricula = txtMatricula.Text;
             aux.Institucion.IdInstitucion = int.Parse(ddlInstituciones.SelectedValue);
             aux.Institucion.Nombre = ddlInstituciones.SelectedItem.Text;

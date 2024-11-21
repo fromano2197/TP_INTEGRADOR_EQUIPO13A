@@ -114,15 +114,6 @@ namespace CLINICA_APP_WEB
         protected global::System.Web.UI.WebControls.TextBox txtContraseña;
 
         /// <summary>
-        /// Control txtTipoUsuario.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTipoUsuario;
-
-        /// <summary>
         /// Control txtFechaIngreso.
         /// </summary>
         /// <remarks>
