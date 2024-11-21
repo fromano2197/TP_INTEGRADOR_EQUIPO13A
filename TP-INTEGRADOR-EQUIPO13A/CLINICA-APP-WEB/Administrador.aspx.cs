@@ -11,14 +11,7 @@ namespace CLINICA_APP_WEB
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["idadministrador"] != null)
-            {
-                //btnMisDatosPersonales.CommandArgument = Session["idpaciente"].ToString();
-            }
-            else
-            {
-                // Maneja el caso en el que el ID no está disponible, como redirigir o mostrar un mensaje.
-            }
+            
 
         }
     }

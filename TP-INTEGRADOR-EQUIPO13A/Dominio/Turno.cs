@@ -21,14 +21,6 @@ namespace Dominio
         public Paciente Paciente { get; set; } = new Paciente();
         public Profesional Profesional { get; set; } = new Profesional();
         public Especialidad Especialidad { get; set; } = new Especialidad();
-        // public int IdTurno { get; set; }
-        // public DateTime Fecha { get; set; }
-        // public TimeSpan Hora  { get; set; }
-        // public Paciente Paciente { get; set; }
-        // public Profesional Profesional { get; set; }
-        // public Especialidad Especialidad { get; set; }
-        // public string Institucion { get; set; }
-        // public string Estado { get; set; }
-        // public string Observaciones { get; set; }
+       
     }
 }

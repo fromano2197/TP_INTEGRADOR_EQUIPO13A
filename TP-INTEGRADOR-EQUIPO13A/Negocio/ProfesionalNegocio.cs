@@ -240,7 +240,6 @@ namespace Negocio
                 string instituciones = aux.Institucion != null ? aux.Institucion.IdInstitucion.ToString() : "";
                 datos.setearParametro("@INSTITUCIONES", instituciones);
 
-                // Ejecutar la inserción
                 datos.ejecutarAccion();
             }
             catch (Exception ex)

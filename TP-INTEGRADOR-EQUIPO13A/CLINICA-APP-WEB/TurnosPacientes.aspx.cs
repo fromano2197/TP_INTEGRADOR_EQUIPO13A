@@ -160,7 +160,6 @@ namespace CLINICA_APP_WEB
             ddlMedico.Items.Clear();
             ddlMedico.Items.Add(new ListItem("Selecciona un médico", "0"));
 
-            // Cargar médicos solo si tanto la especialidad como la institución están seleccionadas
             if (idEspecialidad > 0 && idInstitucion > 0)
             {
                 CargarMedicos(idEspecialidad, idInstitucion);
@@ -171,30 +170,6 @@ namespace CLINICA_APP_WEB
             }
         }
 
-        /*protected void btnTomarTurno_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                // Obtener el botón que disparó el evento
-                Button btn = (Button)sender;
-
-                // Extraer el ID del turno desde el CommandArgument
-                int idTurno = Convert.ToInt32(btn.CommandArgument);
-
-                // Obtener el ID del paciente (puedes obtenerlo de la sesión o de otro medio)
-                int idPaciente = ObtenerIdPacienteDesdeSesion();
-
-                // Llama al método para tomar el turno
-                TomarTurno(idTurno, idPaciente);
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "Error al procesar la solicitud: " + ex.Message;
-                lblError.Visible = true;
-            }
-        }*/
-
-        
         private string ObtenerEmailPaciente(int idPaciente)
         {
             string email = string.Empty;
@@ -336,33 +311,7 @@ namespace CLINICA_APP_WEB
                 lblError.Visible = true;
             }
         }
-
-
-        /*public void TomarTurno(int idTurno, int idPaciente)
-        {
-            try
-            {
-                string query = "UPDATE TURNOS SET id_paciente = @idPaciente, estado = 'reservado' WHERE id_turno = @idTurno";
-                AccesoDatos datos = new AccesoDatos();
-                datos.setConsulta(query);
-                datos.setearParametro("@idPaciente", idPaciente);
-                datos.setearParametro("@idTurno", idTurno);
-                datos.ejecutarAccion();
-                CargarTurnos();
-                lblError.Text = "El turno ha sido reservado exitosamente.";
-                lblError.Visible = true;
-                
-            }
-            catch (Exception ex)
-            {
-                lblError.Text = "Error al tomar el turno: " + ex.Message;
-                lblError.Visible = true;
-            }
-        }*/
-
-
-
-
+  
         private void CargarTurnos()
         {
             AccesoDatos datos = new AccesoDatos();

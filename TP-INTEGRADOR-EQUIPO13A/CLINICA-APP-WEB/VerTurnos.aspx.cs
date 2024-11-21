@@ -150,21 +150,11 @@ namespace CLINICA_APP_WEB
         }
 
 
-
         protected void filtro_TextChanged(object sender, EventArgs e)
         {
             string filtro = txtBuscarTurno.Text.Trim();
             CargarTurnos(filtro);  
         }
-
-
-
-
-
-
-
-
-
 
     }
 }
