@@ -21,7 +21,7 @@
                     <li><a class="nav-link" href="MisEstudios.aspx?id=<%: Session["idPaciente"] %>">Mis Estudios</a></li>
                     <li><a class="nav-link" href="MisDatos.aspx?id=<%: Session["idPaciente"] %>">Mis Datos Personales</a></li>
                 </ul>
-                <asp:Button ID="btnPerfilPaciente" Text="Perfil" CssClass="btn-perfil" OnClick="Perfil"  runat="server" />
+            
                 <asp:Button ID="btnCerrarSesionPaciente" Text="Cerrar Sesión" CssClass="btn-cerrar-sesion" OnClick="CerrarSesion" runat="server" />
             </div>
         </nav>

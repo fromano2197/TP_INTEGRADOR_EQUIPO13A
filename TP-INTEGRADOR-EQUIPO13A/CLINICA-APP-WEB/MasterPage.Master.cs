@@ -81,14 +81,7 @@ namespace CLINICA_APP_WEB
             Response.Redirect("Default.aspx", false);
         }
 
-        protected void Perfil(object sender, EventArgs e)
-        {
-            if (Session["idPaciente"] != null)
-            {
-                int idPaciente = (int)Session["idPaciente"];
-                Response.Redirect($"ModificarPaciente.aspx?id={idPaciente}", false);
-            }
-        }
+       
     }
 }
 

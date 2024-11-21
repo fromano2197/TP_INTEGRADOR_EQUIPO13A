@@ -33,7 +33,8 @@ namespace CLINICA_APP_WEB
                         txtEmail.Text = seleccionado.DatosPersona.ContactoCliente.Email;
                         txtTelefono.Text = seleccionado.DatosPersona.ContactoCliente.telefono.ToString();
                         txtDireccion.Text = seleccionado.DatosPersona.ContactoCliente.Direccion;
-
+                        txtUsuario.Text = seleccionado.Usuario.User.ToString();
+                        txtPass.Text = seleccionado.Usuario.Password.ToString();
 
 
                     }
@@ -51,6 +52,17 @@ namespace CLINICA_APP_WEB
                     lblMensaje.Visible = true;
                 }
             }
+        }
+
+        protected void btnModificar_Click(object sender, EventArgs e)
+        {
+           
+                if (Session["idPaciente"] != null)
+                {
+                    int idPaciente = (int)Session["idPaciente"];
+                    Response.Redirect($"ModificarPaciente.aspx?id={idPaciente}", false);
+                }
+            
         }
     }
 }

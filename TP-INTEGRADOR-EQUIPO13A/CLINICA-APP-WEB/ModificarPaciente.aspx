@@ -68,7 +68,7 @@
                 <asp:TextBox ID="txtPass" CssClass="entrada-formulario" runat="server" placeholder="Contraseña" />
             </div>
             <div id="divPaciente" runat="server" visible="false">
-                <asp:Button ID="btnModificarPaciente" OnClick="btnModificarPaciente_Click1" Text="Modificar Paciente" CssClass="btn-enviar" runat="server" />
+                <asp:Button ID="btnModificarPaciente" OnClick="btnModificarPaciente_Click1" Text="Guardar" CssClass="btn-enviar" runat="server" />
             </div>
 
             <div id="divAdministrador" runat="server" visible="false">
