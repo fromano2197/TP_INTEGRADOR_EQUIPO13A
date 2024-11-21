@@ -10,7 +10,7 @@
         <ContentTemplate>
             <div class="contenedor">
                 <h1 class="titulo-principal">AGREGAR PROFESIONAL</h1>
-
+                <asp:Label ID="lblMensaje" runat="server" ForeColor="Red"></asp:Label>
                 <div class="contenedor-formulario">
                     <div class="grid-formulario">
                         <div class="grupo-formulario">
