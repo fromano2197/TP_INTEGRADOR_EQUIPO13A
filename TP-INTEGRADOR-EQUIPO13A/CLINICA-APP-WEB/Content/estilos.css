@@ -494,22 +494,38 @@ footer {
         border-radius: 5px;
     }
 
-}
 .btn-cerrar-sesion {
-    background-color: #e74c3c; 
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    font-size: 1rem;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    background-color: #ff4d4d; /* Rojo vibrante */
+    color: white; /* Texto blanco */
+    border: none; /* Sin borde */
+    padding: 0.5rem 1.5rem; /* Más ancho para un mejor toque */
+    cursor: pointer; /* Icono de mano al pasar */
+    border-radius: 8px; /* Bordes más redondeados */
+    font-size: 1rem; /* Tamaño de fuente estándar */
+    font-weight: bold; /* Texto más llamativo */
+    transition: all 0.3s ease; /* Transición para suavizar cambios */
+    margin-left: auto; /* Alineación */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
 }
 
     .btn-cerrar-sesion:hover {
-        background-color: #c0392b; 
-        transform: translateY(-2px);
+        background-color: #e60000; /* Rojo más oscuro */
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Aumentar sombra */
+        transform: scale(1.05); /* Efecto de zoom */
     }
+
+    .btn-cerrar-sesion:active {
+        background-color: #cc0000; /* Aún más oscuro al hacer clic */
+        transform: scale(0.98); /* Efecto de botón presionado */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reducir sombra */
+    }
+
+    .btn-cerrar-sesion:focus {
+        outline: none; /* Quitar borde azul */
+        box-shadow: 0 0 8px rgba(255, 77, 77, 0.7); /* Resaltado rojo */
+    }
+
+
 
 
 
