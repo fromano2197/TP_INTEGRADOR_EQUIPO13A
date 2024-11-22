@@ -81,5 +81,15 @@ namespace CLINICA_APP_WEB
             negocio.ModificarProfesional(seleccionado);
             Response.Redirect("BuscarProfesional.aspx", false);
         }
+
+        protected void btnEspecialidades_Command(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "Especialidades")
+            {
+                int idProfesional = int.Parse(Request.QueryString["id"]);
+                Response.Redirect("ModificarEspecialidades.aspx?id=" + idProfesional);
+
+            }
+        }
     }
 }

@@ -68,6 +68,9 @@
             <label class="etiqueta-formulario">Especialidades:</label>
             <asp:Label ID="lblEspecialidades" CssClass="entrada-formulario" runat="server" Text="Especialidades del profesional" />
         </div>
+         <div class ="grupo-formulario"> 
+     <asp:Button ID="btnEspecialidades" CssClass="btn-inicio" commandName="Especialidades" runat="server" Text="Modificar Especialidades" CommandArgument='<%# Eval("IdProfesional") %>' OnCommand="btnEspecialidades_Command" />
+     </div>
          <div>
          <asp:Button ID="btnModificarProfesional" Text="Modificar" onclick="btnModificarProfesional_Click" CssClass="btn-enviar" runat="server" />
             </div>

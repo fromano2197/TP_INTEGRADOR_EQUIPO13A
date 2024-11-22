@@ -89,7 +89,7 @@ namespace Negocio
                                     INNER JOIN especialidades e on e.id_especialidad=pe.id_especialidad
                                     INNER JOIN profesionales_instituciones pxi on pxi.id_profesional=p.id_profesional
                                     INNER JOIN instituciones i on i.id_institucion=pxi.id_institucion
-                           
+                                    WHERE pe.activo = 1 
                                     GROUP BY p.id_profesional,p.nombre,p.apellido ,i.nombre, p.activo
                                     ORDER BY p.apellido ASC;");
                 datos.ejecutarLectura();
@@ -151,7 +151,7 @@ namespace Negocio
                                     LEFT JOIN usuarios u ON u.id_profesional=p.id_profesional
                                     LEFT JOIN profesionales_especialidades pe on pe.id_profesional=p.id_profesional
                                     LEFT JOIN especialidades e on e.id_especialidad=pe.id_especialidad
-                                    WHERE p.id_profesional= @IDPROFESIONAL
+                                    WHERE p.id_profesional= @IDPROFESIONAL and pe.activo = 1
                                     GROUP BY p.dni,p.nombre,p.apellido,p.fecha_nacimiento,p.email,p.telefono,p.direccion,u.usuario,u.contraseña, p.activo, p.id_profesional,  p.matricula, p.fecha_ingreso;");
 
                 datos.setearParametro("@IDPROFESIONAL", ID);

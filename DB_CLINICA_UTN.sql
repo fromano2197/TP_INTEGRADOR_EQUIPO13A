@@ -766,3 +766,113 @@ VALUES
 (2, 4, 1, 1, '2024-12-21', '12:30', 'reservado'),
 (2, 5, 1, 1, '2024-12-26', '13:30', 'reservado');
 
+
+GO
+
+CREATE PROCEDURE SP_AGREGAR_ESPECIALIDAD_PROFESIONAL
+
+@IDESPECIALIDAD INT,
+@IDPROFESIONAL INT
+AS
+BEGIN
+ SET NOCOUNT ON;
+    BEGIN TRY
+       
+        BEGIN TRANSACTION;
+		IF NOT EXISTS (
+            SELECT 1 
+            FROM profesionales_especialidades 
+            WHERE id_especialidad = @IDESPECIALIDAD 
+              AND id_profesional = @IDPROFESIONAL
+        )
+		BEGIN
+        
+      
+        INSERT INTO profesionales_especialidades (id_especialidad, id_profesional)
+		VALUES (@IDESPECIALIDAD, @IDPROFESIONAL);
+        END
+		ELSE
+		BEGIN
+		  RAISERROR ('La relación ya existe.', 16, 1);
+            ROLLBACK TRANSACTION;
+            RETURN;
+        END
+
+        COMMIT TRANSACTION;
+    END TRY
+	BEGIN CATCH
+	ROLLBACK TRANSACTION;
+
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+        DECLARE @ErrorNumber INT = ERROR_NUMBER();
+        DECLARE @ErrorLine INT = ERROR_LINE();
+        RAISERROR ('Error al intentar agregar especialidad. Error %d en la línea %d: %s', 
+                   16, 1, @ErrorNumber, @ErrorLine, @ErrorMessage);
+    END CATCH;
+END;
+
+GO
+
+CREATE PROCEDURE SP_AGREGAR_ESPECIALIDAD_PROFESIONAL
+
+@IDESPECIALIDAD INT,
+@IDPROFESIONAL INT
+AS
+BEGIN
+ SET NOCOUNT ON;
+    BEGIN TRY
+       
+        BEGIN TRANSACTION;
+		IF NOT EXISTS (
+            SELECT 1 
+            FROM profesionales_especialidades 
+            WHERE id_especialidad = @IDESPECIALIDAD 
+              AND id_profesional = @IDPROFESIONAL
+        )
+		BEGIN
+        
+      
+        INSERT INTO profesionales_especialidades (id_especialidad, id_profesional)
+		VALUES (@IDESPECIALIDAD, @IDPROFESIONAL);
+        END
+		ELSE
+		BEGIN
+		  RAISERROR ('La relación ya existe.', 16, 1);
+            ROLLBACK TRANSACTION;
+            RETURN;
+        END
+
+        COMMIT TRANSACTION;
+    END TRY
+	BEGIN CATCH
+	ROLLBACK TRANSACTION;
+
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+        DECLARE @ErrorNumber INT = ERROR_NUMBER();
+        DECLARE @ErrorLine INT = ERROR_LINE();
+        RAISERROR ('Error al intentar agregar especialidad. Error %d en la línea %d: %s', 
+                   16, 1, @ErrorNumber, @ErrorLine, @ErrorMessage);
+    END CATCH;
+END;
+
+GO
+
+ALTER PROCEDURE SP_MODIFICAR_ESTADO_PROFESIONAL_ESPECIALIDAD
+    @IDESPECIALIDAD INT,        
+	@IDPROFESIONAL INT
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+
+        delete profesionales_especialidades
+        WHERE id_especialidad = @IDESPECIALIDAD and id_profesional = @IDPROFESIONAL;
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+    END CATCH;
+END;
+

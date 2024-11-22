@@ -1,4 +1,5 @@
 ﻿using Dominio;
+using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -179,9 +180,124 @@ namespace Negocio
         }
 
 
+        public List<Especialidad> listarPorProfesional(int ID)
+        {
+            List<Especialidad> lista = new List<Especialidad>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setConsulta("select e.nombre, pe.id_especialidad, pe.id_profesional from profesionales_especialidades pe " +
+                                "inner join especialidades as e on pe.id_especialidad = e.id_especialidad " +
+                                 "where pe.id_profesional = @idProfesional AND pe.activo = 1");
+
+                datos.setearParametro("idProfesional", ID);
+
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Especialidad aux = new Especialidad();
+                    aux.IdEspecialidad = int.Parse(datos.Lector["id_especialidad"].ToString());
+                    aux.NombreEspecialidad = (string)datos.Lector["nombre"];
 
 
+                    lista.Add(aux);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+            return lista;
+        }
+
+        public int buscarIDEespecialidad(string nombre)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+
+                datos.setConsulta("SELECT id_especialidad FROM especialidades WHERE nombre COLLATE SQL_Latin1_General_CP1_CI_AI = @NombreEspecialidad COLLATE SQL_Latin1_General_CP1_CI_AI;");
+                datos.setearParametro("@NombreEspecialidad", nombre);
+
+
+                datos.ejecutarLectura();
+
+
+                if (datos.Lector.Read())
+                {
+                    return (int)datos.Lector["id_especialidad"];
+                }
+                else
+                {
+                    return -1;
+                };
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void AgregarEspecialidadProfesional(int IdProfesional, int IdEspecialidad)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+
+                datos.setearProcedimiento("SP_AGREGAR_ESPECIALIDAD_PROFESIONAL");
+
+
+                datos.setearParametro("@IDESPECIALIDAD", IdEspecialidad);
+                datos.setearParametro("@IDPROFESIONAL", IdProfesional);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public void EliminarRelacionProfesional(Especialidad aux, int IdProfesional)
+{
+    AccesoDatos datos = new AccesoDatos();
+
+    try
+    {
+
+        datos.setearProcedimiento("SP_MODIFICAR_ESTADO_PROFESIONAL_ESPECIALIDAD");
+        datos.setearParametro("@IDESPECIALIDAD", aux.IdEspecialidad);
+        datos.setearParametro("@IDPROFESIONAL", IdProfesional);
+        datos.ejecutarAccion();
+    }
+
+    catch (Exception ex)
+    {
+
+        throw ex;
 
     }
 
+    finally
+    {
+
+        datos.cerrarConexion();
+
+    }
+}
+    }
 }
