@@ -51,7 +51,8 @@
                                             Text="Tomar Turno"
                                             CommandName="TomarTurno"
                                             CommandArgument='<%# Eval("id_turno") %>'
-                                            OnClick="btnTomarTurno_Click" />
+                                            OnClick="btnTomarTurno_Click"
+                                            CssClass="btn-especialidad visualizar"/>
                             </ItemTemplate>
                         </asp:TemplateField>
                     </Columns>

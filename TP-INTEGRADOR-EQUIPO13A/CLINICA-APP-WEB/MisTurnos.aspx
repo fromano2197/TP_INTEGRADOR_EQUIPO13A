@@ -27,7 +27,8 @@
                 ButtonType="Button" 
                 Text="Cancelar" 
                 CommandName="CancelarTurno" 
-                HeaderText="Acciones" />
+                HeaderText="Acciones" 
+                ControlStyle-CssClass="btn-especialidad eliminar" />
         </Columns>
     </asp:GridView>
 </asp:Content>
