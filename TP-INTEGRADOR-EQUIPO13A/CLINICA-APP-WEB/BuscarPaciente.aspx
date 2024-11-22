@@ -38,9 +38,16 @@
                                     <td><%# Eval("DatosPersona.Dni") %></td>
                                     <td><%# Eval("activo").ToString() == "False" ? "Eliminado" : "Activo" %></td>
                                     <td>
-                                        <asp:Button ID="btnVisualizar" CommandName="Visualizar" CommandArgument='<%# Eval("IdPaciente") %>' OnCommand="btnVisualizar_Command" CssClass="btn-especialidad" runat="server" Text="Visualizar" />
-                                        <asp:Button ID="btnModificar" CommandName="Modificar" CommandArgument='<%# Eval("IdPaciente") %>' OnCommand="btnModificar_Command" CssClass="btn-especialidad" runat="server" Text="Modificar" />
-                                        <asp:Button ID="btnEliminar" CommandName="Eliminar" CommandArgument='<%# Eval("IdPaciente") %>' OnCommand="btnEliminar_Command1" CssClass="btn-especialidad" runat="server" Text='<%# Eval("activo").ToString() == "True" ? "Eliminar" : "Activar" %>' />
+                                        <asp:Button ID="btnVisualizar" CommandName="Visualizar" CommandArgument='<%# Eval("IdPaciente") %>' OnCommand="btnVisualizar_Command" CssClass="btn-especialidad visualizar" runat="server" Text="Visualizar" />
+                                        <asp:Button ID="btnModificar" CommandName="Modificar" CommandArgument='<%# Eval("IdPaciente") %>' OnCommand="btnModificar_Command" CssClass="btn-especialidad modificar" runat="server" Text="Modificar" />
+                                        <asp:Button
+                                            ID="btnEliminar"
+                                            CommandName="Eliminar"
+                                            CommandArgument='<%# Eval("IdPaciente") %>'
+                                            OnCommand="btnEliminar_Command1"
+                                            CssClass='<%# Eval("activo").ToString() == "True" ? "btn-especialidad eliminar" : "btn-especialidad activar" %>'
+                                            runat="server"
+                                            Text='<%# Eval("activo").ToString() == "True" ? "Eliminar" : "Activar" %>' />
                                     </td>
                                 </tr>
                             </ItemTemplate>

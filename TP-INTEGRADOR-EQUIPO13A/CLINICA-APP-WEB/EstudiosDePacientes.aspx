@@ -34,7 +34,7 @@
                                     <td><%# Eval("DatosPersona.Dni") %></td>
                                     <td><%# Eval("activo").ToString() == "False" ? "Eliminado" : "Activo" %></td>
                                     <td>
-                                        <asp:Button ID="btnCargarEstudios" CommandName="CargarEstudios" CommandArgument='<%# Eval("idPaciente") %>' OnCommand="btnCargarEstudios_Command" CssClass="btn-especialidad" runat="server" Text="Cargar Estudios" />
+                                        <asp:Button ID="btnCargarEstudios" CommandName="CargarEstudios" CommandArgument='<%# Eval("idPaciente") %>' OnCommand="btnCargarEstudios_Command" CssClass="btn-especialidad visualizar" runat="server" Text="Cargar Estudios" />
                                         
 
                                     </td>

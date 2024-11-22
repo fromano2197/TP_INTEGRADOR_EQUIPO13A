@@ -1013,3 +1013,53 @@ body .administrar-turnos .form-container {
     background-color: #d4edda;
     border: 1px solid #c3e6cb;
 }
+
+
+.btn-especialidad {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+    .btn-especialidad.visualizar {
+        background-color: #007bff;
+    }
+
+        .btn-especialidad.visualizar:hover {
+            background-color: #0056b3;
+        }
+
+
+    .btn-especialidad.modificar {
+        background-color: #28a745; 
+    }
+
+        .btn-especialidad.modificar:hover {
+            background-color: #218838; 
+        }
+
+
+    .btn-especialidad.eliminar {
+        background-color: #dc3545; 
+    }
+
+        .btn-especialidad.eliminar:hover {
+            background-color: #c82333; 
+        }
+
+    .btn-especialidad.activar {
+        background-color: #ffc107;
+        color: #212529; 
+    }
+
+        .btn-especialidad.activar:hover {
+            background-color: #e0a800; 
+        }
