@@ -811,49 +811,6 @@ BEGIN
     END CATCH;
 END;
 
-GO
-
-CREATE PROCEDURE SP_AGREGAR_ESPECIALIDAD_PROFESIONAL
-
-@IDESPECIALIDAD INT,
-@IDPROFESIONAL INT
-AS
-BEGIN
- SET NOCOUNT ON;
-    BEGIN TRY
-       
-        BEGIN TRANSACTION;
-		IF NOT EXISTS (
-            SELECT 1 
-            FROM profesionales_especialidades 
-            WHERE id_especialidad = @IDESPECIALIDAD 
-              AND id_profesional = @IDPROFESIONAL
-        )
-		BEGIN
-        
-      
-        INSERT INTO profesionales_especialidades (id_especialidad, id_profesional)
-		VALUES (@IDESPECIALIDAD, @IDPROFESIONAL);
-        END
-		ELSE
-		BEGIN
-		  RAISERROR ('La relación ya existe.', 16, 1);
-            ROLLBACK TRANSACTION;
-            RETURN;
-        END
-
-        COMMIT TRANSACTION;
-    END TRY
-	BEGIN CATCH
-	ROLLBACK TRANSACTION;
-
-        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
-        DECLARE @ErrorNumber INT = ERROR_NUMBER();
-        DECLARE @ErrorLine INT = ERROR_LINE();
-        RAISERROR ('Error al intentar agregar especialidad. Error %d en la línea %d: %s', 
-                   16, 1, @ErrorNumber, @ErrorLine, @ErrorMessage);
-    END CATCH;
-END;
 
 GO
 

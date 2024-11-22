@@ -89,6 +89,9 @@ namespace CLINICA_APP_WEB
                     lblError.Visible = true;
 
                     CargarTurnos((int)Session["idPaciente"]);
+
+                    string script = "setTimeout(function() { window.location.href = 'PortalPacientes.aspx'; }, 3000);";
+                    ClientScript.RegisterStartupScript(this.GetType(), "Redirigir", script, true);
                 }
                 catch (Exception ex)
                 {
