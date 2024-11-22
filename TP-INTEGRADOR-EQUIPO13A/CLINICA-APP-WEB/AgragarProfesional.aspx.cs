@@ -69,6 +69,13 @@ namespace CLINICA_APP_WEB
                     lblMensaje.Visible = true;
                     return;
                 }
+                ProfesionalNegocio profesionalNegocio = new ProfesionalNegocio();
+                if (profesionalNegocio.ExisteUsuario(txtUsuario.Text, txtDni.Text))
+                {
+                    lblMensaje.Text = "El usuario o el DNI ya están registrados.";
+                    lblMensaje.Visible = true;
+                    return;
+                }
 
                 if (!long.TryParse(txtDni.Text, out _))
                 {

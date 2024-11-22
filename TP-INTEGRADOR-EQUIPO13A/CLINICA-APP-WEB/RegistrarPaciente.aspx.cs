@@ -38,6 +38,14 @@ namespace CLINICA_APP_WEB
                     return;
                 }
 
+                PacienteNegocio pacienteNegocio = new PacienteNegocio();
+                if (pacienteNegocio.ExisteUsuario(txtUsuario.Text, txtDni.Text))
+                {
+                    lblMensaje.Text = "El usuario o el DNI ya están registrados.";
+                    lblMensaje.Visible = true;
+                    return;
+                }
+
 
                 if (!long.TryParse(txtDni.Text, out _))
                 {
@@ -100,7 +108,6 @@ namespace CLINICA_APP_WEB
 
                 Paciente paciente = new Paciente();
                 Usuario usuario = new Usuario();
-                PacienteNegocio pacienteNegocio = new PacienteNegocio();
 
                 paciente.DatosPersona.Dni = txtDni.Text;
                 paciente.DatosPersona.Nombre = txtNombre.Text;
@@ -132,6 +139,7 @@ namespace CLINICA_APP_WEB
                 lblMensaje.Visible = true;
             }
         }
+
         private void EnviarCorreoConfirmacion(string emailDestino)
         {
             try
