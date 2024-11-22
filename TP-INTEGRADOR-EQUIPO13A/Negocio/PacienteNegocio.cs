@@ -58,9 +58,10 @@ namespace Negocio
 
             try
             {
-                datos.setConsulta("SELECT p.id_paciente, p.apellido, p.nombre, p.dni FROM pacientes_por_profesional AS pxp " +
-                                "INNER JOIN pacientes AS p ON p.id_paciente = pxp.id_paciente " +
-                                "WHERE pxp.id_profesional = @id;");
+                datos.setConsulta(@"select distinct(p.id_paciente), p.apellido, p.nombre, p.dni
+from turnos t
+inner join pacientes p on p.id_paciente=t.id_paciente
+where t.id_profesional=@id");
 
                 datos.setearParametro("@id", id);
                 datos.ejecutarLectura();
@@ -447,18 +448,18 @@ namespace Negocio
                 if (datos.Lector.Read())
                 {
                     int count = datos.Lector.GetInt32(0);
-                    return count > 0; 
+                    return count > 0;
                 }
 
-                return false; 
+                return false;
             }
             catch (Exception ex)
             {
-                throw ex; 
+                throw ex;
             }
             finally
             {
-                datos.cerrarConexion(); 
+                datos.cerrarConexion();
             }
         }
 
