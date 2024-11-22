@@ -13,18 +13,20 @@ namespace CLINICA_APP_WEB
     {
         TurnoNegocio turnoNegocio = new TurnoNegocio();
 
+  
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 CargarDropDowns();
+                CargarHoras();
                 CargarTurnos();
             }
         }
 
         private void CargarDropDowns()
         {
-
             ddlProfesionales.DataSource = ObtenerProfesionales();
             ddlProfesionales.DataTextField = "NombreCompleto";
             ddlProfesionales.DataValueField = "IdProfesional";
@@ -37,7 +39,6 @@ namespace CLINICA_APP_WEB
             ddlEspecialidades.DataBind();
             ddlEspecialidades.Items.Insert(0, new ListItem("Seleccione una especialidad", "0"));
 
-
             ddlInstituciones.DataSource = ObtenerInstituciones();
             ddlInstituciones.DataTextField = "Nombre";
             ddlInstituciones.DataValueField = "IdInstitucion";
@@ -45,17 +46,16 @@ namespace CLINICA_APP_WEB
             ddlInstituciones.Items.Insert(0, new ListItem("Seleccione una institución", "0"));
         }
 
-
         private List<Profesional> ObtenerProfesionales()
         {
             ProfesionalNegocio profesionalNegocio = new ProfesionalNegocio();
-            return profesionalNegocio.listarProfesionales(); 
+            return profesionalNegocio.listarProfesionales();
         }
 
         private List<Especialidad> ObtenerEspecialidades()
         {
             EspecialidadNegocio especialidadNegocio = new EspecialidadNegocio();
-            return especialidadNegocio.listar(); 
+            return especialidadNegocio.listar();
         }
 
         private List<Institucion> ObtenerInstituciones()
@@ -64,12 +64,10 @@ namespace CLINICA_APP_WEB
             return institucionNegocio.listar();
         }
 
-
         private void CargarTurnos()
         {
             var turnos = turnoNegocio.listarTurnos().Select(t => new Turno
             {
-
                 id_profesional = t.id_profesional,
                 id_especialidad = t.id_especialidad,
                 IdInstitucion = t.IdInstitucion,
@@ -92,20 +90,23 @@ namespace CLINICA_APP_WEB
             }).ToList();
         }
 
-
-
         protected void btnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
+                // Validar selección de hora
+                if (ddlHora.SelectedValue == "0")
+                {
+                    throw new Exception("Debe seleccionar una hora válida.");
+                }
+
                 turnoNegocio.CrearTurno(
                     int.Parse(ddlProfesionales.SelectedValue),
                     int.Parse(ddlEspecialidades.SelectedValue),
                     DateTime.Parse(txtFecha.Text),
-                    TimeSpan.Parse(txtHora.Text),
+                    TimeSpan.Parse(ddlHora.SelectedValue), // Usar SelectedValue para obtener el valor
                     int.Parse(ddlInstituciones.SelectedValue)
                 );
-
 
                 CargarTurnos();
                 LimpiarFormulario();
@@ -113,19 +114,16 @@ namespace CLINICA_APP_WEB
             }
             catch (Exception ex)
             {
-
-                throw ex;
+                 throw ex;
             }
         }
-
-
 
         protected void gvTurnos_RowCommand(object sender, GridViewCommandEventArgs e)
         {
             int idTurno = Convert.ToInt32(e.CommandArgument);
             if (e.CommandName == "Editar")
             {
-              
+                // Lógica para editar
             }
             else if (e.CommandName == "Eliminar")
             {
@@ -141,8 +139,7 @@ namespace CLINICA_APP_WEB
             ddlEspecialidades.SelectedIndex = 0;
             ddlInstituciones.SelectedIndex = 0;
             txtFecha.Text = string.Empty;
-            txtHora.Text = string.Empty;
-
+            ddlHora.SelectedIndex = 0; // Limpiar selección de hora
         }
 
         protected void btnLimpiar_Click(object sender, EventArgs e)
@@ -150,17 +147,12 @@ namespace CLINICA_APP_WEB
             LimpiarFormulario();
         }
 
-       
-
-        
-
         protected void ddlProfesionales_SelectedIndexChanged(object sender, EventArgs e)
         {
             int idProfesional = int.Parse(ddlProfesionales.SelectedValue);
 
-            if (idProfesional > 0) 
+            if (idProfesional > 0)
             {
-
                 EspecialidadNegocio especialidadNegocio = new EspecialidadNegocio();
                 ddlEspecialidades.DataSource = especialidadNegocio.ObtenerEspecialidadesPorProfesional(idProfesional);
                 ddlEspecialidades.DataTextField = "NombreEspecialidad";
@@ -177,7 +169,6 @@ namespace CLINICA_APP_WEB
             }
             else
             {
-
                 ddlEspecialidades.Items.Clear();
                 ddlEspecialidades.Items.Insert(0, new ListItem("Seleccione una especialidad", "0"));
 
@@ -186,5 +177,19 @@ namespace CLINICA_APP_WEB
             }
         }
 
+        private void CargarHoras()
+        {
+            ddlHora.Items.Clear();
+            DateTime inicio = DateTime.Today.AddHours(7); // Hora inicial (7:00 AM)
+            DateTime fin = DateTime.Today.AddHours(20); // Hora final (8:00 PM)
+
+            while (inicio <= fin)
+            {
+                ddlHora.Items.Add(new ListItem(inicio.ToString("HH:mm"), inicio.ToString("HH:mm")));
+                inicio = inicio.AddMinutes(30); // Incrementar en intervalos de 30 minutos
+            }
+
+            ddlHora.Items.Insert(0, new ListItem("Seleccione una hora", "0"));
+        }
     }
 }

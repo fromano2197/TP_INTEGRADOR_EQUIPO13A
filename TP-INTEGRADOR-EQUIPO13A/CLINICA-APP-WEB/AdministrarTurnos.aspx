@@ -25,7 +25,8 @@
         <asp:TextBox ID="txtFecha" runat="server" TextMode="Date"></asp:TextBox><br />
 
         <asp:Label ID="lblHora" runat="server" Text="Hora:"></asp:Label>
-        <asp:TextBox ID="txtHora" runat="server" TextMode="Time"></asp:TextBox><br />
+<asp:DropDownList ID="ddlHora" runat="server"></asp:DropDownList><br />
+
 
 
         <asp:Button ID="btnGuardar" runat="server" Text="Guardar Turno" OnClick="btnGuardar_Click" />
