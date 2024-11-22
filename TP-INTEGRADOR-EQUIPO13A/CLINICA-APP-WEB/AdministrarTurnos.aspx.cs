@@ -94,7 +94,7 @@ namespace CLINICA_APP_WEB
         {
             try
             {
-                // Validar selección de hora
+                
                 if (ddlHora.SelectedValue == "0")
                 {
                     throw new Exception("Debe seleccionar una hora válida.");
@@ -104,7 +104,7 @@ namespace CLINICA_APP_WEB
                     int.Parse(ddlProfesionales.SelectedValue),
                     int.Parse(ddlEspecialidades.SelectedValue),
                     DateTime.Parse(txtFecha.Text),
-                    TimeSpan.Parse(ddlHora.SelectedValue), // Usar SelectedValue para obtener el valor
+                    TimeSpan.Parse(ddlHora.SelectedValue), 
                     int.Parse(ddlInstituciones.SelectedValue)
                 );
 
@@ -123,7 +123,7 @@ namespace CLINICA_APP_WEB
             int idTurno = Convert.ToInt32(e.CommandArgument);
             if (e.CommandName == "Editar")
             {
-                // Lógica para editar
+
             }
             else if (e.CommandName == "Eliminar")
             {
@@ -139,7 +139,7 @@ namespace CLINICA_APP_WEB
             ddlEspecialidades.SelectedIndex = 0;
             ddlInstituciones.SelectedIndex = 0;
             txtFecha.Text = string.Empty;
-            ddlHora.SelectedIndex = 0; // Limpiar selección de hora
+            ddlHora.SelectedIndex = 0; 
         }
 
         protected void btnLimpiar_Click(object sender, EventArgs e)
@@ -180,13 +180,13 @@ namespace CLINICA_APP_WEB
         private void CargarHoras()
         {
             ddlHora.Items.Clear();
-            DateTime inicio = DateTime.Today.AddHours(7); // Hora inicial (7:00 AM)
-            DateTime fin = DateTime.Today.AddHours(20); // Hora final (8:00 PM)
+            DateTime inicio = DateTime.Today.AddHours(7); 
+            DateTime fin = DateTime.Today.AddHours(20); 
 
             while (inicio <= fin)
             {
                 ddlHora.Items.Add(new ListItem(inicio.ToString("HH:mm"), inicio.ToString("HH:mm")));
-                inicio = inicio.AddMinutes(30); // Incrementar en intervalos de 30 minutos
+                inicio = inicio.AddMinutes(30); 
             }
 
             ddlHora.Items.Insert(0, new ListItem("Seleccione una hora", "0"));
