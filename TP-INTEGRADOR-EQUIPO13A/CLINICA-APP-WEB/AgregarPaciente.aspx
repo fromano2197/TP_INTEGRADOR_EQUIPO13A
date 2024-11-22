@@ -9,7 +9,7 @@
 
         <h1 class="titulo-principal">REGISTRAR PACIENTE</h1>
         <div>
-            <asp:Label ID="lblMensaje" runat="server" ForeColor="Green" Visible="False"></asp:Label>
+            <asp:Label ID="lblMensaje" runat="server" ForeColor="Red" Visible="False"></asp:Label>
         </div>
         <div class="contenedor-formulario">
             <div class="grupo-formulario">

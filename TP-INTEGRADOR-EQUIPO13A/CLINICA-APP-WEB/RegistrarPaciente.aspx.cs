@@ -39,13 +39,26 @@ namespace CLINICA_APP_WEB
                 }
 
                 PacienteNegocio pacienteNegocio = new PacienteNegocio();
-                if (pacienteNegocio.ExisteUsuario(txtUsuario.Text, txtDni.Text))
+                if (pacienteNegocio.ExisteUsuario(txtUsuario.Text))
                 {
-                    lblMensaje.Text = "El usuario o el DNI ya están registrados.";
+                    lblMensaje.Text = "Usuario no disponible, use otro nombre.";
                     lblMensaje.Visible = true;
                     return;
                 }
 
+                if (pacienteNegocio.ExisteDni(txtDni.Text))
+                {
+                    lblMensaje.Text = "El numero de dni ya esta registrado.";
+                    lblMensaje.Visible = true;
+                    return;
+                }
+
+                if (pacienteNegocio.ExisteEmail(txtEmail.Text))
+                {
+                    lblMensaje.Text = "El Email ya esta registrado, use otra casilla.";
+                    lblMensaje.Visible = true;
+                    return;
+                }
 
                 if (!long.TryParse(txtDni.Text, out _))
                 {

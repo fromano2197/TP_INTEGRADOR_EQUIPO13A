@@ -10,7 +10,7 @@
 
         <h1 class="titulo-principal">REGISTRARSE</h1>
         <div>
-            <asp:Label ID="lblMensaje" runat="server" ForeColor="Green" Visible="False"></asp:Label>
+            <asp:Label ID="lblMensaje" runat="server" ForeColor="Red" Visible="False"></asp:Label>
         </div>
         <div class="contenedor-formulario">
             <div class="grupo-formulario">
@@ -56,7 +56,7 @@
 
 
         <div class="contenedor-enlaces">
-            <asp:HyperLink CssClass="enlace-formulario" NavigateUrl="LoginPacientes.aspx" Text="Ya tengo cuenta, iniciar sesión" runat="server"></asp:HyperLink>
+            <asp:HyperLink CssClass="enlace-formulario" NavigateUrl="Default.aspx" Text="Ya tengo cuenta, iniciar sesión" runat="server"></asp:HyperLink>
         </div>
     </div>
 </asp:Content>

@@ -131,17 +131,17 @@ namespace Negocio
                     {
 
                         aux.Institucion = new List<Institucion>();
-                        
 
-                        }
 
-                        aux.IdProfesional = (int)datos.Lector["id_profesional"];
-
-                        aux.Estado = (bool)datos.Lector["activo"];
-
-                        lista.Add(aux);
                     }
-                
+
+                    aux.IdProfesional = (int)datos.Lector["id_profesional"];
+
+                    aux.Estado = (bool)datos.Lector["activo"];
+
+                    lista.Add(aux);
+                }
+
             }
             catch (Exception ex)
             {
@@ -243,7 +243,7 @@ namespace Negocio
 
             try
             {
-              
+
                 datos.setearProcedimiento("SP_AGREGAR_PROFESIONAL");
 
                 datos.setearParametro("@DNI", aux.Persona.Dni);
@@ -259,11 +259,11 @@ namespace Negocio
                 datos.setearParametro("@FECHA_INGRESO", aux.FechaIngreso.ToString("yyyy-MM-dd"));
                 datos.setearParametro("@MATRICULA", aux.Matricula);
 
-           
+
                 string especialidades = string.Join(",", aux.Especialidades.Select(e => e.IdEspecialidad.ToString()));
                 datos.setearParametro("@ESPECIALIDADES", especialidades);
 
-      
+
                 string instituciones = string.Join(",", aux.Institucion.Select(e => e.IdInstitucion.ToString()));
                 datos.setearParametro("@INSTITUCIONES", instituciones);
 
@@ -380,55 +380,113 @@ namespace Negocio
         }
 
 
-       
-            public int ModificarProfesional(Profesional seleccionado)
+
+        public int ModificarProfesional(Profesional seleccionado)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
             {
-                AccesoDatos datos = new AccesoDatos();
-                try
-                {
-                    datos.setearProcedimiento("SP_MODIFICAR_PROFESIONAL");
-                    datos.setearParametro("@ID_PROFESIONAL", seleccionado.IdProfesional);
-                    datos.setearParametro("@DNI", seleccionado.Persona.Dni);
-                    datos.setearParametro("@NOMBRE", seleccionado.Persona.Nombre);
-                    datos.setearParametro("@APELLIDO", seleccionado.Persona.Apellido);
-                    datos.setearParametro("@FECHA_NACIMIENTO", seleccionado.Persona.FechaNacimiento);
-                    datos.setearParametro("@EMAIL", seleccionado.Persona.ContactoCliente.Email);
-                    datos.setearParametro("@TELEFONO", seleccionado.Persona.ContactoCliente.telefono);
-                    datos.setearParametro("@DIRECCION", seleccionado.Persona.ContactoCliente.Direccion);
-                    datos.setearParametro("@MATRICULA", seleccionado.Matricula);
-                    datos.setearParametro("@FECHA_ING", seleccionado.FechaIngreso);
-                    datos.setearParametro("@USUARIO", seleccionado.Usuario.User);
-                    datos.setearParametro("@PASSWORD", seleccionado.Usuario.Password);
-                    datos.ejecutarAccion();
+                datos.setearProcedimiento("SP_MODIFICAR_PROFESIONAL");
+                datos.setearParametro("@ID_PROFESIONAL", seleccionado.IdProfesional);
+                datos.setearParametro("@DNI", seleccionado.Persona.Dni);
+                datos.setearParametro("@NOMBRE", seleccionado.Persona.Nombre);
+                datos.setearParametro("@APELLIDO", seleccionado.Persona.Apellido);
+                datos.setearParametro("@FECHA_NACIMIENTO", seleccionado.Persona.FechaNacimiento);
+                datos.setearParametro("@EMAIL", seleccionado.Persona.ContactoCliente.Email);
+                datos.setearParametro("@TELEFONO", seleccionado.Persona.ContactoCliente.telefono);
+                datos.setearParametro("@DIRECCION", seleccionado.Persona.ContactoCliente.Direccion);
+                datos.setearParametro("@MATRICULA", seleccionado.Matricula);
+                datos.setearParametro("@FECHA_ING", seleccionado.FechaIngreso);
+                datos.setearParametro("@USUARIO", seleccionado.Usuario.User);
+                datos.setearParametro("@PASSWORD", seleccionado.Usuario.Password);
+                datos.ejecutarAccion();
 
 
-                    return 1;
-                }
-                catch (Exception ex)
-                {
-
-                    throw ex;
-                }
-                finally
-                {
-                    datos.cerrarConexion();
-                }
+                return 1;
             }
-        public bool ExisteUsuario(string usuario, string dni)
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public bool ExisteUsuario(string usuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                string query = "SELECT COUNT(*) FROM usuarios WHERE usuario = @Usuario;";
+
+                datos.setConsulta(query);
+                datos.setearParametro("@Usuario", usuario);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    int count = datos.Lector.GetInt32(0);
+                    return count > 0;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public bool ExisteDni(string dni)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                string query = "SELECT COUNT(*) FROM profesionales WHERE dni = @Dni;";
+
+                datos.setConsulta(query);
+                datos.setearParametro("@Dni", dni);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    int count = datos.Lector.GetInt32(0);
+                    return count > 0;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public bool ExisteEmail(string email)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
                 string query = @"
-            SELECT COUNT(*)
-            FROM usuarios u
-            LEFT JOIN profesionales p ON u.id_profesional = p.id_profesional
-            WHERE u.usuario = @Usuario OR p.dni = @Dni;";
+        SELECT COUNT(*)
+        FROM profesionales
+        WHERE email = @Email";
 
                 datos.setConsulta(query);
-                datos.setearParametro("@Usuario", usuario);
-                datos.setearParametro("@Dni", dni);
+                datos.setearParametro("@Email", email);
 
                 datos.ejecutarLectura();
                 if (datos.Lector.Read())
@@ -448,9 +506,7 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-
-
     }
 
-    }
+}
 

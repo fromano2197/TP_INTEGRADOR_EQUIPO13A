@@ -70,9 +70,23 @@ namespace CLINICA_APP_WEB
                     return;
                 }
                 ProfesionalNegocio profesionalNegocio = new ProfesionalNegocio();
-                if (profesionalNegocio.ExisteUsuario(txtUsuario.Text, txtDni.Text))
+                if (profesionalNegocio.ExisteUsuario(txtUsuario.Text))
                 {
-                    lblMensaje.Text = "El usuario o el DNI ya están registrados.";
+                    lblMensaje.Text = "Usuario no disponible, use otro nombre.";
+                    lblMensaje.Visible = true;
+                    return;
+                }
+
+                if (profesionalNegocio.ExisteDni(txtDni.Text))
+                {
+                    lblMensaje.Text = "El numero de dni ya esta registrado.";
+                    lblMensaje.Visible = true;
+                    return;
+                }
+
+                if (profesionalNegocio.ExisteEmail(txtEmail.Text))
+                {
+                    lblMensaje.Text = "El Email ya esta registrado, use otra casilla.";
                     lblMensaje.Visible = true;
                     return;
                 }
@@ -191,7 +205,7 @@ namespace CLINICA_APP_WEB
                     IdInstitucion = idInstitucion,
                     Nombre = ddlInstituciones.SelectedItem.Text
                 });
-           
+
                 aux.Especialidad.IdEspecialidad = idEspecialidad;
                 aux.Especialidades.Add(new Especialidad
                 {

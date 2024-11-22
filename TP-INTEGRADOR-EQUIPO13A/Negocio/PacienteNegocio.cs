@@ -428,21 +428,79 @@ where t.id_profesional=@id");
                 datos.cerrarConexion();
             }
         }
-        public bool ExisteUsuario(string usuario, string dni)
+        public bool ExisteUsuario(string usuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                string query = "SELECT COUNT(*) FROM usuarios WHERE usuario = @Usuario;";
+
+                datos.setConsulta(query);
+                datos.setearParametro("@Usuario", usuario);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    int count = datos.Lector.GetInt32(0);
+                    return count > 0;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public bool ExisteDni(string dni)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                string query = "SELECT COUNT(*) FROM pacientes WHERE dni = @Dni;";
+
+                datos.setConsulta(query);
+                datos.setearParametro("@Dni", dni);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    int count = datos.Lector.GetInt32(0);
+                    return count > 0;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public bool ExisteEmail(string email)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
                 string query = @"
-            SELECT COUNT(*)
-            FROM usuarios u
-            LEFT JOIN pacientes p ON u.id_paciente = p.id_paciente
-            WHERE u.usuario = @Usuario OR p.dni = @Dni;";
+        SELECT COUNT(*)
+        FROM pacientes
+        WHERE email = @Email";
 
                 datos.setConsulta(query);
-                datos.setearParametro("@Usuario", usuario);
-                datos.setearParametro("@Dni", dni);
+                datos.setearParametro("@Email", email);
 
                 datos.ejecutarLectura();
                 if (datos.Lector.Read())
@@ -462,7 +520,5 @@ where t.id_profesional=@id");
                 datos.cerrarConexion();
             }
         }
-
-
     }
 }
