@@ -11,6 +11,7 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server" />
 
         <nav id="pacienteNavbar" class="navbar" runat="server" visible="false">
             <div class="container">

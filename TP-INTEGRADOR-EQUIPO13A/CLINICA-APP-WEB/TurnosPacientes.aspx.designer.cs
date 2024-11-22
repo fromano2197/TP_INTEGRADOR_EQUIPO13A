@@ -51,13 +51,13 @@ namespace CLINICA_APP_WEB
         protected global::System.Web.UI.WebControls.Button btnConsultarTurnos;
 
         /// <summary>
-        /// Control lblError.
+        /// Control UpdatePanelTurnos.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblError;
+        protected global::System.Web.UI.UpdatePanel UpdatePanelTurnos;
 
         /// <summary>
         /// Control gvTurnos.
@@ -67,5 +67,23 @@ namespace CLINICA_APP_WEB
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvTurnos;
+
+        /// <summary>
+        /// Control lblSuccess.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblSuccess;
+
+        /// <summary>
+        /// Control timerMensaje.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.Timer timerMensaje;
     }
 }

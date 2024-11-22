@@ -24,6 +24,15 @@ namespace CLINICA_APP_WEB
         protected global::System.Web.UI.WebControls.Label lblError;
 
         /// <summary>
+        /// Control timerMensaje.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.Timer timerMensaje;
+
+        /// <summary>
         /// Control lblMensaje.
         /// </summary>
         /// <remarks>

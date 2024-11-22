@@ -77,19 +77,20 @@ namespace CLINICA_APP_WEB
 
                 if (estado.Equals("atendido", StringComparison.OrdinalIgnoreCase))
                 {
-                    e.Row.BackColor = System.Drawing.Color.LightGreen;
+                    e.Row.BackColor = System.Drawing.Color.Honeydew;
                     e.Row.Font.Bold = true;
                 }
                 if (estado.Equals("reservado", StringComparison.OrdinalIgnoreCase))
                 {
-                    e.Row.BackColor = System.Drawing.Color.Orange;
+                    e.Row.BackColor = System.Drawing.Color.Moccasin;
                     e.Row.Font.Bold = true;
                 }
                 if (estado.Equals("cancelado", StringComparison.OrdinalIgnoreCase))
                 {
-                    e.Row.BackColor = System.Drawing.Color.Red;
+                    e.Row.BackColor = System.Drawing.Color.LavenderBlush;
                     e.Row.Font.Bold = true;
                 }
+
 
             }
         }
@@ -101,29 +102,29 @@ namespace CLINICA_APP_WEB
             int idTurno = Convert.ToInt32(gvTurnos.DataKeys[index].Value);
             if (e.CommandName == "CancelarTurno")
             {
-
                 try
                 {
                     EliminarTurno(idTurno);
-                    lblError.Text = "El turno ha sido eliminado.";
+                    lblError.Text = "El turno ha sido eliminado✅";
                     lblError.CssClass = "text-success";
                     lblError.Visible = true;
-
+                    timerMensaje.Enabled = true;
                     CargarTurnos();
                 }
                 catch (Exception ex)
                 {
                     lblError.Text = "Error al eliminar turno: " + ex.Message;
-                    lblError.CssClass = "text-danger";
+                    lblError.CssClass = "text-danger1";
                     lblError.Visible = true;
+                    timerMensaje.Enabled = true;
                 }
             }
             if (e.CommandName == "AsignarTurno")
             {
                 Response.Redirect($"AsignarTurno.aspx?id_turno={idTurno}");
             }
-
         }
+
 
 
 
@@ -137,7 +138,7 @@ namespace CLINICA_APP_WEB
             {
                 datos.setConsulta(consulta);
                 datos.setearParametro("@idTurno", idTurno);
-                datos.ejecutarAccion(); 
+                datos.ejecutarAccion();
             }
             catch
             {
@@ -153,7 +154,14 @@ namespace CLINICA_APP_WEB
         protected void filtro_TextChanged(object sender, EventArgs e)
         {
             string filtro = txtBuscarTurno.Text.Trim();
-            CargarTurnos(filtro);  
+            CargarTurnos(filtro);
+        }
+
+
+        protected void timerMensaje_Tick(object sender, EventArgs e)
+        {
+            lblError.Visible = false;
+            timerMensaje.Enabled = false;
         }
 
     }

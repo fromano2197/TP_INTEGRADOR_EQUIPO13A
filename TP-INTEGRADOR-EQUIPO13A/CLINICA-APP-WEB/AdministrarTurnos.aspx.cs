@@ -2,6 +2,7 @@
 using Negocio;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -94,27 +95,40 @@ namespace CLINICA_APP_WEB
         {
             try
             {
-                
                 if (ddlHora.SelectedValue == "0")
                 {
                     throw new Exception("Debe seleccionar una hora válida.");
                 }
-
                 turnoNegocio.CrearTurno(
                     int.Parse(ddlProfesionales.SelectedValue),
                     int.Parse(ddlEspecialidades.SelectedValue),
                     DateTime.Parse(txtFecha.Text),
-                    TimeSpan.Parse(ddlHora.SelectedValue), 
+                    TimeSpan.Parse(ddlHora.SelectedValue),
                     int.Parse(ddlInstituciones.SelectedValue)
                 );
+
 
                 CargarTurnos();
                 LimpiarFormulario();
                 Response.Redirect("PortalTurnos.aspx", false);
             }
+            catch (SqlException ex)
+            {
+                if (ex.Number == 2627)
+                {
+                    lblError.Visible = true;
+                    lblError.Text = "El profesional ya tiene un turno asignado en este día y horario. Por favor, elija otro turno.";
+                }
+                else
+                {
+                    lblError.Visible = true;
+                    lblError.Text = "Ocurrió un error al intentar guardar el turno. Intente nuevamente.";
+                }
+            }
             catch (Exception ex)
             {
-                 throw ex;
+                lblError.Visible = true;
+                lblError.Text = "Ocurrió un error inesperado. " + ex.Message;
             }
         }
 

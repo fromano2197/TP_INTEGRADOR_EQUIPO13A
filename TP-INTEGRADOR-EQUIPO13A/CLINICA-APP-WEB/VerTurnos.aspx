@@ -1,13 +1,16 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="VerTurnos.aspx.cs" Inherits="CLINICA_APP_WEB.VerTurnos" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+  
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div class="contenedor">
         <h1 class="titulo-resultados">Turnos</h1>
     </div>
-    <asp:Label ID="lblError" runat="server" ForeColor="Red" Visible="false"></asp:Label>
+    <asp:Label ID="lblError" runat="server" Text="Turno eliminado ✅" Visible="false" CssClass="mensaje-error" />
+    <asp:Timer ID="timerMensaje" runat="server" OnTick="timerMensaje_Tick" Interval="3000" Enabled="false" />
+
     <asp:Label ID="lblMensaje" runat="server" ForeColor="Green" Visible="false"></asp:Label>
 
     <label for="txtBuscarTurno" class="etiqueta-formulario">Buscar Turno:</label>
@@ -30,10 +33,10 @@
             <asp:BoundField DataField="Estado" HeaderText="Estado" SortExpression="Estado" />
             <asp:TemplateField HeaderText="Acciones">
                 <ItemTemplate>
-                    <asp:Button ID="btnEliminar" runat="server" Text="Eliminar Turno"
-                        CommandName="CancelarTurno" CommandArgument='<%# Container.DataItemIndex %>' />
                     <asp:Button ID="btnAsignar" runat="server" Text="Asignar Turno"
-                        CommandName="AsignarTurno" CommandArgument='<%# Container.DataItemIndex %>' />
+                        CommandName="AsignarTurno" CommandArgument='<%# Container.DataItemIndex %>' CssClass="button-base btnAsignar" />
+                    <asp:Button ID="btnEliminar" runat="server" Text="Eliminar Turno"
+                        CommandName="CancelarTurno" CommandArgument='<%# Container.DataItemIndex %>' CssClass="button-base btnEliminar" />
                 </ItemTemplate>
             </asp:TemplateField>
         </Columns>

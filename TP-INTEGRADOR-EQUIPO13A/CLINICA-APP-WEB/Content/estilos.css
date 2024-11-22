@@ -495,34 +495,34 @@ footer {
     }
 
 .btn-cerrar-sesion {
-    background-color: #ff4d4d; /* Rojo vibrante */
-    color: white; /* Texto blanco */
-    border: none; /* Sin borde */
-    padding: 0.5rem 1.5rem; /* Más ancho para un mejor toque */
-    cursor: pointer; /* Icono de mano al pasar */
-    border-radius: 8px; /* Bordes más redondeados */
-    font-size: 1rem; /* Tamaño de fuente estándar */
-    font-weight: bold; /* Texto más llamativo */
-    transition: all 0.3s ease; /* Transición para suavizar cambios */
-    margin-left: auto; /* Alineación */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    background-color: #ff4d4d; 
+    color: white;
+    border: none; 
+    padding: 0.5rem 1.5rem; 
+    cursor: pointer; 
+    border-radius: 8px; 
+    font-size: 1rem; 
+    font-weight: bold; 
+    transition: all 0.3s ease; 
+    margin-left: auto; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
     .btn-cerrar-sesion:hover {
-        background-color: #e60000; /* Rojo más oscuro */
-        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Aumentar sombra */
-        transform: scale(1.05); /* Efecto de zoom */
+        background-color: #e60000;
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); 
+        transform: scale(1.05); 
     }
 
     .btn-cerrar-sesion:active {
-        background-color: #cc0000; /* Aún más oscuro al hacer clic */
-        transform: scale(0.98); /* Efecto de botón presionado */
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reducir sombra */
+        background-color: #cc0000; 
+        transform: scale(0.98); 
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
 
     .btn-cerrar-sesion:focus {
-        outline: none; /* Quitar borde azul */
-        box-shadow: 0 0 8px rgba(255, 77, 77, 0.7); /* Resaltado rojo */
+        outline: none; 
+        box-shadow: 0 0 8px rgba(255, 77, 77, 0.7); 
     }
 
 
@@ -794,4 +794,116 @@ body .administrar-turnos .form-container {
 
     .boton-formulario1:active {
         background-color: #003366;
+    }
+
+.text-danger {
+    background-color: #ffcc00;
+    color: #4e4e4e;
+    border: 2px solid #ff9900;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    max-width: 500px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+    .text-danger::before {
+        content: '⚠️';
+        font-size: 24px;
+        margin-right: 10px;
+    }
+
+
+.button-base {
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: inline-block;
+}
+
+
+    .button-base:hover {
+        transform: translateY(-2px);
+    }
+
+
+    .button-base:active {
+        transform: translateY(0);
+    }
+
+
+.btnEliminar {
+    background-color: #ff4c4c;
+}
+
+    .btnEliminar:hover {
+        background-color: #d93636;
+    }
+
+
+.btnAsignar {
+    background-color: #28a745;
+}
+
+    .btnAsignar:hover {
+        background-color: #218838;
+    }
+
+
+.mensaje-error {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+
+.text-success {
+    background-color: #28a745;
+    color: white;
+}
+
+
+.text-danger1 {
+    background-color: #dc3545;
+    color: white;
+}
+
+.text-success2 {
+    background-color: #d4edda; 
+    color: #155724; 
+    border: 2px solid #c3e6cb;
+    padding: 15px;
+    border-radius: 8px;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    max-width: 500px;
+    margin: 20px auto;
+    text-align: center;
+}
+
+    .text-success2::before {
+        content: '✔️'; 
+        font-size: 24px;
+        margin-right: 10px;
     }

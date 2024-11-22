@@ -36,7 +36,7 @@ namespace CLINICA_APP_WEB
             }
             catch (Exception ex)
             {
-                lblError.Text = ex.Message;
+                lblSuccess.Text = ex.Message;
             }
             finally
             {
@@ -61,7 +61,7 @@ namespace CLINICA_APP_WEB
             }
             catch (Exception ex)
             {
-                lblError.Text = ex.Message;
+                lblSuccess.Text = ex.Message;
             }
             finally
             {
@@ -101,7 +101,7 @@ namespace CLINICA_APP_WEB
             }
             catch (Exception ex)
             {
-                lblError.Text = ex.Message;
+                lblSuccess.Text = ex.Message;
             }
             finally
             {
@@ -142,7 +142,7 @@ namespace CLINICA_APP_WEB
             }
             catch (Exception ex)
             {
-                lblError.Text = ex.Message;
+                lblSuccess.Text = ex.Message;
             }
             finally
             {
@@ -188,7 +188,7 @@ namespace CLINICA_APP_WEB
             }
             catch (Exception ex)
             {
-                lblError.Text = "Error al obtener el email del paciente: " + ex.Message;
+                lblSuccess.Text = "Error al obtener el email del paciente: " + ex.Message;
             }
             finally
             {
@@ -225,8 +225,8 @@ namespace CLINICA_APP_WEB
             }
             catch (Exception ex)
             {
-                lblError.Text = "Error al enviar el correo de confirmación: " + ex.Message;
-                lblError.Visible = true;
+                lblSuccess.Text = "Error al enviar el correo de confirmación: " + ex.Message;
+                lblSuccess.Visible = true;
             }
         }
 
@@ -261,8 +261,8 @@ namespace CLINICA_APP_WEB
             }
             catch (Exception ex)
             {
-                lblError.Text = "Error al tomar el turno: " + ex.Message;
-                lblError.Visible = true;
+                lblSuccess.Text = "Error al tomar el turno: " + ex.Message;
+                lblSuccess.Visible = true;
             }
         }
 
@@ -276,6 +276,9 @@ namespace CLINICA_APP_WEB
                 datos.setearParametro("@idPaciente", idPaciente);
                 datos.setearParametro("@idTurno1", idTurno);
                 datos.ejecutarAccion();
+                CargarTurnos();
+                lblSuccess.Text = "¡El turno ha sido reservado exitosamente!";
+                lblSuccess.Visible = true;
 
                 string consultaTurno = @"SELECT T.fecha, T.hora, P.nombre + ' ' + P.apellido AS Medico, 
                                                 E.nombre AS Especialidad, I.nombre AS Institucion
@@ -300,15 +303,11 @@ namespace CLINICA_APP_WEB
 
                     EnviarCorreoConfirmacion(emailPaciente, fecha, hora, medico, especialidad, institucion);
                 }
-
-                CargarTurnos();
-                lblError.Text = "El turno ha sido reservado exitosamente.";
-                lblError.Visible = true;
             }
             catch (Exception ex)
             {
-                lblError.Text = "Error al tomar el turno: " + ex.Message;
-                lblError.Visible = true;
+                lblSuccess.Text = "Error al tomar el turno: " + ex.Message;
+                lblSuccess.Visible = true;
             }
         }
   
@@ -331,8 +330,8 @@ namespace CLINICA_APP_WEB
             }
             catch (Exception ex)
             {
-                lblError.Text = ex.Message;
-                lblError.Visible = true;
+                lblSuccess.Text = ex.Message;
+                lblSuccess.Visible = true;
             }
             finally
             {
@@ -354,6 +353,11 @@ namespace CLINICA_APP_WEB
             }
         }
 
+        protected void timerMensaje_Tick(object sender, EventArgs e)
+        {
+            lblSuccess.Visible = false;
+            timerMensaje.Enabled = false;
+        }
 
 
     }
