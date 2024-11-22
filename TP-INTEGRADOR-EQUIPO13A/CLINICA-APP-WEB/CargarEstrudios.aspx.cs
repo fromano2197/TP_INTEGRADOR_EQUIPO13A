@@ -64,9 +64,9 @@ namespace CLINICA_APP_WEB
 
                     if (File.Exists(filePath))
                     {
-                        lblMensaje.Text = "Archivo guardado exitosamente.";
-                        lblMensaje.ForeColor = System.Drawing.Color.Green;
-                        lblMensaje.Visible = true; 
+                        lblMensaje.Text = "El estudio se cargó correctamente.";
+                        lblMensaje.CssClass = "mensaje-formulario mensaje-exito";
+                        lblMensaje.Visible = true;
 
                         Estudio nuevoEstudio = new Estudio
                         {
@@ -82,16 +82,16 @@ namespace CLINICA_APP_WEB
                     }
                     else
                     {
-                        lblMensaje.Text = "Error al guardar el archivo.";
-                        lblMensaje.ForeColor = System.Drawing.Color.Red;
-                        lblMensaje.Visible = true;  
+                        lblMensaje.Text = "Ocurrió un error al cargar el estudio.";
+                        lblMensaje.CssClass = "mensaje-formulario mensaje-error";
+                        lblMensaje.Visible = true;
                     }
                 }
                 catch (Exception ex)
                 {
-                    lblMensaje.Text = "Error al cargar el archivo: " + ex.Message;
-                    lblMensaje.ForeColor = System.Drawing.Color.Red;
-                    lblMensaje.Visible = true; 
+                    lblMensaje.Text = "Ocurrió un error al cargar el estudio.";
+                    lblMensaje.CssClass = "mensaje-formulario mensaje-error";
+                    lblMensaje.Visible = true;
                 }
             }
             else
