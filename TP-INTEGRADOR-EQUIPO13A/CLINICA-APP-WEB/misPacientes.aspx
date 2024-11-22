@@ -27,8 +27,8 @@
                              <td><%# Eval("DatosPersona.Apellido") %></td>
                              <td><%# Eval("DatosPersona.Nombre") %></td>
                              <td><%# Eval("DatosPersona.Dni") %></td>
-                             <td><asp:Button ID="btnDetalles" CommandName="Detalles" Oncommand="btnDetalles_Command" CommandArgument='<%# Eval("IdPaciente") %>' CssClass="btn-especialidad" runat="server" Text="Ver detalle de Paciente" />
-                                 <asp:Button ID="btnHistoria" CommandName="HistoriaClinica" OnCommand="btnHistoria_Command" CommandArgument='<%# Eval("IdPaciente") %>' CssClass="btn-especialidad" runat="server" Text="Descargar Historia Clínica" /></td>
+                             <td><asp:Button ID="btnDetalles" CommandName="Detalles" Oncommand="btnDetalles_Command" CommandArgument='<%# Eval("IdPaciente") %>' CssClass="btn-especialidad visualizar" runat="server" Text="Ver detalle de Paciente" />
+                                 <asp:Button ID="btnHistoria" CommandName="HistoriaClinica" OnCommand="btnHistoria_Command" CommandArgument='<%# Eval("IdPaciente") %>' CssClass="btn-especialidad visualizar" runat="server" Text="Descargar Historia Clínica" /></td>
                          </tr>
                      </ItemTemplate>
                  </asp:Repeater>
