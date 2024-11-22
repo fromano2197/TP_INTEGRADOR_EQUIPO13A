@@ -83,15 +83,18 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setConsulta(@"SELECT p.activo, p.id_profesional,p.nombre,p.apellido ,STRING_AGG(e.nombre, ', ') AS especialidades,i.nombre as institucion
-                                    FROM profesionales p
-                                    INNER JOIN profesionales_especialidades pe on pe.id_profesional=p.id_profesional
-                                    INNER JOIN especialidades e on e.id_especialidad=pe.id_especialidad
-                                    INNER JOIN profesionales_instituciones pxi on pxi.id_profesional=p.id_profesional
-                                    INNER JOIN instituciones i on i.id_institucion=pxi.id_institucion
-                                    WHERE pe.activo = 1 
-                                    GROUP BY p.id_profesional,p.nombre,p.apellido ,i.nombre, p.activo
-                                    ORDER BY p.apellido ASC;");
+                datos.setConsulta(@"SELECT p.activo, p.id_profesional, p.nombre, p.apellido,
+                                (SELECT STRING_AGG(e.nombre, ', ')
+                                FROM profesionales_especialidades pe
+                                INNER JOIN especialidades e ON e.id_especialidad = pe.id_especialidad
+                                WHERE pe.id_profesional = p.id_profesional AND pe.activo = 1) AS especialidades,
+                                (SELECT STRING_AGG(i.nombre, ', ')
+                                FROM profesionales_instituciones pxi
+                                INNER JOIN instituciones i ON i.id_institucion = pxi.id_institucion
+                                WHERE pxi.id_profesional = p.id_profesional AND pxi.activo = 1) AS instituciones
+                                FROM profesionales p
+                                WHERE p.activo = 1
+                                ORDER BY p.apellido ASC;;");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -116,17 +119,29 @@ namespace Negocio
                         aux.Especialidades = new List<Especialidad>();
                     }
 
-                    aux.Institucion = new Institucion
+                    string institucuionesCadena = (string)datos.Lector["instituciones"];
+                    if (!string.IsNullOrEmpty(especialidadesCadena))
                     {
-                        Nombre = (string)datos.Lector["institucion"]
-                    };
+                        aux.Institucion = institucuionesCadena
+                            .Split(',')
+                            .Select(institucion => new Institucion { Nombre = institucion.Trim() })
+                            .ToList();
+                    }
+                    else
+                    {
 
-                    aux.IdProfesional = (int)datos.Lector["id_profesional"];
+                        aux.Institucion = new List<Institucion>();
+                        
 
-                    aux.Estado = (bool)datos.Lector["activo"];
+                        }
 
-                    lista.Add(aux);
-                }
+                        aux.IdProfesional = (int)datos.Lector["id_profesional"];
+
+                        aux.Estado = (bool)datos.Lector["activo"];
+
+                        lista.Add(aux);
+                    }
+                
             }
             catch (Exception ex)
             {
@@ -146,13 +161,20 @@ namespace Negocio
 
             try
             {
-                datos.setConsulta(@"SELECT p.activo, p.id_profesional, p.dni,p.nombre,p.apellido,p.fecha_nacimiento,p.email,p.telefono,p.direccion,u.usuario, u.contraseña, p.matricula, p.fecha_ingreso, STRING_AGG(e.nombre, ', ') AS especialidades
-                                    FROM profesionales p
-                                    LEFT JOIN usuarios u ON u.id_profesional=p.id_profesional
-                                    LEFT JOIN profesionales_especialidades pe on pe.id_profesional=p.id_profesional
-                                    LEFT JOIN especialidades e on e.id_especialidad=pe.id_especialidad
-                                    WHERE p.id_profesional= @IDPROFESIONAL and pe.activo = 1
-                                    GROUP BY p.dni,p.nombre,p.apellido,p.fecha_nacimiento,p.email,p.telefono,p.direccion,u.usuario,u.contraseña, p.activo, p.id_profesional,  p.matricula, p.fecha_ingreso;");
+                datos.setConsulta(@"SELECT p.activo, p.id_profesional, p.dni, p.fecha_nacimiento, p.email, p.direccion, p.telefono,p.nombre,p.apellido,u.usuario,u.contraseña,p.matricula, 	p.fecha_ingreso,
+                (SELECT STRING_AGG(e.nombre, ', ')
+                 FROM profesionales_especialidades pe
+                 INNER JOIN especialidades e ON e.id_especialidad = pe.id_especialidad
+                 WHERE pe.id_profesional = p.id_profesional AND pe.activo = 1) AS especialidades,
+
+                (SELECT STRING_AGG(i.nombre, ', ')
+                 FROM profesionales_instituciones pxi
+                 INNER JOIN instituciones i ON i.id_institucion = pxi.id_institucion
+                 WHERE pxi.id_profesional = p.id_profesional AND pxi.activo = 1) AS instituciones
+                 FROM profesionales p
+	             INNER JOIN USUARIOS as U on p.id_profesional = U.id_profesional
+                 WHERE p.activo = 1 and p.id_profesional = @IDPROFESIONAL
+                 ORDER BY p.apellido ASC");
 
                 datos.setearParametro("@IDPROFESIONAL", ID);
                 datos.ejecutarLectura();
@@ -175,6 +197,11 @@ namespace Negocio
                         .Split(',')
                         .Select(especialidad => new Especialidad { NombreEspecialidad = especialidad.Trim() })
                         .ToList();
+                    string institucionescadena = (string)datos.Lector["instituciones"];
+                    aux.Institucion = institucionescadena
+                       .Split(',')
+                       .Select(institucion => new Institucion { Nombre = institucion.Trim() })
+                       .ToList();
                     aux.Estado = (bool)datos.Lector["activo"];
                     aux.IdProfesional = (int)datos.Lector["id_profesional"];
                     aux.Matricula = datos.Lector["matricula"].ToString();
@@ -237,7 +264,7 @@ namespace Negocio
                 datos.setearParametro("@ESPECIALIDADES", especialidades);
 
       
-                string instituciones = aux.Institucion != null ? aux.Institucion.IdInstitucion.ToString() : "";
+                string instituciones = string.Join(",", aux.Institucion.Select(e => e.IdInstitucion.ToString()));
                 datos.setearParametro("@INSTITUCIONES", instituciones);
 
                 datos.ejecutarAccion();

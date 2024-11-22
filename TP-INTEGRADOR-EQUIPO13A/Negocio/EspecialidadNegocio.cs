@@ -273,31 +273,31 @@ namespace Negocio
             }
         }
         public void EliminarRelacionProfesional(Especialidad aux, int IdProfesional)
-{
+        {
     AccesoDatos datos = new AccesoDatos();
 
-    try
-    {
+            try
+            {
 
-        datos.setearProcedimiento("SP_MODIFICAR_ESTADO_PROFESIONAL_ESPECIALIDAD");
-        datos.setearParametro("@IDESPECIALIDAD", aux.IdEspecialidad);
-        datos.setearParametro("@IDPROFESIONAL", IdProfesional);
-        datos.ejecutarAccion();
-    }
+                datos.setearProcedimiento("SP_MODIFICAR_ESTADO_PROFESIONAL_ESPECIALIDAD");
+                datos.setearParametro("@IDESPECIALIDAD", aux.IdEspecialidad);
+                datos.setearParametro("@IDPROFESIONAL", IdProfesional);
+                datos.ejecutarAccion();
+            }
 
-    catch (Exception ex)
-    {
+            catch (Exception ex)
+            {
 
-        throw ex;
+                throw ex;
 
-    }
+            }
 
-    finally
-    {
+            finally
+            {
 
-        datos.cerrarConexion();
+                datos.cerrarConexion();
 
-    }
+            }
 }
-    }
+            }
 }

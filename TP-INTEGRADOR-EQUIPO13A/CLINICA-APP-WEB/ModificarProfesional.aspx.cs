@@ -39,7 +39,7 @@ namespace CLINICA_APP_WEB
                         TxtFechaIng.Text = seleccionado.FechaIngreso.ToString("dd/MM/yyyy");
                         TxtMatricula.Text = seleccionado.Matricula.ToString();
                         lblEspecialidades.Text = string.Join(", ", seleccionado.Especialidades.Select(especialidad => especialidad.NombreEspecialidad));
-
+                        lblInstituciones.Text = string.Join(", ", seleccionado.Institucion.Select(institucion => institucion.Nombre));
 
 
                     }
@@ -88,6 +88,16 @@ namespace CLINICA_APP_WEB
             {
                 int idProfesional = int.Parse(Request.QueryString["id"]);
                 Response.Redirect("ModificarEspecialidades.aspx?id=" + idProfesional);
+
+            }
+        }
+
+        protected void btnInstituciones_Command(object sender, CommandEventArgs e)
+        {
+            if (e.CommandName == "Instituciones")
+            {
+                int idProfesional = int.Parse(Request.QueryString["id"]);
+                Response.Redirect("ModificarInstituciones.aspx?id=" + idProfesional);
 
             }
         }

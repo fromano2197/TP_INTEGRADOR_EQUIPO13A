@@ -36,7 +36,7 @@
                             <td><%# Eval("Persona.Apellido") %></td>
                             <td><%# Eval("Persona.Nombre") %></td>
                             <td><%# String.Join(", ", ((List<Dominio.Especialidad>)Eval("Especialidades")).Select(especialidad => especialidad.NombreEspecialidad)) %></td>
-                            <td><%# Eval("Institucion.Nombre") %></td>
+                            <td><%# String.Join(", ", ((List<Dominio.Institucion>)Eval("Institucion")).Select(institucion => institucion.Nombre)) %></td>
                             <td><%# Eval("Estado").ToString() == "False" ? "Eliminado" : "Activo" %></td>
                             <td>
                                 <asp:Button ID="btnVisualizar" CommandName="Visualizar"

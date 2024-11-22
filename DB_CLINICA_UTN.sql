@@ -857,7 +857,7 @@ END;
 
 GO
 
-ALTER PROCEDURE SP_MODIFICAR_ESTADO_PROFESIONAL_ESPECIALIDAD
+CREATE PROCEDURE SP_MODIFICAR_ESTADO_PROFESIONAL_ESPECIALIDAD
     @IDESPECIALIDAD INT,        
 	@IDPROFESIONAL INT
 AS
@@ -868,6 +868,73 @@ BEGIN
 
         delete profesionales_especialidades
         WHERE id_especialidad = @IDESPECIALIDAD and id_profesional = @IDPROFESIONAL;
+
+        COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        ROLLBACK TRANSACTION;
+    END CATCH;
+END;
+
+
+GO
+
+CREATE PROCEDURE SP_AGREGAR_INSTITUCION_PROFESIONAL
+
+@IDINSTITUCION INT,
+@IDPROFESIONAL INT
+AS
+BEGIN
+ SET NOCOUNT ON;
+    BEGIN TRY
+       
+        BEGIN TRANSACTION;
+		IF NOT EXISTS (
+            SELECT 1 
+            FROM profesionales_instituciones
+            WHERE id_institucion = @IDINSTITUCION 
+              AND id_profesional = @IDPROFESIONAL
+        )
+		BEGIN
+        
+      
+        INSERT INTO profesionales_instituciones(id_institucion, id_profesional)
+		VALUES (@IDINSTITUCION, @IDPROFESIONAL);
+        END
+		ELSE
+		BEGIN
+		  RAISERROR ('La relación ya existe.', 16, 1);
+            ROLLBACK TRANSACTION;
+            RETURN;
+        END
+
+        COMMIT TRANSACTION;
+    END TRY
+	BEGIN CATCH
+	ROLLBACK TRANSACTION;
+
+        DECLARE @ErrorMessage NVARCHAR(4000) = ERROR_MESSAGE();
+        DECLARE @ErrorNumber INT = ERROR_NUMBER();
+        DECLARE @ErrorLine INT = ERROR_LINE();
+        RAISERROR ('Error al intentar agregar institucion. Error %d en la línea %d: %s', 
+                   16, 1, @ErrorNumber, @ErrorLine, @ErrorMessage);
+    END CATCH;
+END;
+
+GO
+
+
+CREATE PROCEDURE SP_MODIFICAR_ESTADO_PROFESIONAL_INSTITUCION
+    @IDINSTITUCION INT,        
+	@IDPROFESIONAL INT
+AS
+BEGIN
+    BEGIN TRY
+        BEGIN TRANSACTION;
+
+
+        delete profesionales_instituciones
+        WHERE id_institucion = @IDINSTITUCION and id_profesional = @IDPROFESIONAL;
 
         COMMIT TRANSACTION;
     END TRY

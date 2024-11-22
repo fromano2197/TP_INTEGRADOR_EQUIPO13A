@@ -71,6 +71,13 @@
          <div class ="grupo-formulario"> 
      <asp:Button ID="btnEspecialidades" CssClass="btn-inicio" commandName="Especialidades" runat="server" Text="Modificar Especialidades" CommandArgument='<%# Eval("IdProfesional") %>' OnCommand="btnEspecialidades_Command" />
      </div>
+           <div class="grupo-formulario">
+       <label class="etiqueta-formulario">Instituciones:</label>
+       <asp:Label ID="lblInstituciones" CssClass="entrada-formulario" runat="server" Text="Instituciones del profesional" />
+   </div>
+    <div class ="grupo-formulario"> 
+<asp:Button ID="btnInstituciones" CssClass="btn-inicio" commandName="Instituciones" runat="server" Text="Modificar Instituciones" CommandArgument='<%# Eval("IdProfesional") %>' OnCommand="btnInstituciones_Command" />
+</div>
          <div>
          <asp:Button ID="btnModificarProfesional" Text="Modificar" onclick="btnModificarProfesional_Click" CssClass="btn-enviar" runat="server" />
             </div>

@@ -42,7 +42,64 @@ namespace Negocio
             }
             return lista;
         }
+        public int buscarIDInstitucion(string Nombre) {
 
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+
+                datos.setConsulta("SELECT id_institucion FROM instituciones WHERE nombre COLLATE SQL_Latin1_General_CP1_CI_AI = @NombreInstitucion COLLATE SQL_Latin1_General_CP1_CI_AI;");
+                datos.setearParametro("@NombreInstitucion", Nombre);
+
+
+                datos.ejecutarLectura();
+
+
+                if (datos.Lector.Read())
+                {
+                    return (int)datos.Lector["id_institucion"];
+                }
+                else
+                {
+                    return -1;
+                };
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public void AgregarInstitucionProfesional(int IdProfesional, int IdInstitucion)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+
+                datos.setearProcedimiento("SP_AGREGAR_INSTITUCION_PROFESIONAL");
+
+
+                datos.setearParametro("@IDINSTITUCION", IdInstitucion);
+                datos.setearParametro("@IDPROFESIONAL", IdProfesional);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
+    
         public void Agregar(Institucion aux)
         {
             AccesoDatos datos = new AccesoDatos();
@@ -158,7 +215,7 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
-
+        
         public List<Institucion> ObtenerInstitucionesPorProfesional(int idProfesional)
         {
             List<Institucion> lista = new List<Institucion>();
@@ -188,5 +245,33 @@ namespace Negocio
         }
 
 
+    
+    public void EliminarRelacionProfesional(Institucion aux, int IdProfesional)
+    {
+        AccesoDatos datos = new AccesoDatos();
+
+        try
+        {
+
+            datos.setearProcedimiento("SP_MODIFICAR_ESTADO_PROFESIONAL_INSTITUCION");
+            datos.setearParametro("@IDINSTITUCION", aux.IdInstitucion);
+            datos.setearParametro("@IDPROFESIONAL", IdProfesional);
+            datos.ejecutarAccion();
+        }
+
+        catch (Exception ex)
+        {
+
+            throw ex;
+
+        }
+
+        finally
+        {
+
+            datos.cerrarConexion();
+
+        }
     }
+}
 }

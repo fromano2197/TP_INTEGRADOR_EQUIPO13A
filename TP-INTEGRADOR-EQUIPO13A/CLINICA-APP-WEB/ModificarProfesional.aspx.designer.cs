@@ -141,6 +141,24 @@ namespace CLINICA_APP_WEB
         protected global::System.Web.UI.WebControls.Button btnEspecialidades;
 
         /// <summary>
+        /// Control lblInstituciones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblInstituciones;
+
+        /// <summary>
+        /// Control btnInstituciones.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnInstituciones;
+
+        /// <summary>
         /// Control btnModificarProfesional.
         /// </summary>
         /// <remarks>

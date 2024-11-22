@@ -27,7 +27,7 @@ namespace CLINICA_APP_WEB
         protected void filtro_TextChanged(object sender, EventArgs e)
         {
             List<Profesional> lista = (List<Profesional>)Session["listarProfesionales"];
-            List<Profesional> listaFiltrada = lista.FindAll(x => x.Persona.Nombre.ToUpper().Contains(txtBuscarProfesional.Text.ToUpper()) || x.Persona.Apellido.ToUpper().Contains(txtBuscarProfesional.Text.ToUpper()) || x.Especialidades.Any(especialidad=>especialidad.NombreEspecialidad.ToUpper().Contains(txtBuscarProfesional.Text.ToUpper())) || x.Institucion.Nombre.ToUpper().Contains(txtBuscarProfesional.Text.ToUpper()) || (txtBuscarProfesional.Text.ToUpper() == "ACTIVO" && x.Estado == true) ||
+            List<Profesional> listaFiltrada = lista.FindAll(x => x.Persona.Nombre.ToUpper().Contains(txtBuscarProfesional.Text.ToUpper()) || x.Persona.Apellido.ToUpper().Contains(txtBuscarProfesional.Text.ToUpper()) || x.Especialidades.Any(especialidad=>especialidad.NombreEspecialidad.ToUpper().Contains(txtBuscarProfesional.Text.ToUpper())) || x.Institucion.Any(institucion => institucion.Nombre.ToUpper().Contains(txtBuscarProfesional.Text.ToUpper())) || (txtBuscarProfesional.Text.ToUpper() == "ACTIVO" && x.Estado == true) ||
             (txtBuscarProfesional.Text.ToUpper() == "ELIMINADO" && x.Estado == false)); ;
             repRepeater.DataSource= listaFiltrada;
             repRepeater.DataBind();

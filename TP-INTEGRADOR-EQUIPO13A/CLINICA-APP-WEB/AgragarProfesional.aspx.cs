@@ -186,8 +186,12 @@ namespace CLINICA_APP_WEB
                 aux.Usuario.tipousuario = "Profesional";
                 aux.FechaIngreso = fechaIngreso;
                 aux.Matricula = txtMatricula.Text;
-                aux.Institucion.IdInstitucion = idInstitucion;
-                aux.Institucion.Nombre = ddlInstituciones.SelectedItem.Text;
+                aux.Institucion.Add(new Institucion
+                {
+                    IdInstitucion = idInstitucion,
+                    Nombre = ddlInstituciones.SelectedItem.Text
+                });
+           
                 aux.Especialidad.IdEspecialidad = idEspecialidad;
                 aux.Especialidades.Add(new Especialidad
                 {

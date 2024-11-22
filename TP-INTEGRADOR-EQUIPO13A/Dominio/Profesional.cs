@@ -16,7 +16,7 @@ namespace Dominio
         public bool Estado { get; set; }
         public DateTime FechaIngreso { get; set; } = new DateTime();
         public string Matricula { get; set; }
-        public Institucion Institucion { get; set; } = new Institucion();
+        public List<Institucion> Institucion { get; set; } = new List<Institucion>();
         public string NombreCompleto
         {
             get
