@@ -159,6 +159,34 @@ namespace Negocio
             }
         }
 
+        public List<Institucion> ObtenerInstitucionesPorProfesional(int idProfesional)
+        {
+            List<Institucion> lista = new List<Institucion>();
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setConsulta("SELECT i.id_institucion, i.nombre FROM profesionales_instituciones pi " +
+                                  "INNER JOIN instituciones i ON pi.id_institucion = i.id_institucion " +
+                                  "WHERE pi.id_profesional = @idProfesional AND pi.activo = 1");
+                datos.setearParametro("@idProfesional", idProfesional);
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Institucion institucion = new Institucion
+                    {
+                        IdInstitucion = (int)datos.Lector["id_institucion"],
+                        Nombre = (string)datos.Lector["nombre"]
+                    };
+                    lista.Add(institucion);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return lista;
+        }
+
 
     }
 }

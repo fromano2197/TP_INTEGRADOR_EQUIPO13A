@@ -12,7 +12,8 @@
         <asp:TextBox ID="txtIdTurno" runat="server" Visible="false"></asp:TextBox><br />
 
         <asp:Label ID="lblProfesional" runat="server" Text="Profesional:"></asp:Label>
-        <asp:DropDownList ID="ddlProfesionales" runat="server"></asp:DropDownList><br />
+        <asp:DropDownList ID="ddlProfesionales" runat="server" AutoPostBack="true" OnSelectedIndexChanged="ddlProfesionales_SelectedIndexChanged"></asp:DropDownList>
+
 
         <asp:Label ID="lblEspecialidad" runat="server" Text="Especialidad:"></asp:Label>
         <asp:DropDownList ID="ddlEspecialidades" runat="server"></asp:DropDownList><br />

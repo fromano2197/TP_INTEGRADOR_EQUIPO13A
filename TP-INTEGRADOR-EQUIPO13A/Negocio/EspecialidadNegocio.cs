@@ -150,10 +150,38 @@ namespace Negocio
 
         }
 
+        public List<Especialidad> ObtenerEspecialidadesPorProfesional(int idProfesional)
+        {
+            List<Especialidad> lista = new List<Especialidad>();
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setConsulta("SELECT e.id_especialidad, e.nombre FROM profesionales_especialidades pe " +
+                                  "INNER JOIN especialidades e ON pe.id_especialidad = e.id_especialidad " +
+                                  "WHERE pe.id_profesional = @idProfesional AND pe.activo = 1");
+                datos.setearParametro("@idProfesional", idProfesional);
+                datos.ejecutarLectura();
+                while (datos.Lector.Read())
+                {
+                    Especialidad especialidad = new Especialidad
+                    {
+                        IdEspecialidad = (int)datos.Lector["id_especialidad"],
+                        NombreEspecialidad = (string)datos.Lector["nombre"]
+                    };
+                    lista.Add(especialidad);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return lista;
+        }
 
 
 
-        
+
+
     }
 
 }

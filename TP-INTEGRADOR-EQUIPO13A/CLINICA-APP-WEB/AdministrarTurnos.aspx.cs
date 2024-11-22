@@ -150,5 +150,41 @@ namespace CLINICA_APP_WEB
             LimpiarFormulario();
         }
 
+       
+
+        
+
+        protected void ddlProfesionales_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int idProfesional = int.Parse(ddlProfesionales.SelectedValue);
+
+            if (idProfesional > 0) 
+            {
+
+                EspecialidadNegocio especialidadNegocio = new EspecialidadNegocio();
+                ddlEspecialidades.DataSource = especialidadNegocio.ObtenerEspecialidadesPorProfesional(idProfesional);
+                ddlEspecialidades.DataTextField = "NombreEspecialidad";
+                ddlEspecialidades.DataValueField = "IdEspecialidad";
+                ddlEspecialidades.DataBind();
+                ddlEspecialidades.Items.Insert(0, new ListItem("Seleccione una especialidad", "0"));
+
+                InstitucionNegocio institucionNegocio = new InstitucionNegocio();
+                ddlInstituciones.DataSource = institucionNegocio.ObtenerInstitucionesPorProfesional(idProfesional);
+                ddlInstituciones.DataTextField = "Nombre";
+                ddlInstituciones.DataValueField = "IdInstitucion";
+                ddlInstituciones.DataBind();
+                ddlInstituciones.Items.Insert(0, new ListItem("Seleccione una institución", "0"));
+            }
+            else
+            {
+
+                ddlEspecialidades.Items.Clear();
+                ddlEspecialidades.Items.Insert(0, new ListItem("Seleccione una especialidad", "0"));
+
+                ddlInstituciones.Items.Clear();
+                ddlInstituciones.Items.Insert(0, new ListItem("Seleccione una institución", "0"));
+            }
+        }
+
     }
 }
